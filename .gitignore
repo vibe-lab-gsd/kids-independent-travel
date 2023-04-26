@@ -285,3 +285,10 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+
+# NHTS data
+nhts/data2017/nhts2017.zip
+nhts/data2017/hhpub.csv
+nhts/data2017/perpub.csv
+nhts/data2017/trippub.csv
+nhts/data2017/vehpub.csv
