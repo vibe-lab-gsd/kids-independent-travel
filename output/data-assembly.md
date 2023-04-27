@@ -38,18 +38,11 @@ characteristics are determined as follows:
 * Taken from last segment of trip
     * Population density at trip destination
 
-## Variables
-
-### Identifiers
-* 'trip_person_hh': (string) Unique trip identifier
-* 'person_hh': (string) Unique person identifier
-* 'HOUSEID': (number) Unique household identifier
-
 ### Dependent variables
-* 'mode': (string) One of
-    * 'car,'
-    * 'walk,' or
-    * 'bike'
+* 'mode': One of
+    * 1 = car,
+    * 2 = walk,
+    * 3 = bike
 * 'independence': (string) For purposes of this analysis, we describe all
 female household adults as moms, all male household adults as dads, and all
 household children as siblings. Also note that NHTS codes all household
@@ -58,23 +51,27 @@ are on a trip, but we don't know their ages, genders, or drivers status.
 The full independence variable takes one
 of the following 6 values to describe who was with the child on their trip
 to school:
-    * 'alone': There was only one person (the child) on the trip.
-    * 'with_mom+dad': The child was accompanied by a male household adult
-and a female household adult.
-    * 'with_mom': The child was accompanied by a female household adult
+    * 1 = alone: There was only one person (the child) on the trip.
+    * 21 = with mom and dad: The child was accompanied by a male household adult
+_and_ a female household adult.
+    * 22 = with mom: The child was accompanied by a female household adult
 but no male household adult.
-    * 'with_dad': The child was accompanied by a male household adult but
+    * 23 = with dad: The child was accompanied by a male household adult but
 no female household adult.
-    *'with_sibling': The child was accompanied by household children, but
+    * 3 = with sibling: The child was accompanied by household children, but
 no household adults or non-household members.
-    *'others': The child was accompanied by non-household members and no
-household members were on the trip.
-* 'ind_3a': (string) A simplified independence variable. One of:
-    * 'alone': Same as 'alone' in the full independence variable
-    * 'with adults': Combination of 'with_mom+dad', 'with_mom',
-'with_dad', and 'with_non_hh'.
-    * 'with_kids': same as 'with_sibling' in the full independence variable.
-* 'ind_3b': (string) Same as 'ind_3a', but the 'with_non_hh' variable is
-grouped with the 'with_kids' category. Since we don't know if the
+    * 24 = with non-household: The child was accompanied by non-household
+members and no household members were on the trip.
+* 'ind_3': A simplified independence variable. One of:
+    * 1 = alone: Same as 1 (alone) in the full independence variable
+    * 2 = with adults: Combination of these values from the full
+independence variable:
+        * 21 (with mom and dad)
+        * 22 (with_mom)
+        * 23 (with_dad)
+        * 24 (with non-household)
+    * 3 = with kids: same as 3 (with sibling) in the full independence variable.
+* 'ind_3_alt': Same as 'ind_3a', but trips with non-household members
+(indpendence = 3) are classified as trips with kids. Since we don't know if the
 non-household members are kids or adults, we might want to test it both
 ways and see if it effects the result.
