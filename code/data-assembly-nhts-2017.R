@@ -408,7 +408,13 @@ school_trips <- trips |>
   mutate(max_od_dens = ifelse(DBPPOPDN > OBPPOPDN, DBPPOPDN, OBPPOPDN)) |>
   filter(max_od_dens > 0) |>
   rename(age = R_AGE) |>
-  mutate(female = R_SEX_IMP == "02",
+  mutate(female = as.numeric(R_SEX_IMP == "02"),
+         has_mom = as.numeric(has_mom),
+         has_dad = as.numeric(has_dad),
+         non_work_mom = as.numeric(non_work_mom),
+         non_work_dad = as.numeric(non_work_dad),
+         has_lil_sib = as.numeric(has_lil_sib),
+         has_big_sib = as.numeric(has_big_sib),
          distance = TRPMILES * 1.609,
          density = max_od_dens / 2.59) |>
   select(mode,
