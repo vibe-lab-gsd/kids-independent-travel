@@ -148,6 +148,14 @@ c("# Data Assembly notes",
   "variable that classifies non-household members as kids. Same categories",
   "as 'mode_ind_3.",
   "",
+  "### Availability variables",
+  "",
+  "'av_car', 'av_walk', and 'av_bike' indicate the trips for which travel by",
+  "car, walking, or bike is available. We are assuming that these three modes",
+  "are available for all children in the sample (even if there is not car in",
+  "the household, since some children in the sample in zero-vehicle households",
+  "_do_ travel by car) so this value is set to one for all cases.",
+  "",
   "### Predictor variables",
   "",
   "* Household-level variables",
@@ -155,7 +163,7 @@ c("# Data Assembly notes",
   "convert this to a continuous variable by assigning households in each",
   "category the mid-point value of that category. The highest income category",
   "is for incomes greater than $200,000 per year. We assign an income of", 
-  "$250,000 to that category. ",
+  "$250,000 to that category. log_income_k is the natural log of income_k.",
   "    * veh_per_driver: We divide the number of household vehicles by the",
   "number of household drivers. We assign a value of zero to households with",
   "zero drivers",
@@ -178,10 +186,11 @@ c("# Data Assembly notes",
   "Trip-level variables",
   "    * distance: Trip distance in kilometers. The NHTS records distance",
   "in miles and these are converted to kilometers by multiplying by 1.609.",
+  "log_distance is the natural log of distance.",
   "    * density: The approximate population density of the census block", 
   "in which the trip begins or ends (whichever is higher). NHTS reports", 
   "this value in people per square mile. We convert to people per square",
-  "kilometer by dividing by 2.59.",
+  "kilometer by dividing by 2.59. log_density is the natural log of density.",
   "") |>
   write_lines(readme_path, append = FALSE)
 
@@ -417,6 +426,16 @@ school_trips <- trips |>
          has_big_sib = as.numeric(has_big_sib),
          distance = TRPMILES * 1.609,
          density = max_od_dens / 2.59) |>
+  mutate(with_mom_avail = ifelse(has_mom == 1, 1, 0),
+         with_dad_avail = ifelse(has_dad ==1, 1, 0),
+         with_mom_dad_avail = ifelse(has_mom + has_dad == 2, 1, 0),
+         with_sib_avail = ifelse(has_lil_sib + has_big_sib > 0, 1, 0)) |>
+  mutate(log_income_k = log(income_k),
+         log_distance = log(distance),
+         log_density = log(density),
+         av_car = 1,
+         av_walk = 1,
+         av_bike = 1) |>
   select(mode,
          independence,
          ind_3,
@@ -425,10 +444,13 @@ school_trips <- trips |>
          mode_ind_3,
          mode_ind_3_alt,
          income_k,
+         log_income_k,
          veh_per_driver,
          n_adults,
-         has_mom,
-         has_dad,
+         with_mom_avail,
+         with_dad_avail,
+         with_mom_dad_avail,
+         with_sib_avail,
          non_work_mom,
          non_work_dad,
          age,
@@ -436,7 +458,12 @@ school_trips <- trips |>
          has_lil_sib,
          has_big_sib,
          distance,
-         density)
+         log_distance,
+         density,
+         log_density,
+         av_car,
+         av_walk,
+         av_bike)
 
 c("## Summary statistics", 
   "",
@@ -567,7 +594,34 @@ kable(mode_ind3alt_table_pct,
 
 write_lines("", readme_path, append = TRUE) 
 
-c("### Predictors", "") |>
+c("### Choice availability","") |>
+  write_lines(readme_path, append = TRUE)
+
+tibble(`Full independence variable` = c("Alone",
+                                     "With mom and dad",
+                                     "With mom",
+                                     "With dad",
+                                     "With non-household",
+                                     "With siblings"),
+    `Percent selected` = c(mean(school_trips$independence == 10),
+                           mean(school_trips$independence == 21),
+                           mean(school_trips$independence == 22),
+                           mean(school_trips$independence == 23),
+                           mean(school_trips$independence == 24),
+                           mean(school_trips$independence == 30)),
+    `Percent available` = c(1,
+                            mean(school_trips$with_mom_dad_avail),
+                            mean(school_trips$with_mom_avail),
+                            mean(school_trips$with_dad_avail),
+                            1,
+                            mean(school_trips$with_sib_avail))) |>
+  mutate(`Percent selected` = paste0(round(`Percent selected`*100), "%"),
+         `Percent available` = paste0(round(`Percent available`*100), "%")) |>
+  kable(format = 'pipe',
+        caption = "Prevalence and availability of full independence choices") |>
+  write_lines(readme_path, append = TRUE) 
+
+c("","### Predictors", "") |>
   write_lines(readme_path, append = TRUE) 
 
 school_trips |>

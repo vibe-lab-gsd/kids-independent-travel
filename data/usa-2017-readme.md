@@ -113,6 +113,14 @@ variable. Takes the following values
 variable that classifies non-household members as kids. Same categories
 as 'mode_ind_3.
 
+### Availability variables
+
+'av_car', 'av_walk', and 'av_bike' indicate the trips for which travel by
+car, walking, or bike is available. We are assuming that these three modes
+are available for all children in the sample (even if there is not car in
+the household, since some children in the sample in zero-vehicle households
+_do_ travel by car) so this value is set to one for all cases.
+
 ### Predictor variables
 
 * Household-level variables
@@ -120,7 +128,7 @@ as 'mode_ind_3.
 convert this to a continuous variable by assigning households in each
 category the mid-point value of that category. The highest income category
 is for incomes greater than $200,000 per year. We assign an income of
-$250,000 to that category. 
+$250,000 to that category. log_income_k is the natural log of income_k.
     * veh_per_driver: We divide the number of household vehicles by the
 number of household drivers. We assign a value of zero to households with
 zero drivers
@@ -143,10 +151,11 @@ older children in the household
 Trip-level variables
     * distance: Trip distance in kilometers. The NHTS records distance
 in miles and these are converted to kilometers by multiplying by 1.609.
+log_distance is the natural log of distance.
     * density: The approximate population density of the census block
 in which the trip begins or ends (whichever is higher). NHTS reports
 this value in people per square mile. We convert to people per square
-kilometer by dividing by 2.59.
+kilometer by dividing by 2.59. log_density is the natural log of density.
 
 ## Summary statistics
 
@@ -212,22 +221,43 @@ Table: Share of trips in sample by mode and (alternative simplified) independenc
 |With kids   |3.9%  |1.4% |9.2%  |14.5% |
 |Total       |64.2% |6.9% |29%   |100%  |
 
+### Choice availability
+
+Table: Prevalence and availability of full independence choices
+
+|Full independence variable |Percent selected |Percent available |
+|:--------------------------|:----------------|:-----------------|
+|Alone                      |13%              |100%              |
+|With mom and dad           |2%               |83%               |
+|With mom                   |48%              |97%               |
+|With dad                   |22%              |86%               |
+|With non-household         |8%               |100%              |
+|With siblings              |6%               |73%               |
+
 ### Predictors
 
 Table: Descriptive statistics of predictor variables
 
-|Predictor      |     Mean| Standard Deviation|
-|:--------------|--------:|------------------:|
-|age            |   10.158|              1.644|
-|density        | 2482.977|           2256.667|
-|distance       |    1.099|              0.485|
-|female         |    0.479|                 NA|
-|has_big_sib    |    0.457|                 NA|
-|has_dad        |    0.858|                 NA|
-|has_lil_sib    |    0.393|                 NA|
-|has_mom        |    0.967|                 NA|
-|income_k       |   97.603|             70.048|
-|n_adults       |    2.044|              0.696|
-|non_work_dad   |    0.110|                 NA|
-|non_work_mom   |    0.345|                 NA|
-|veh_per_driver |    1.090|              0.510|
+|Predictor          |     Mean| Standard Deviation|
+|:------------------|--------:|------------------:|
+|age                |   10.158|              1.644|
+|av_bike            |    1.000|              0.000|
+|av_car             |    1.000|              0.000|
+|av_walk            |    1.000|              0.000|
+|density            | 2482.977|           2256.667|
+|distance           |    1.099|              0.485|
+|female             |    0.479|                 NA|
+|has_big_sib        |    0.457|                 NA|
+|has_lil_sib        |    0.393|                 NA|
+|income_k           |   97.603|             70.048|
+|log_density        |    7.342|              1.187|
+|log_distance       |   -0.040|              0.594|
+|log_income_k       |    4.253|              0.921|
+|n_adults           |    2.044|              0.696|
+|non_work_dad       |    0.110|                 NA|
+|non_work_mom       |    0.345|                 NA|
+|veh_per_driver     |    1.090|              0.510|
+|with_dad_avail     |    0.858|                 NA|
+|with_mom_avail     |    0.967|                 NA|
+|with_mom_dad_avail |    0.825|                 NA|
+|with_sib_avail     |    0.726|                 NA|
