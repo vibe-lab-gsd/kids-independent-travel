@@ -10,7 +10,7 @@ import pandas as pd
 import biogeme.database as db
 from biogeme.expressions import Variable
 
-df = pd.read_csv('../data/usa-2017.dat', sep = '\t')
+df = pd.read_csv('../../data/usa-2017.dat', sep = '\t')
 database = db.Database('trips', df)
 
 mode = Variable('mode')

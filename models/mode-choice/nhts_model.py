@@ -28,6 +28,20 @@ asc_car = Beta('asc_car', 0, None, None, 1)
 asc_walk = Beta('asc_walk', 0, None, None, 0)
 asc_bike = Beta('asc_bike', 0, None, None, 0)
 
+b_log_inc_k_car = Beta('b_log_inc_k_car', 0, None, None, 1)
+b_veh_per_driver_car = Beta('b_veh_per_driver_car', 0, None, None, 1)
+b_n_adults_car = Beta('b_n_adults_car', 0, None, None, 1)
+b_non_work_mom_car = Beta('b_non_work_mom_car', 0, None, None, 1)
+b_non_work_dad_car = Beta('b_non_work_dad_car', 0, None, None, 1)
+
+b_age_car = Beta('b_age_car', 0, None, None, 1)
+b_female_car = Beta('b_female_car', 0, None, None, 1)
+b_has_lil_sib_car = Beta('b_has_lil_sib_car', 0, None, None, 1)
+b_has_big_sib_car = Beta('b_has_big_sib_car', 0, None, None, 1)
+
+b_log_density_car = Beta('b_log_density_car', 0, None, None, 1)
+b_log_distance_car = Beta('b_log_distance_car', 0, None, None, 1)
+
 b_log_inc_k_walk = Beta('b_log_inc_k_walk', 0, None, None, 0)
 b_veh_per_driver_walk = Beta('b_veh_per_driver_walk', 0, None, None, 0)
 b_n_adults_walk = Beta('b_n_adults_walk', 0, None, None, 0)
@@ -41,20 +55,6 @@ b_has_big_sib_walk = Beta('b_has_big_sib_walk', 0, None, None, 0)
 
 b_log_density_walk = Beta('b_log_density_walk', 0, None, None, 0)
 b_log_distance_walk = Beta('b_log_distance_walk', 0, None, None, 0)
-
-b_log_inc_k_car = Beta('b_log_inc_k_car', 0, None, None, 0)
-b_veh_per_driver_car = Beta('b_veh_per_driver_car', 0, None, None, 0)
-b_n_adults_car = Beta('b_n_adults_car', 0, None, None, 0)
-b_non_work_mom_car = Beta('b_non_work_mom_car', 0, None, None, 0)
-b_non_work_dad_car = Beta('b_non_work_dad_car', 0, None, None, 0)
-
-b_age_car = Beta('b_age_car', 0, None, None, 0)
-b_female_car = Beta('b_female_car', 0, None, None, 0)
-b_has_lil_sib_car = Beta('b_has_lil_sib_car', 0, None, None, 0)
-b_has_big_sib_car = Beta('b_has_big_sib_car', 0, None, None, 0)
-
-b_log_density_car = Beta('b_log_density_car', 0, None, None, 0)
-b_log_distance_car = Beta('b_log_distance_car', 0, None, None, 0)
 
 b_log_inc_k_bike = Beta('b_log_inc_k_bike', 0, None, None, 0)
 b_veh_per_driver_bike = Beta('b_veh_per_driver_bike', 0, None, None, 0)

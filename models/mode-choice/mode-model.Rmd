@@ -1,0 +1,70 @@
+---
+title: "Mode Choice Model"
+author: "Carole Voulgaris"
+date: "2023-05-04"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load libraries
+
+```{r}
+library(tidyverse)
+library(mlogit)
+library(here)
+
+here("extra-R-functions",
+     "mlogit_helpers.R") |>
+  source()
+```
+
+## Load data
+
+Open the data, convert numeric mode variable to factor, and add an
+ID column.
+
+```{r}
+data <- here("data",
+             "usa-2017.dat") |>
+  read_tsv(show_col_types = FALSE) |>
+  mutate(mode = recode_factor(mode, 
+                              `7` = "car",
+                              `8` = "walk",
+                              `9` = "bike")) |>
+  mutate(id = seq(1, nrow(data), by=1))
+```
+
+## Reshape the data
+
+```{r}
+mode_dfidx <- fn_make_dfidx(data,
+                            "id",
+                            "mode") 
+```
+
+## Estimate model
+
+```{r}
+model_mode <- mlogit(choice ~ 0 | 
+                      log(income_k) +
+                      veh_per_driver +
+                      n_adults +
+                      non_work_mom +
+                      non_work_dad + 
+                      age +
+                      female +
+                      has_lil_sib +
+                      has_big_sib +
+                      log(distance) +
+                      log(density) | 0,
+                           mode_dfidx,
+                           reflevel = "car")
+
+summary(model_mode)
+```
+
+
+
