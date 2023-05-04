@@ -121,6 +121,18 @@ are available for all children in the sample (even if there is not car in
 the household, since some children in the sample in zero-vehicle households
 _do_ travel by car) so this value is set to one for all cases.
 
+The following variables indicate the availability of independence
+alternatives:
+
+* alone_avail: TRUE/1 for all trips
+* with_mom_dad_avail: True if there is both a female and a male adult in
+the household.
+* with_mom_avail: True if there is a female adult in the household
+* with_dad_avail: True if there is a male adult in the household
+* with_non_hh_avail: True for all trips
+* with_sib_avail: True if there are any other children in the household
+* with_adult_avail: True for all trips
+
 ### Predictor variables
 
 * Household-level variables
@@ -241,6 +253,7 @@ Table: Descriptive statistics of predictor variables
 |Predictor          |     Mean| Standard Deviation|
 |:------------------|--------:|------------------:|
 |age                |   10.158|              1.644|
+|alone_avail        |    1.000|              0.000|
 |av_bike            |    1.000|              0.000|
 |av_car             |    1.000|              0.000|
 |av_walk            |    1.000|              0.000|
@@ -257,7 +270,9 @@ Table: Descriptive statistics of predictor variables
 |non_work_dad       |    0.110|                 NA|
 |non_work_mom       |    0.345|                 NA|
 |veh_per_driver     |    1.090|              0.510|
+|with_adult_avail   |    1.000|              0.000|
 |with_dad_avail     |    0.858|                 NA|
 |with_mom_avail     |    0.967|                 NA|
 |with_mom_dad_avail |    0.825|                 NA|
+|with_non_hh_avail  |    1.000|              0.000|
 |with_sib_avail     |    0.726|                 NA|
