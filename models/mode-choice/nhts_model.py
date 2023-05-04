@@ -18,7 +18,10 @@ from nhts_data import (
     has_big_sib,
     log_inc_k,
     log_density,
-    log_distance
+    log_distance,
+    av_car,
+    av_walk,
+    av_bike
 )
 # Define parameters to be estimated
 asc_car = Beta('asc_car', 0, None, None, 1)
@@ -28,7 +31,7 @@ asc_bike = Beta('asc_bike', 0, None, None, 0)
 b_log_inc_k_walk = Beta('b_log_inc_k_walk', 0, None, None, 0)
 b_veh_per_driver_walk = Beta('b_veh_per_driver_walk', 0, None, None, 0)
 b_n_adults_walk = Beta('b_n_adults_walk', 0, None, None, 0)
-b_non_work_mom_walk = Beta('b_non_work_mom_walk' 0, None, None, 0)
+b_non_work_mom_walk = Beta('b_non_work_mom_walk', 0, None, None, 0)
 b_non_work_dad_walk = Beta('b_non_work_dad_walk', 0, None, None, 0)
 
 b_age_walk = Beta('b_age_walk', 0, None, None, 0)
@@ -42,7 +45,7 @@ b_log_distance_walk = Beta('b_log_distance_walk', 0, None, None, 0)
 b_log_inc_k_car = Beta('b_log_inc_k_car', 0, None, None, 0)
 b_veh_per_driver_car = Beta('b_veh_per_driver_car', 0, None, None, 0)
 b_n_adults_car = Beta('b_n_adults_car', 0, None, None, 0)
-b_non_work_mom_car = Beta('b_non_work_mom_car' 0, None, None, 0)
+b_non_work_mom_car = Beta('b_non_work_mom_car', 0, None, None, 0)
 b_non_work_dad_car = Beta('b_non_work_dad_car', 0, None, None, 0)
 
 b_age_car = Beta('b_age_car', 0, None, None, 0)
@@ -56,7 +59,7 @@ b_log_distance_car = Beta('b_log_distance_car', 0, None, None, 0)
 b_log_inc_k_bike = Beta('b_log_inc_k_bike', 0, None, None, 0)
 b_veh_per_driver_bike = Beta('b_veh_per_driver_bike', 0, None, None, 0)
 b_n_adults_bike = Beta('b_n_adults_bike', 0, None, None, 0)
-b_non_work_mom_bike = Beta('b_non_work_mom_bike' 0, None, None, 0)
+b_non_work_mom_bike = Beta('b_non_work_mom_bike', 0, None, None, 0)
 b_non_work_dad_bike = Beta('b_non_work_dad_bike', 0, None, None, 0)
 
 b_age_bike = Beta('b_age_bike', 0, None, None, 0)
