@@ -192,7 +192,8 @@ c("# Data Assembly notes",
   "    * age: The child's age",
   "    * female: A binary variable indicating whether the child is female",
   "    * has_lil_sib: A binary variable indicating whether there are any",
-  "younger children in the household",
+  "younger children in the household (includes children who are the same",
+  "age as the respondent).",
   "    * has_big_sib: A binary variable indicating whether there are any",
   "older children in the household",
   "Trip-level variables",
@@ -257,8 +258,8 @@ relationships <- people |>
   mutate(youngest_kid = ifelse(num_records > HHSIZE, 1, min(R_AGE)),
          oldest_kid = max(kid_age),
          n_children = HHSIZE - n_adults) |>
-  mutate(has_big_sib = n_children > 1 & R_AGE != oldest_kid,
-         has_lil_sib = n_children > 1 & R_AGE != youngest_kid) |>
+  mutate(has_big_sib = n_children > 1 & R_AGE != oldest_kid) |>
+  mutate(has_lil_sib = n_children > 1 & (R_AGE != youngest_kid | !has_big_sib)) |>
   mutate(person_hh = paste(PERSONID, HOUSEID, sep = "-")) |>
   ungroup() |>
   select(person_hh, 

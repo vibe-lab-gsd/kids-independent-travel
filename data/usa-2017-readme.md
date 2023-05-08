@@ -157,7 +157,8 @@ Individual-level variables
     * age: The child's age
     * female: A binary variable indicating whether the child is female
     * has_lil_sib: A binary variable indicating whether there are any
-younger children in the household
+younger children in the household (includes children who are the same
+age as the respondent).
     * has_big_sib: A binary variable indicating whether there are any
 older children in the household
 Trip-level variables
@@ -244,7 +245,7 @@ Table: Prevalence and availability of full independence choices
 |With mom                   |48%              |97%               |
 |With dad                   |22%              |86%               |
 |With non-household         |8%               |100%              |
-|With siblings              |6%               |73%               |
+|With siblings              |6%               |81%               |
 
 ### Predictors
 
@@ -261,7 +262,7 @@ Table: Descriptive statistics of predictor variables
 |distance           |    1.099|              0.485|
 |female             |    0.479|                 NA|
 |has_big_sib        |    0.457|                 NA|
-|has_lil_sib        |    0.393|                 NA|
+|has_lil_sib        |    0.475|                 NA|
 |income_k           |   97.603|             70.048|
 |log_density        |    7.342|              1.187|
 |log_distance       |   -0.040|              0.594|
@@ -275,4 +276,4 @@ Table: Descriptive statistics of predictor variables
 |with_mom_avail     |    0.967|                 NA|
 |with_mom_dad_avail |    0.825|                 NA|
 |with_non_hh_avail  |    1.000|              0.000|
-|with_sib_avail     |    0.726|                 NA|
+|with_sib_avail     |    0.808|                 NA|

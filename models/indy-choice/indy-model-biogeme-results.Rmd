@@ -1,0 +1,66 @@
+---
+title: "Visualize Biogeme Results"
+author: "Carole Voulgaris"
+date: "2023-05-05"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load libraries
+
+```{r, message=FALSE}
+library(tidyverse)
+library(here)
+library(knitr)
+```
+
+## Load Biogeme parameters
+
+```{r, message=FALSE}
+bio_results <- here("models",
+                    "indy-choice",
+                    "biogeme_parameters_indy.csv") |>
+  read_csv(show_col_types = FALSE) |>
+  rename(Parameter = `...1`) |>
+  mutate(sig = case_when(`Rob. p-value` < 0.001 ~ "***",
+                         `Rob. p-value` < 0.01 ~ "**",
+                         `Rob. p-value` < 0.05 ~ "*",
+                         TRUE ~ ""))
+  
+
+kable(bio_results, digits = 3)
+```
+
+## Load predictions
+
+```{r, message=FALSE}
+sim_data <- here("data",
+                 "sim-data.csv") |>
+  read_csv(show_col_types = FALSE)
+
+predictions <- here("models",
+                    "indy-choice",
+                    "biogeme_preds_indy.csv") |>
+  read_csv(show_col_types = FALSE) |>
+  cbind(sim_data)
+
+predictions_income <- predictions |>
+  filter(vary == "income_k") |>
+  select(income_k, starts_with("Prob. ")) |>
+  pivot_longer(cols = -income_k,
+               names_to = "Alternative",
+               values_to = "Probability",
+               names_prefix = "Prob. ")
+```
+
+
+
+```{r}
+ggplot(predictions_income) +
+  geom_area(aes(x = income_k, y = Probability, fill = Alternative)) +
+  scale_fill_viridis_d()
+```
+

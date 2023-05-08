@@ -2,33 +2,47 @@
 Try estimating a mode choice model
 """
 
+import pandas as pd
+
 import biogeme.biogeme as bio
 from biogeme import models
 from biogeme.expressions import Beta
-from nhts_data import (
-    database,
-    mode,
-    veh_per_driver,
-    n_adults,
-    non_work_mom,
-    non_work_dad,
-    age,
-    female,
-    has_lil_sib,
-    has_big_sib,
-    log_inc_k,
-    log_density,
-    log_distance,
-    av_car,
-    av_walk,
-    av_bike
-)
+import biogeme.database as db
+from biogeme.expressions import Variable
+
+from pyprojroot.here import here
+
+# Read in data for both model estimation and simulation
+df_est = pd.read_csv(here('data/usa-2017.dat'), sep='\t')
+df_sim = pd.read_csv(here('data/usa-2017-test.dat'), sep='\t')
+
+# Set up biogeme databases
+database_est = db.Database('est', df_est)
+database_sim= db.Database('test', df_sim)
+
+# Define variables for biogeme
+mode = Variable('mode')
+veh_per_driver = Variable('veh_per_driver')
+n_adults = Variable('n_adults')
+non_work_mom = Variable('non_work_mom')
+non_work_dad = Variable('non_work_dad')
+age = Variable('age')
+female = Variable('female')
+has_lil_sib = Variable('has_lil_sib')
+has_big_sib = Variable('has_big_sib')
+log_income_k = Variable('log_income_k')
+log_distance = Variable('log_distance')
+log_density = Variable('log_density')
+av_car = Variable('av_car')
+av_walk = Variable('av_walk')
+av_bike = Variable('av_bike')
+
 # Define parameters to be estimated
 asc_car = Beta('asc_car', 0, None, None, 1)
 asc_walk = Beta('asc_walk', 0, None, None, 0)
 asc_bike = Beta('asc_bike', 0, None, None, 0)
 
-b_log_inc_k_car = Beta('b_log_inc_k_car', 0, None, None, 1)
+b_log_income_k_car = Beta('b_log_income_k_car', 0, None, None, 1)
 b_veh_per_driver_car = Beta('b_veh_per_driver_car', 0, None, None, 1)
 b_n_adults_car = Beta('b_n_adults_car', 0, None, None, 1)
 b_non_work_mom_car = Beta('b_non_work_mom_car', 0, None, None, 1)
@@ -42,7 +56,7 @@ b_has_big_sib_car = Beta('b_has_big_sib_car', 0, None, None, 1)
 b_log_density_car = Beta('b_log_density_car', 0, None, None, 1)
 b_log_distance_car = Beta('b_log_distance_car', 0, None, None, 1)
 
-b_log_inc_k_walk = Beta('b_log_inc_k_walk', 0, None, None, 0)
+b_log_income_k_walk = Beta('b_log_income_k_walk', 0, None, None, 0)
 b_veh_per_driver_walk = Beta('b_veh_per_driver_walk', 0, None, None, 0)
 b_n_adults_walk = Beta('b_n_adults_walk', 0, None, None, 0)
 b_non_work_mom_walk = Beta('b_non_work_mom_walk', 0, None, None, 0)
@@ -56,7 +70,7 @@ b_has_big_sib_walk = Beta('b_has_big_sib_walk', 0, None, None, 0)
 b_log_density_walk = Beta('b_log_density_walk', 0, None, None, 0)
 b_log_distance_walk = Beta('b_log_distance_walk', 0, None, None, 0)
 
-b_log_inc_k_bike = Beta('b_log_inc_k_bike', 0, None, None, 0)
+b_log_income_k_bike = Beta('b_log_income_k_bike', 0, None, None, 0)
 b_veh_per_driver_bike = Beta('b_veh_per_driver_bike', 0, None, None, 0)
 b_n_adults_bike = Beta('b_n_adults_bike', 0, None, None, 0)
 b_non_work_mom_bike = Beta('b_non_work_mom_bike', 0, None, None, 0)
@@ -73,7 +87,7 @@ b_log_distance_bike = Beta('b_log_distance_bike', 0, None, None, 0)
 # Define utility functions
 V_car = (
     asc_car +
-    b_log_inc_k_car * log_inc_k +
+    b_log_income_k_car * log_income_k +
     b_veh_per_driver_car * veh_per_driver +
     b_n_adults_car * n_adults +
     b_non_work_mom_car * non_work_mom +
@@ -88,7 +102,7 @@ V_car = (
 
 V_walk = (
     asc_walk +
-    b_log_inc_k_walk * log_inc_k +
+    b_log_income_k_walk * log_income_k +
     b_veh_per_driver_walk * veh_per_driver +
     b_n_adults_walk * n_adults +
     b_non_work_mom_walk * non_work_mom +
@@ -103,7 +117,7 @@ V_walk = (
 
 V_bike = (
     asc_bike +
-    b_log_inc_k_bike * log_inc_k +
+    b_log_income_k_bike * log_income_k +
     b_veh_per_driver_bike * veh_per_driver +
     b_n_adults_bike * n_adults +
     b_non_work_mom_bike * non_work_mom +
@@ -125,17 +139,43 @@ av = {7: av_car, 8: av_walk, 9: av_bike}
 # Define the model
 mode_model = models.logit(V, av, mode)
 
-# Create Biogeme object
-mode_biogeme = bio.BIOGEME(database, mode_model)
-mode_biogeme.modelName = 'mode_model'
+# Create Biogeme object for estimation
+mode_biogeme_est = bio.BIOGEME(database_est, mode_model)
+mode_biogeme_est.modelName = 'mode_model_est'
 
 # Calculate null log likelihood for reporting
-mode_biogeme.calculateNullLoglikelihood(av)
+mode_biogeme_est.calculateNullLoglikelihood(av)
 
 # Estimate parameters
-results = mode_biogeme.estimate()
+results = mode_biogeme_est.estimate()
 print(results.shortSummary())
 
 # Get results in a pandas table
 pandas_results = results.getEstimatedParameters()
 print(pandas_results)
+
+# Save parameters to csv
+pandas_results.to_csv('biogeme_parameters_mode.csv')
+
+# Generate predictions
+prob_car = models.logit(V, av, 7)
+prob_walk = models.logit(V, av, 8)
+prob_bike = models.logit(V, av, 9)
+
+simulate = {'Prob. car': prob_car,
+            'Prob. walk': prob_walk,
+            'Prob. bike': prob_bike}
+
+# Create biogeme object for simulation
+mode_biogeme_sim = bio.BIOGEME(database_sim, simulate)
+mode_biogeme_sim.modelName = "predictions"
+
+betaValues = results.getBetaValues ()
+simulatedValues = mode_biogeme_sim.simulate(betaValues)
+
+simulatedValues.to_csv('biogeme_preds_mode.csv')
+
+car_prob_summary = simulatedValues[["Prob. car"]].describe()
+
+## 99% probability of car in all cases?
+print(car_prob_summary)

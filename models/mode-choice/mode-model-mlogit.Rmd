@@ -1,0 +1,136 @@
+---
+title: "Comparing mlogit to biogeme"
+subtitle: "Choice of mode"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r, message=FALSE, echo=FALSE}
+library(tidyverse)
+library(mlogit)
+library(here)
+library(knitr)
+library(kableExtra)
+
+here("extra-R-functions",
+     "mlogit_helpers.R") |>
+  source()
+```
+
+
+
+```{r, echo=FALSE}
+data <- here("data",
+             "usa-2017.dat") |>
+  read_tsv(show_col_types = FALSE) |>
+  mutate(mode = recode_factor(mode, 
+                              `7` = "car",
+                              `8` = "walk",
+                              `9` = "bike")) 
+
+data <- data |>
+  mutate(id = seq(1, nrow(data), by=1))
+```
+
+
+
+```{r, echo=FALSE}
+indy_dfidx <- fn_make_dfidx(data,
+                            "id",
+                            "mode") 
+```
+
+
+
+```{r, echo=FALSE}
+model_mode <- mlogit(choice ~ 0 | 
+                      log(income_k) +
+                      veh_per_driver +
+                      n_adults +
+                      non_work_mom +
+                      non_work_dad + 
+                      age +
+                      female +
+                      has_lil_sib +
+                      has_big_sib +
+                      log(distance) +
+                      log(density) | 0,
+                           indy_dfidx,
+                           reflevel = "car")
+```
+
+
+```{r, echo=FALSE, results='hide', message=FALSE}
+bio_results <- here("models",
+                    "mode-choice",
+                    "biogeme_parameters_mode.csv") |>
+  read_csv(show_col_types = FALSE) |>
+  rename(biogeme_parameter = `...1`) 
+
+mlogit_results <- as_tibble(summary(model_mode)$CoefTable) |>
+  mutate(mlogit_Parameter = row.names(summary(model_mode)$CoefTable)) |>
+  mutate(biogeme_parameter = 
+           case_when(mlogit_Parameter == "(Intercept):walk" ~ "asc_walk",
+                     mlogit_Parameter == "(Intercept):bike" ~ "asc_bike",
+                     mlogit_Parameter == "log(income_k):walk" ~ "b_log_income_k_walk",
+                     mlogit_Parameter == "log(income_k):bike" ~ "b_log_income_k_bike",
+                     mlogit_Parameter == "veh_per_driver:walk" ~ "b_veh_per_driver_walk",
+                     mlogit_Parameter == "veh_per_driver:bike" ~ "b_veh_per_driver_bike",
+                     mlogit_Parameter == "n_adults:walk" ~ "b_n_adults_walk",
+                     mlogit_Parameter == "n_adults:bike" ~ "b_n_adults_bike",
+                     mlogit_Parameter == "non_work_mom:walk" ~ "b_non_work_mom_walk",
+                     mlogit_Parameter == "non_work_mom:bike" ~ "b_non_work_mom_bike",
+                     mlogit_Parameter == "non_work_dad:walk" ~ "b_non_work_dad_walk",
+                     mlogit_Parameter == "non_work_dad:bike" ~ "b_non_work_dad_bike",
+                     mlogit_Parameter == "age:walk" ~ "b_age_walk",
+                     mlogit_Parameter == "age:bike" ~ "b_age_bike",
+                     mlogit_Parameter == "female:walk" ~ "b_female_walk",
+                     mlogit_Parameter == "female:bike" ~ "b_female_bike",
+                     mlogit_Parameter == "has_lil_sib:walk" ~ "b_has_lil_sib_walk",
+                     mlogit_Parameter == "has_lil_sib:bike" ~ "b_has_lil_sib_bike",
+                     mlogit_Parameter == "has_big_sib:walk" ~ "b_has_big_sib_walk",
+                     mlogit_Parameter == "has_big_sib:bike" ~ "b_has_big_sib_bike",
+                     mlogit_Parameter == "log(distance):walk" ~ "b_log_distance_walk",
+                     mlogit_Parameter == "log(distance):bike" ~ "b_log_distance_bike",
+                     mlogit_Parameter == "log(density):walk" ~ "b_log_density_walk",
+                     mlogit_Parameter == "log(density):bike" ~ "b_log_density_bike"))
+
+compare_results <- full_join(mlogit_results, bio_results) |>
+  rename(parameter = `biogeme_parameter`,
+         `mlogit estimate` = Estimate,
+         `mlogit std err` = `Std. Error`,
+         `mlogit p-val` = `Pr(>|z|)`,
+         `biogeme estimate` = Value,
+         `biogeme std err` = `Rob. Std err`,
+         `biogeme p-val` = `Rob. p-value`) |>
+  mutate(`mlogit sig` = case_when(`mlogit p-val` < 0.001 ~ "***",
+                                  `mlogit p-val` < 0.01 ~ "**",
+                                  `mlogit p-val` < 0.05 ~ "*",
+                                  TRUE ~ ""),
+         `biogeme sig` = case_when(`biogeme p-val` < 0.001 ~ "***",
+                                  `biogeme p-val` < 0.01 ~ "**",
+                                  `biogeme p-val` < 0.05 ~ "*",
+                                  TRUE ~ "")) |>
+  select(parameter,
+         `mlogit estimate`,
+         `biogeme estimate`,
+         `mlogit std err`,
+         `biogeme std err`,
+         `mlogit p-val`,
+         `biogeme p-val`,
+         `mlogit sig`,
+         `biogeme sig`)
+
+```
+
+```{r, echo=FALSE}
+kable(compare_results, digits = 3) |>
+  column_spec(c(2, 4, 6, 8), border_left = TRUE, background = "cornsilk") |>
+  kable_styling()
+```
+
+
