@@ -1,0 +1,138 @@
+---
+title: "Comparing mlogit to biogeme"
+subtitle: "Choice of independence (3 categories)"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This is the one where we assume non-household members are adults
+
+```{r, message=FALSE, echo=FALSE}
+library(tidyverse)
+library(mlogit)
+library(here)
+library(knitr)
+library(kableExtra)
+
+here("extra-R-functions",
+     "mlogit_helpers.R") |>
+  source()
+```
+
+
+
+```{r, echo=FALSE}
+data <- here("data",
+             "usa-2017.dat") |>
+  read_tsv(show_col_types = FALSE) |>
+  mutate(ind_3 = recode_factor(ind_3, 
+                              `10` = "alone",
+                              `20` = "with adult",
+                              `30` = "with sib")) 
+
+data <- data |>
+  mutate(id = seq(1, nrow(data), by=1))
+```
+
+
+
+```{r, echo=FALSE}
+indy_dfidx <- fn_make_dfidx(data,
+                            "id",
+                            "ind_3") |>
+  filter(avail_choice != "with sib" | with_sib_avail == 1)
+```
+
+
+
+```{r, echo=FALSE}
+model_indy <- mlogit(choice ~ 0 | 
+                      log(income_k) +
+                      veh_per_driver +
+                      n_adults +
+                      non_work_mom +
+                      non_work_dad + 
+                      age +
+                      female +
+                      has_lil_sib +
+                      has_big_sib +
+                      log(distance) +
+                      log(density) | 0,
+                           indy_dfidx,
+                           reflevel = "with adult")
+```
+
+
+```{r, echo=FALSE, message=FALSE}
+bio_results <- here("models",
+                    "indy3_choice",
+                    "biogeme_parameters_indy3.csv") |>
+  read_csv(show_col_types = FALSE) |>
+  rename(biogeme_parameter = `...1`) 
+
+mlogit_results <- as_tibble(summary(model_indy)$CoefTable) |>
+  mutate(mlogit_Parameter = row.names(summary(model_indy)$CoefTable)) |>
+  mutate(biogeme_parameter = 
+           case_when(mlogit_Parameter == "(Intercept):alone" ~ "asc_alone",
+                     mlogit_Parameter == "(Intercept):with sib" ~ "asc_sib",
+                     mlogit_Parameter == "log(income_k):alone" ~ "b_log_income_k_alone",
+                     mlogit_Parameter == "log(income_k):with sib" ~ "b_log_income_k_sib",
+                     mlogit_Parameter == "veh_per_driver:alone" ~ "b_veh_per_driver_alone",
+                     mlogit_Parameter == "veh_per_driver:with sib" ~ "b_veh_per_driver_sib",
+                     mlogit_Parameter == "n_adults:alone" ~ "b_n_adults_alone",
+                     mlogit_Parameter == "n_adults:with sib" ~ "b_n_adults_sib",
+                     mlogit_Parameter == "non_work_mom:alone" ~ "b_non_work_mom_alone",
+                     mlogit_Parameter == "non_work_mom:with sib" ~ "b_non_work_mom_sib",
+                     mlogit_Parameter == "non_work_dad:alone" ~ "b_non_work_dad_alone",
+                     mlogit_Parameter == "non_work_dad:with sib" ~ "b_non_work_dad_sib",
+                     mlogit_Parameter == "age:alone" ~ "b_age_alone",
+                     mlogit_Parameter == "age:with sib" ~ "b_age_sib",
+                     mlogit_Parameter == "female:alone" ~ "b_female_alone",
+                     mlogit_Parameter == "female:with sib" ~ "b_female_sib",
+                     mlogit_Parameter == "has_lil_sib:alone" ~ "b_has_lil_sib_alone",
+                     mlogit_Parameter == "has_lil_sib:with sib" ~ "b_has_lil_sib_sib",
+                     mlogit_Parameter == "has_big_sib:alone" ~ "b_has_big_sib_alone",
+                     mlogit_Parameter == "has_big_sib:with sib" ~ "b_has_big_sib_sib",
+                     mlogit_Parameter == "log(distance):alone" ~ "b_log_distance_alone",
+                     mlogit_Parameter == "log(distance):with sib" ~ "b_log_distance_sib",
+                     mlogit_Parameter == "log(density):alone" ~ "b_log_density_alone",
+                     mlogit_Parameter == "log(density):with sib" ~ "b_log_density_sib"))
+
+compare_results <- full_join(mlogit_results, bio_results) |>
+  rename(parameter = `biogeme_parameter`,
+         `mlogit estimate` = Estimate,
+         `mlogit std err` = `Std. Error`,
+         `mlogit p-val` = `Pr(>|z|)`,
+         `biogeme estimate` = Value,
+         `biogeme std err` = `Rob. Std err`,
+         `biogeme p-val` = `Rob. p-value`) |>
+  mutate(`mlogit sig` = case_when(`mlogit p-val` < 0.001 ~ "***",
+                                  `mlogit p-val` < 0.01 ~ "**",
+                                  `mlogit p-val` < 0.05 ~ "*",
+                                  TRUE ~ ""),
+         `biogeme sig` = case_when(`biogeme p-val` < 0.001 ~ "***",
+                                  `biogeme p-val` < 0.01 ~ "**",
+                                  `biogeme p-val` < 0.05 ~ "*",
+                                  TRUE ~ "")) |>
+  select(parameter,
+         `mlogit estimate`,
+         `biogeme estimate`,
+         `mlogit std err`,
+         `biogeme std err`,
+         `mlogit p-val`,
+         `biogeme p-val`,
+         `mlogit sig`,
+         `biogeme sig`)
+
+```
+
+```{r, echo=FALSE}
+kable(compare_results, digits = 3) |>
+  column_spec(c(2, 4, 6, 8), border_left = TRUE, background = "cornsilk") |>
+  kable_styling()
+```
+
+
