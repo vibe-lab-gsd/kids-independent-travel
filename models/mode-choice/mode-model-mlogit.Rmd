@@ -8,6 +8,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+https://urban-stack.github.io/kids-independent-travel/models/mode-choice/mode-model-mlogit.html
 
 ```{r, message=FALSE, echo=FALSE}
 library(tidyverse)

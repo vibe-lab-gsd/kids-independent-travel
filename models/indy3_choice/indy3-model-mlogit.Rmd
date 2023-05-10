@@ -8,7 +8,9 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-This is the one where we assume non-household members are adults
+https://urban-stack.github.io/kids-independent-travel/models/indy3_choice/indy3-model-mlogit.html
+
+This is the one where we assume non-household members are adults.
 
 ```{r, message=FALSE, echo=FALSE}
 library(tidyverse)
