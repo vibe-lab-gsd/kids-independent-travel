@@ -251,29 +251,20 @@ Table: Prevalence and availability of full independence choices
 
 Table: Descriptive statistics of predictor variables
 
-|Predictor          |     Mean| Standard Deviation|
-|:------------------|--------:|------------------:|
-|age                |   10.158|              1.644|
-|alone_avail        |    1.000|              0.000|
-|av_bike            |    1.000|              0.000|
-|av_car             |    1.000|              0.000|
-|av_walk            |    1.000|              0.000|
-|density            | 2482.977|           2256.667|
-|distance           |    1.099|              0.485|
-|female             |    0.479|                 NA|
-|has_big_sib        |    0.457|                 NA|
-|has_lil_sib        |    0.475|                 NA|
-|income_k           |   97.603|             70.048|
-|log_density        |    7.342|              1.187|
-|log_distance       |   -0.040|              0.594|
-|log_income_k       |    4.253|              0.921|
-|n_adults           |    2.044|              0.696|
-|non_work_dad       |    0.110|                 NA|
-|non_work_mom       |    0.345|                 NA|
-|veh_per_driver     |    1.090|              0.510|
-|with_adult_avail   |    1.000|              0.000|
-|with_dad_avail     |    0.858|                 NA|
-|with_mom_avail     |    0.967|                 NA|
-|with_mom_dad_avail |    0.825|                 NA|
-|with_non_hh_avail  |    1.000|              0.000|
-|with_sib_avail     |    0.808|                 NA|
+|Predictor      |     Mean| Standard Deviation|
+|:--------------|--------:|------------------:|
+|age            |   10.158|              1.644|
+|alone_avail    |    1.000|              0.000|
+|density        | 2482.977|           2256.667|
+|distance       |    1.099|              0.485|
+|female         |    0.479|                 NA|
+|has_big_sib    |    0.457|                 NA|
+|has_lil_sib    |    0.475|                 NA|
+|income_k       |   97.603|             70.048|
+|log_density    |    7.342|              1.187|
+|log_distance   |   -0.040|              0.594|
+|log_income_k   |    4.253|              0.921|
+|n_adults       |    2.044|              0.696|
+|non_work_dad   |    0.110|                 NA|
+|non_work_mom   |    0.345|                 NA|
+|veh_per_driver |    1.090|              0.510|

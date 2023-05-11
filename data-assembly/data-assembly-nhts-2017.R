@@ -650,7 +650,16 @@ school_trips |>
          -ind_3_alt,
          -mode_ind,
          -mode_ind_3,
-         -mode_ind_3_alt) |>
+         -mode_ind_3_alt,
+         -av_bike,
+         -av_car,
+         -av_walk,
+         -with_adult_avail,
+         -with_dad_avail,
+         -with_mom_avail,
+         -with_mom_dad_avail,
+         -with_non_hh_avail,
+         -with_sib_avail) |>
   pivot_longer(cols = everything(),
                names_to = "Predictor",
                values_to = "Value") |>
