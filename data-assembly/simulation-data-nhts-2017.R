@@ -41,7 +41,6 @@ predictors <- c("log_income_k",
                 "female",
                 "has_lil_sib",
                 "has_big_sib",
-                "distance",
                 "log_distance",
                 "log_density")
 
