@@ -1,9 +1,12 @@
 ---
 title: "Visualize Biogeme Results"
-author: "Carole Voulgaris"
-date: "2023-05-05"
+subtitle: "Simplified independence categories"
 output: html_document
 ---
+
+Non-household members assumed to be adults.
+
+https://urban-stack.github.io/kids-independent-travel/models/indy3_choice/indy3-model-biogeme-results.html
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -113,10 +116,36 @@ fn_plot_preds_c(predictions, "age") +
 ```{r}
 fn_plot_preds_b(predictions, "female") +
   scale_x_discrete(name = "Child's gender",
-                   labels = c("Male", "Female"))
+                   labels = c("Boys", "Girls"))
   
 ```
 
+### Vary younger sibling
+
+```{r}
+fn_plot_preds_b(predictions, "has_lil_sib") +
+  scale_x_discrete(name = "Presence of younger sibling",
+                   labels = c("False", "True"))
+  
+```
+
+### Vary older sibling
+
+```{r}
+fn_plot_preds_b(predictions, "has_big_sib") +
+  scale_x_discrete(name = "Presence of older sibling",
+                   labels = c("False", "True"))
+  
+```
+
+### Vary non-working mom
+
+```{r}
+fn_plot_preds_b(predictions, "non_work_mom") +
+  scale_x_discrete(name = "Presence of non-working mom",
+                   labels = c("False", "True"))
+  
+```
 
 ### Vary distance
 

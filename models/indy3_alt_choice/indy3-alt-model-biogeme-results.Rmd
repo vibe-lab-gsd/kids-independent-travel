@@ -1,7 +1,6 @@
 ---
 title: "Visualize Biogeme Results"
-author: "Carole Voulgaris"
-date: "2023-05-05"
+subtitle: "Alternative simplified independence categories"
 output: html_document
 ---
 
@@ -9,7 +8,9 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-https://urban-stack.github.io/kids-independent-travel/models/mode-choice/mode-model-biogeme-results.html
+Assume non-household members are kids.
+
+https://urban-stack.github.io/kids-independent-travel/models/indy3_alt_choice/indy3-alt-model-biogeme-results.html
 
 ## Load libraries
 
@@ -23,8 +24,8 @@ library(knitr)
 
 ```{r, message=FALSE}
 bio_results <- here("models",
-                    "mode-choice",
-                    "biogeme_parameters_mode.csv") |>
+                    "indy3_alt_choice",
+                    "biogeme_parameters_indy3_alt.csv") |>
   read_csv(show_col_types = FALSE) |>
   rename(Parameter = `...1`) |>
   mutate(sig = case_when(`Rob. p-value` < 0.001 ~ "***",
@@ -44,8 +45,8 @@ sim_data <- here("data",
   read_csv(show_col_types = FALSE)
 
 predictions <- here("models",
-                    "mode-choice",
-                    "biogeme_preds_mode.csv") |>
+                    "indy3_alt_choice",
+                    "biogeme_preds_indy3_alt.csv") |>
   read_csv(show_col_types = FALSE) |>
   cbind(sim_data)
 ```
@@ -62,8 +63,9 @@ fn_plot_preds_c <- function(my_preds,
                  names_to = "Mode",
                  values_to = "Probability",
                  names_prefix = "Prob. ") |>
-    mutate(Mode = factor(Mode, levels = c("bike", "walk", "car"),
-                         labels = c("Bike", "Walk", "Car"))) |>
+    mutate(Mode = factor(Mode, 
+                         levels = c("kid", "alone", "adult"),
+                         labels = c("With child(ren)", "Alone", "With adult(s)"))) |>
     rename(to_vary = !!to_vary) |>
     ggplot() +
     geom_area(aes(x = to_vary,
@@ -84,8 +86,9 @@ fn_plot_preds_b <- function(my_preds,
                  names_to = "Mode",
                  values_to = "Probability",
                  names_prefix = "Prob. ") |>
-    mutate(Mode = factor(Mode, levels = c("bike", "walk", "car"),
-                         labels = c("Bike", "Walk", "Car"))) |>
+    mutate(Mode = factor(Mode, 
+                         levels = c("kid", "alone", "adult"),
+                         labels = c("With child(ren)", "Alone", "With adult(s)"))) |>
     rename(to_vary = !!to_vary) |>
     ggplot() +
     geom_col(aes(x = as_factor(to_vary),
@@ -113,37 +116,37 @@ fn_plot_preds_c(predictions, "age") +
 ```{r}
 fn_plot_preds_b(predictions, "female") +
   scale_x_discrete(name = "Child's gender",
-                   labels = c("Male", "Female"))
+                   labels = c("Boys", "Girls"))
   
 ```
 
-### Vary income
+### Vary younger sibling
 
 ```{r}
-fn_plot_preds_c(predictions, "income_k") +
-  scale_x_continuous(name = "Household income (US$)",
-                     breaks = c(0, 125, 250),
-                     labels = c("0", "$125 000", "$250,000")) 
+fn_plot_preds_b(predictions, "has_lil_sib") +
+  scale_x_discrete(name = "Presence of younger sibling",
+                   labels = c("False", "True"))
   
 ```
 
-### Vary vehicle access
-
-```{r, warning=FALSE}
-fn_plot_preds_c(predictions, "veh_per_driver") +
-  scale_x_continuous(name = "Household vehicles per driver",
-                     limits = c(0, 2),
-                     breaks = c(0, 1, 2)) 
-  
-```
-
-### Vary number of adults
+### Vary older sibling
 
 ```{r}
-fn_plot_preds_c(predictions, "n_adults") +
-  scale_x_continuous(name = "Number of household adults") 
+fn_plot_preds_b(predictions, "has_big_sib") +
+  scale_x_discrete(name = "Presence of older sibling",
+                   labels = c("False", "True"))
   
 ```
+
+### Vary non-working mom
+
+```{r}
+fn_plot_preds_b(predictions, "non_work_mom") +
+  scale_x_discrete(name = "Presence of non-working mom",
+                   labels = c("False", "True"))
+  
+```
+
 
 ### Vary distance
 
