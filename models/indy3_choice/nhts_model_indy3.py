@@ -146,7 +146,7 @@ av = {10: alone_avail,
       30: with_sib_avail}
 
 # Define the model
-indy3_model = models.logit(V, av, ind_3)
+indy3_model = models.loglogit(V, av, ind_3)
 
 # Create Biogeme object for estimation
 indy3_biogeme_est = bio.BIOGEME(database_est, indy3_model)
