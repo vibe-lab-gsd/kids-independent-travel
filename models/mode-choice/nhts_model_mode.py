@@ -137,7 +137,7 @@ V = {7: V_car, 8: V_walk, 9: V_bike}
 av = {7: av_car, 8: av_walk, 9: av_bike}
 
 # Define the model
-mode_model = models.logit(V, av, mode)
+mode_model = models.loglogit(V, av, mode)
 
 # Create Biogeme object for estimation
 mode_biogeme_est = bio.BIOGEME(database_est, mode_model)

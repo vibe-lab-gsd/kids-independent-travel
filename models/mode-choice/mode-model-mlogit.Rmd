@@ -40,7 +40,7 @@ data <- data |>
 
 
 ```{r, echo=FALSE}
-indy_dfidx <- fn_make_dfidx(data,
+mode_dfidx <- fn_make_dfidx(data,
                             "id",
                             "mode") 
 ```
@@ -60,7 +60,7 @@ model_mode <- mlogit(choice ~ 0 |
                       has_big_sib +
                       log(distance) +
                       log(density) | 0,
-                           indy_dfidx,
+                           mode_dfidx,
                            reflevel = "car")
 ```
 
