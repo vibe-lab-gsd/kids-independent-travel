@@ -23,7 +23,6 @@ database_sim= db.Database('test', df_sim)
 # Define variables for biogeme
 independence = Variable('independence')
 veh_per_driver = Variable('veh_per_driver')
-n_adults = Variable('n_adults')
 non_work_mom = Variable('non_work_mom')
 non_work_dad = Variable('non_work_dad')
 age = Variable('age')
@@ -53,7 +52,6 @@ asc_sib = Beta('asc_sib', 0, None, None, 0)
 # mom betas (not estimated for reference case)
 b_log_income_k_mom = Beta('b_log_income_k_mom', 0, None, None, 1)
 b_veh_per_driver_mom = Beta('b_veh_per_driver_mom', 0, None, None, 1)
-b_n_adults_mom = Beta('b_n_adults_mom', 0, None, None, 1)
 b_non_work_mom_mom = Beta('b_non_work_mom_mom', 0, None, None, 1)
 b_non_work_dad_mom = Beta('b_non_work_dad_mom', 0, None, None, 1)
 
@@ -68,7 +66,6 @@ b_log_distance_mom = Beta('b_log_distance_mom', 0, None, None, 1)
 # alone betas
 b_log_income_k_alone = Beta('b_log_income_k_alone', 0, None, None, 0)
 b_veh_per_driver_alone = Beta('b_veh_per_driver_alone', 0, None, None, 0)
-b_n_adults_alone = Beta('b_n_adults_alone', 0, None, None, 0)
 b_non_work_mom_alone = Beta('b_non_work_mom_alone', 0, None, None, 0)
 b_non_work_dad_alone = Beta('b_non_work_dad_alone', 0, None, None, 0)
 
@@ -83,7 +80,6 @@ b_log_distance_alone = Beta('b_log_distance_alone', 0, None, None, 0)
 # betas for with both parents
 b_log_income_k_MomDad = Beta('b_log_income_k_MomDad', 0, None, None, 0)
 b_veh_per_driver_MomDad = Beta('b_veh_per_driver_MomDad', 0, None, None, 0)
-b_n_adults_MomDad = Beta('b_n_adults_MomDad', 0, None, None, 0)
 b_non_work_mom_MomDad = Beta('b_non_work_mom_MomDad', 0, None, None, 0)
 b_non_work_dad_MomDad = Beta('b_non_work_dad_MomDad', 0, None, None, 0)
 
@@ -98,7 +94,6 @@ b_log_distance_MomDad = Beta('b_log_distance_MomDad', 0, None, None, 0)
 # betas for with dad
 b_log_income_k_dad = Beta('b_log_income_k_dad', 0, None, None, 0)
 b_veh_per_driver_dad = Beta('b_veh_per_driver_dad', 0, None, None, 0)
-b_n_adults_dad = Beta('b_n_adults_dad', 0, None, None, 0)
 b_non_work_mom_dad = Beta('b_non_work_mom_dad', 0, None, None, 0)
 b_non_work_dad_dad = Beta('b_non_work_dad_dad', 0, None, None, 0)
 
@@ -113,7 +108,6 @@ b_log_distance_dad = Beta('b_log_distance_dad', 0, None, None, 0)
 # betas for with non-hh
 b_log_income_k_non_hh = Beta('b_log_income_k_non_hh', 0, None, None, 0)
 b_veh_per_driver_non_hh = Beta('b_veh_per_driver_non_hh', 0, None, None, 0)
-b_n_adults_non_hh = Beta('b_n_adults_non_hh', 0, None, None, 0)
 b_non_work_mom_non_hh = Beta('b_non_work_mom_non_hh', 0, None, None, 0)
 b_non_work_dad_non_hh = Beta('b_non_work_dad_non_hh', 0, None, None, 0)
 
@@ -128,7 +122,6 @@ b_log_distance_non_hh = Beta('b_log_distance_non_hh', 0, None, None, 0)
 # betas for with sibling
 b_log_income_k_sib = Beta('b_log_income_k_sib', 0, None, None, 0)
 b_veh_per_driver_sib = Beta('b_veh_per_driver_sib', 0, None, None, 0)
-b_n_adults_sib = Beta('b_n_adults_sib', 0, None, None, 0)
 b_non_work_mom_sib = Beta('b_non_work_mom_sib', 0, None, None, 0)
 b_non_work_dad_sib = Beta('b_non_work_dad_sib', 0, None, None, 0)
 
@@ -145,7 +138,6 @@ V_mom = (
     asc_mom +
     b_log_income_k_mom * log_income_k +
     b_veh_per_driver_mom * veh_per_driver +
-    b_n_adults_mom * n_adults +
     b_non_work_mom_mom * non_work_mom +
     b_non_work_dad_mom * non_work_dad +
     b_age_mom * age +
@@ -160,7 +152,6 @@ V_alone = (
     asc_alone +
     b_log_income_k_alone * log_income_k +
     b_veh_per_driver_alone * veh_per_driver +
-    b_n_adults_alone * n_adults +
     b_non_work_mom_alone * non_work_mom +
     b_non_work_dad_alone * non_work_dad +
     b_age_alone * age +
@@ -175,7 +166,6 @@ V_MomDad = (
     asc_MomDad +
     b_log_income_k_MomDad * log_income_k +
     b_veh_per_driver_MomDad * veh_per_driver +
-    b_n_adults_MomDad * n_adults +
     b_non_work_mom_MomDad * non_work_mom +
     b_non_work_dad_MomDad * non_work_dad +
     b_age_MomDad * age +
@@ -190,7 +180,6 @@ V_dad = (
     asc_dad +
     b_log_income_k_dad * log_income_k +
     b_veh_per_driver_dad * veh_per_driver +
-    b_n_adults_dad * n_adults +
     b_non_work_mom_dad * non_work_mom +
     b_non_work_dad_dad * non_work_dad +
     b_age_dad * age +
@@ -205,7 +194,6 @@ V_non_hh = (
     asc_non_hh +
     b_log_income_k_non_hh * log_income_k +
     b_veh_per_driver_non_hh * veh_per_driver +
-    b_n_adults_non_hh * n_adults +
     b_non_work_mom_non_hh * non_work_mom +
     b_non_work_dad_non_hh * non_work_dad +
     b_age_non_hh * age +
@@ -220,7 +208,6 @@ V_sib = (
     asc_sib +
     b_log_income_k_sib * log_income_k +
     b_veh_per_driver_sib * veh_per_driver +
-    b_n_adults_sib * n_adults +
     b_non_work_mom_sib * non_work_mom +
     b_non_work_dad_sib * non_work_dad +
     b_age_sib * age +

@@ -53,6 +53,9 @@ predictions <- here("models",
 ## Visualizations
 
 ```{r}
+
+mode_pal <- c("#808080","#b3b3b3", "#e6e6e6")
+
 fn_plot_preds_c <- function(my_preds,
                           to_vary) {
   my_preds |>
@@ -69,7 +72,7 @@ fn_plot_preds_c <- function(my_preds,
     geom_area(aes(x = to_vary,
                   y = Probability,
                   fill = Mode)) +
-    scale_fill_brewer(type = "qual") +
+    scale_fill_manual(values = mode_pal) +
     theme_minimal() +
     scale_y_continuous(breaks = c(0, 0.5, 1),
                        labels = c("0", "50%", "100%")) 
@@ -92,7 +95,7 @@ fn_plot_preds_b <- function(my_preds,
                   y = Probability,
                   fill = Mode),
              position = "stack") +
-    scale_fill_brewer(type = "qual") +
+    scale_fill_manual(values = mode_pal) +
     theme_minimal() +
     scale_y_continuous(breaks = c(0, 0.5, 1),
                        labels = c("0", "50%", "100%")) 

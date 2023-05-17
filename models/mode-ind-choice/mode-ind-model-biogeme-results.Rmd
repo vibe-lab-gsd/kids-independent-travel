@@ -1,0 +1,282 @@
+---
+title: "Visualize Biogeme Results"
+author: "Carole Voulgaris"
+date: "2023-05-05"
+output: html_document
+---
+
+https://urban-stack.github.io/kids-independent-travel/models/mode-ind-choice/mode-ind-model-biogeme-results.html
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load libraries
+
+```{r, message=FALSE}
+library(tidyverse)
+library(here)
+library(knitr)
+```
+
+## Load Biogeme parameters
+
+```{r, message=FALSE}
+bio_results <- here("models",
+                    "mode-ind-choice",
+                    "biogeme_parameters_mode_ind.csv") |>
+  read_csv(show_col_types = FALSE) |>
+  rename(Parameter = `...1`) |>
+  mutate(sig = case_when(`Rob. p-value` < 0.001 ~ "***",
+                         `Rob. p-value` < 0.01 ~ "**",
+                         `Rob. p-value` < 0.05 ~ "*",
+                         TRUE ~ ""))
+  
+
+kable(bio_results, digits = 3)
+```
+
+## Load predictions
+
+```{r, message=FALSE}
+sim_data <- here("data",
+                 "sim-data.csv") |>
+  read_csv(show_col_types = FALSE)
+
+predictions <- here("models",
+                    "mode-ind-choice",
+                    "biogeme_preds_mode_ind.csv") |>
+  read_csv(show_col_types = FALSE) |>
+  cbind(sim_data) 
+
+test <- predictions |>
+  filter(vary == "age") |>
+  select(c(starts_with("Prob. "), 
+           age)) |>
+  pivot_longer(cols = -age,
+               names_to = "alt",
+               values_to = "prob") |>
+  group_by(age) |>
+  summarise(total_p = sum(prob))
+```
+
+## Visualizations
+
+```{r}
+mode_ind_pal <- c("#e0deed",
+                  "#a29cc9",
+                  "#f3fad1",
+                  "#dcf174",
+                  "#b1d115",
+                  "#dcf1da",
+                  "#96d491",
+                  "#4fb847",
+                  "#d7e9f4",
+                  "#86bddf",
+                  "#3691c9",
+                  "#fdd3ce",
+                  "#fa796b",
+                  "#f62109",
+                  "#fef1cd",
+                  "#fdd568",
+                  "#fbb904")
+
+
+fn_plot_preds_c <- function(my_preds,
+                          to_vary) {
+  my_preds |>
+    filter(vary == to_vary) |>
+    select(c(matches(to_vary), starts_with("Prob. "))) |>
+    pivot_longer(cols = starts_with("Prob. "),
+                 names_to = "Mode",
+                 values_to = "Probability",
+                 names_prefix = "Prob. ") |>
+    mutate(Mode = factor(Mode, 
+                         levels = c("alone walk",
+                                    "alone bike",
+                                    "mom car",
+                                    "mom walk",
+                                    "mom bike",
+                                    "mom and dad car",
+                                    "mom and dad walk",
+                                    "mom and dad bike",
+                                    "dad car",
+                                    "dad walk",
+                                    "dad bike",
+                                    "non-hh car",
+                                    "non-hh walk",
+                                    "non-hh bike",
+                                    "sibling car",
+                                    "sibling walk",
+                                    "sibling bike"),
+                         labels = c("Walk alone",
+                                    "Bike alone",
+                                    "Car with mom",
+                                    "Walk with mom",
+                                    "Bike with mom",
+                                    "Car with mom and dad",
+                                    "Walk with mom and dad",
+                                    "Bike with mom and dad",
+                                    "Car with dad",
+                                    "Walk with dad",
+                                    "Bike with dad",
+                                    "Car with a non-household member",
+                                    "Walk with a non-household member",
+                                    "Bike with a non-household member",
+                                    "Car with a sibling",
+                                    "Walk with a sibling",
+                                    "Bike with a sibling"))) |>
+    rename(to_vary = !!to_vary) |>
+    ggplot() +
+    geom_area(aes(x = to_vary,
+                  y = Probability,
+                  fill = Mode)) +
+    scale_fill_manual(values = mode_ind_pal) +
+    theme_minimal() +
+    scale_y_continuous(breaks = c(0, 0.5, 1),
+                       labels = c("0", "50%", "100%")) 
+}
+
+fn_plot_preds_b <- function(my_preds,
+                          to_vary) {
+  my_preds |>
+    filter(vary == to_vary) |>
+    select(c(matches(to_vary), starts_with("Prob. "))) |>
+    pivot_longer(cols = starts_with("Prob. "),
+                 names_to = "Mode",
+                 values_to = "Probability",
+                 names_prefix = "Prob. ") |>
+    mutate(Mode = factor(Mode, 
+                         levels = c("alone walk",
+                                    "alone bike",
+                                    "mom car",
+                                    "mom walk",
+                                    "mom bike",
+                                    "mom and dad car",
+                                    "mom and dad walk",
+                                    "mom and dad bike",
+                                    "dad car",
+                                    "dad walk",
+                                    "dad bike",
+                                    "non-hh car",
+                                    "non-hh walk",
+                                    "non-hh bike",
+                                    "sibling car",
+                                    "sibling walk",
+                                    "sibling bike"),
+                         labels = c("Walk alone",
+                                    "Bike alone",
+                                    "Car with mom",
+                                    "Walk with mom",
+                                    "Bike with mom",
+                                    "Car with mom and dad",
+                                    "Walk with mom and dad",
+                                    "Bike with mom and dad",
+                                    "Car with dad",
+                                    "Walk with dad",
+                                    "Bike with dad",
+                                    "Car with a non-household member",
+                                    "Walk with a non-household member",
+                                    "Bike with a non-household member",
+                                    "Car with a sibling",
+                                    "Walk with a sibling",
+                                    "Bike with a sibling"))) |>
+    rename(to_vary = !!to_vary) |>
+    ggplot() +
+    geom_col(aes(x = as_factor(to_vary),
+                  y = Probability,
+                  fill = Mode),
+             position = "stack") +
+    scale_fill_manual(values = mode_ind_pal) +
+    theme_minimal() +
+    scale_y_continuous(breaks = c(0, 0.5, 1),
+                       labels = c("0", "50%", "100%")) 
+}
+```
+
+## Vary age
+
+```{r, fig.height=9, fig.width=8}
+fn_plot_preds_c(predictions, "age") +
+  scale_x_continuous(name = "Child's age")
+```
+
+## Vary gender
+
+```{r, fig.height=9, fig.width=8}
+fn_plot_preds_b(predictions, "female") +
+  scale_x_discrete(name = "Child's gender",
+                   labels = c("Boys", "Girls"))
+```
+
+## Vary presence of younger sibling
+
+```{r, fig.height=9, fig.width=8}
+fn_plot_preds_b(predictions, "has_lil_sib") +
+  scale_x_discrete(name = "Presence of younger sibling (or twin)",
+                   labels = c("False", "True"))
+```
+
+
+## Vary presence of older sibling
+
+```{r, fig.height=9, fig.width=8}
+fn_plot_preds_b(predictions, "has_big_sib") +
+  scale_x_discrete(name = "Presence of older sibling",
+                   labels = c("False", "True"))
+```
+
+## Vary income
+
+```{r, fig.height=9, fig.width=8}
+fn_plot_preds_c(predictions, "income_k") +
+  scale_x_continuous(name = "Household income (US$)",
+                     breaks = c(0, 125, 250),
+                     labels = c("0", "$125 000", "$250,000")) 
+  
+```
+
+## Vary non-working dad
+
+```{r, fig.height=9, fig.width=8}
+fn_plot_preds_b(predictions, "non_work_dad") +
+  scale_x_discrete(name = "Non-working dad in household",
+                   labels = c("False", "True"))
+```
+
+## Vary non-working mom
+
+```{r, fig.height=9, fig.width=8}
+fn_plot_preds_b(predictions, "non_work_mom") +
+  scale_x_discrete(name = "Non-working mom in household",
+                   labels = c("False", "True"))
+```
+
+## Vary vehicle availability
+
+```{r, fig.height=9, fig.width=8, warning=FALSE}
+fn_plot_preds_c(predictions, "veh_per_driver") +
+  scale_x_continuous(name = "Number of household vehicles per driver",
+                     limits = c(0, 3)) 
+  
+```
+
+### Vary distance
+
+```{r, fig.height=9, fig.width=8}
+fn_plot_preds_c(predictions, "distance") +
+  scale_x_continuous(name = "Trip distance (km)",
+                     breaks = c(0, 1, 2)) 
+  
+```
+
+### Vary density
+
+```{r, fig.height=9, fig.width=8}
+fn_plot_preds_c(predictions, "density") +
+  scale_x_continuous(name = "Population density (people per square km)",
+                     breaks = c(0, 6000, 12000),
+                     labels = c("0", "6 000", "12 000")) 
+  
+```
+

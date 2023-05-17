@@ -1,5 +1,5 @@
 """
-Try estimating a choice of indedpendence model
+Try estimating a choice of independence model
 """
 
 import pandas as pd
@@ -23,7 +23,6 @@ database_sim= db.Database('test', df_sim)
 # Define variables for biogeme
 ind_3_alt = Variable('ind_3_alt')
 veh_per_driver = Variable('veh_per_driver')
-n_adults = Variable('n_adults')
 non_work_mom = Variable('non_work_mom')
 non_work_dad = Variable('non_work_dad')
 age = Variable('age')
@@ -47,7 +46,6 @@ asc_kid = Beta('asc_kid', 0, None, None, 0)
 # adult betas (not estimated for reference case)
 b_log_income_k_adult = Beta('b_log_income_k_adult', 0, None, None, 1)
 b_veh_per_driver_adult = Beta('b_veh_per_driver_adult', 0, None, None, 1)
-b_n_adults_adult = Beta('b_n_adults_adult', 0, None, None, 1)
 b_non_work_mom_adult = Beta('b_non_work_mom_adult', 0, None, None, 1)
 b_non_work_dad_adult = Beta('b_non_work_dad_adult', 0, None, None, 1)
 
@@ -62,7 +60,6 @@ b_log_distance_adult = Beta('b_log_distance_adult', 0, None, None, 1)
 # alone betas
 b_log_income_k_alone = Beta('b_log_income_k_alone', 0, None, None, 0)
 b_veh_per_driver_alone = Beta('b_veh_per_driver_alone', 0, None, None, 0)
-b_n_adults_alone = Beta('b_n_adults_alone', 0, None, None, 0)
 b_non_work_mom_alone = Beta('b_non_work_mom_alone', 0, None, None, 0)
 b_non_work_dad_alone = Beta('b_non_work_dad_alone', 0, None, None, 0)
 
@@ -77,7 +74,6 @@ b_log_distance_alone = Beta('b_log_distance_alone', 0, None, None, 0)
 # betas for with kid
 b_log_income_k_kid = Beta('b_log_income_k_kid', 0, None, None, 0)
 b_veh_per_driver_kid = Beta('b_veh_per_driver_kid', 0, None, None, 0)
-b_n_adults_kid = Beta('b_n_adults_kid', 0, None, None, 0)
 b_non_work_mom_kid = Beta('b_non_work_mom_kid', 0, None, None, 0)
 b_non_work_dad_kid = Beta('b_non_work_dad_kid', 0, None, None, 0)
 
@@ -94,7 +90,6 @@ V_adult = (
     asc_adult +
     b_log_income_k_adult * log_income_k +
     b_veh_per_driver_adult * veh_per_driver +
-    b_n_adults_adult * n_adults +
     b_non_work_mom_adult * non_work_mom +
     b_non_work_dad_adult * non_work_dad +
     b_age_adult * age +
@@ -109,7 +104,6 @@ V_alone = (
     asc_alone +
     b_log_income_k_alone * log_income_k +
     b_veh_per_driver_alone * veh_per_driver +
-    b_n_adults_alone * n_adults +
     b_non_work_mom_alone * non_work_mom +
     b_non_work_dad_alone * non_work_dad +
     b_age_alone * age +
@@ -124,7 +118,6 @@ V_kid = (
     asc_kid +
     b_log_income_k_kid * log_income_k +
     b_veh_per_driver_kid * veh_per_driver +
-    b_n_adults_kid * n_adults +
     b_non_work_mom_kid * non_work_mom +
     b_non_work_dad_kid * non_work_dad +
     b_age_kid * age +

@@ -23,7 +23,6 @@ database_sim= db.Database('test', df_sim)
 # Define variables for biogeme
 mode = Variable('mode')
 veh_per_driver = Variable('veh_per_driver')
-n_adults = Variable('n_adults')
 non_work_mom = Variable('non_work_mom')
 non_work_dad = Variable('non_work_dad')
 age = Variable('age')
@@ -44,7 +43,6 @@ asc_bike = Beta('asc_bike', 0, None, None, 0)
 
 b_log_income_k_car = Beta('b_log_income_k_car', 0, None, None, 1)
 b_veh_per_driver_car = Beta('b_veh_per_driver_car', 0, None, None, 1)
-b_n_adults_car = Beta('b_n_adults_car', 0, None, None, 1)
 b_non_work_mom_car = Beta('b_non_work_mom_car', 0, None, None, 1)
 b_non_work_dad_car = Beta('b_non_work_dad_car', 0, None, None, 1)
 
@@ -58,7 +56,6 @@ b_log_distance_car = Beta('b_log_distance_car', 0, None, None, 1)
 
 b_log_income_k_walk = Beta('b_log_income_k_walk', 0, None, None, 0)
 b_veh_per_driver_walk = Beta('b_veh_per_driver_walk', 0, None, None, 0)
-b_n_adults_walk = Beta('b_n_adults_walk', 0, None, None, 0)
 b_non_work_mom_walk = Beta('b_non_work_mom_walk', 0, None, None, 0)
 b_non_work_dad_walk = Beta('b_non_work_dad_walk', 0, None, None, 0)
 
@@ -72,7 +69,6 @@ b_log_distance_walk = Beta('b_log_distance_walk', 0, None, None, 0)
 
 b_log_income_k_bike = Beta('b_log_income_k_bike', 0, None, None, 0)
 b_veh_per_driver_bike = Beta('b_veh_per_driver_bike', 0, None, None, 0)
-b_n_adults_bike = Beta('b_n_adults_bike', 0, None, None, 0)
 b_non_work_mom_bike = Beta('b_non_work_mom_bike', 0, None, None, 0)
 b_non_work_dad_bike = Beta('b_non_work_dad_bike', 0, None, None, 0)
 
@@ -89,7 +85,6 @@ V_car = (
     asc_car +
     b_log_income_k_car * log_income_k +
     b_veh_per_driver_car * veh_per_driver +
-    b_n_adults_car * n_adults +
     b_non_work_mom_car * non_work_mom +
     b_non_work_dad_car * non_work_dad +
     b_age_car * age +
@@ -104,7 +99,6 @@ V_walk = (
     asc_walk +
     b_log_income_k_walk * log_income_k +
     b_veh_per_driver_walk * veh_per_driver +
-    b_n_adults_walk * n_adults +
     b_non_work_mom_walk * non_work_mom +
     b_non_work_dad_walk * non_work_dad +
     b_age_walk * age +
@@ -119,7 +113,6 @@ V_bike = (
     asc_bike +
     b_log_income_k_bike * log_income_k +
     b_veh_per_driver_bike * veh_per_driver +
-    b_n_adults_bike * n_adults +
     b_non_work_mom_bike * non_work_mom +
     b_non_work_dad_bike * non_work_dad +
     b_age_bike * age +

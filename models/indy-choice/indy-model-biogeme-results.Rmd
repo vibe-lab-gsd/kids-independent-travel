@@ -53,6 +53,14 @@ predictions <- here("models",
 ## Visualizations
 
 ```{r}
+# all 70% lightness
+indy_pal <- c("#a29cc9",
+              "#dcf174",
+              "#96d491",
+              "#86bddf",
+              "#fa796b",
+              "#fdd568")
+
 fn_plot_preds_c <- function(my_preds,
                           to_vary) {
   my_preds |>
@@ -80,7 +88,7 @@ fn_plot_preds_c <- function(my_preds,
     geom_area(aes(x = to_vary,
                   y = Probability,
                   fill = Mode)) +
-    scale_fill_brewer(type = "qual") +
+    scale_fill_manual(values = indy_pal) +
     theme_minimal() +
     scale_y_continuous(breaks = c(0, 0.5, 1),
                        labels = c("0", "50%", "100%")) 
@@ -114,7 +122,7 @@ fn_plot_preds_b <- function(my_preds,
                   y = Probability,
                   fill = Mode),
              position = "stack") +
-    scale_fill_brewer(type = "qual") +
+    scale_fill_manual(values = indy_pal) +
     theme_minimal() +
     scale_y_continuous(breaks = c(0, 0.5, 1),
                        labels = c("0", "50%", "100%")) 
@@ -160,15 +168,6 @@ fn_plot_preds_c(predictions, "income_k") +
   scale_x_continuous(name = "Household income (US$)",
                      breaks = c(0, 125, 250),
                      labels = c("0", "$125 000", "$250,000")) 
-  
-```
-
-## Vary number of adults
-
-```{r, warning=FALSE}
-fn_plot_preds_c(predictions, "n_adults") +
-  scale_x_continuous(name = "Number of household adults",
-                     limits = c(1, 4)) 
   
 ```
 
