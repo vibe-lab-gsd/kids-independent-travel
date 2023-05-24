@@ -21,6 +21,10 @@ as separate trips.
 
 ## Variables
 
+### Identifiers
+* HOUSEID: A unique identifier for the household
+* person_hh: A unique identifier for the person
+
 ### Outcome variables
 * 'mode': One of
     * 7 = car
@@ -160,6 +164,16 @@ Table: Modes excluded from analysis
 |Transit                           |              54|
 |Unspecified                       |              66|
 ## Summary statistics
+
+### Sample size
+
+Table: Number of trips in sample by mode and (full) independence
+
+|Unit       | Sample|
+|:----------|------:|
+|Households |   4182|
+|Children   |   5281|
+|Trips      |  10684|
 
 ### Outcomes
 

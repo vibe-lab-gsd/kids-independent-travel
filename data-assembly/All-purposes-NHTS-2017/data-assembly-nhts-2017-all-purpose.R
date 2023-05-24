@@ -59,6 +59,10 @@ c("# Data Assembly notes",
 
   "## Variables",
   "",
+  "### Identifiers",
+  "* HOUSEID: A unique identifier for the household",
+  "* person_hh: A unique identifier for the person",
+  "",
   "### Outcome variables",
   "* 'mode': One of", 
   "    * 7 = car",
@@ -246,7 +250,8 @@ relationships <- people |>
   mutate(person_hh = paste(PERSONID, HOUSEID, sep = "-")) |>
   mutate(school_dist = 1.609 * DISTTOSC17) |>
   ungroup() |>
-  select(person_hh, 
+  select(HOUSEID,
+         person_hh, 
          has_lil_sib, 
          has_big_sib,
          n_adults,
@@ -378,7 +383,9 @@ kid_short_trips <- trips |>
          alone_avail = 1,
          with_non_hh_avail = 1,
          with_adult_avail = 1) |>
-  select(mode,
+  select(HOUSEID,
+         person_hh,
+         mode,
          TRPTRANS,
          independence,
          ind_3,
@@ -444,6 +451,21 @@ kid_short_trips <- kid_short_trips |>
 
 c("## Summary statistics", 
   "",
+  "### Sample size",
+  "") |>
+  write_lines(readme_path, append = TRUE) 
+
+tibble(Unit = c("Households",
+                "Children",
+                "Trips"),
+       Sample = c(length(unique(kid_short_trips$HOUSEID)),
+                  length(unique(kid_short_trips$person_hh)),
+                  nrow(kid_short_trips))) |>
+  kable(format = 'pipe',
+        caption = "Number of trips in sample by mode and (full) independence") |>
+  write_lines(readme_path, append = TRUE) 
+
+c("",
   "### Outcomes") |>
   write_lines(readme_path, append = TRUE) 
 
@@ -602,7 +624,9 @@ c("","### Predictors", "") |>
   write_lines(readme_path, append = TRUE) 
 
 kid_short_trips |>
-  select(-mode,
+  select(-HOUSEID,
+         -person_hh,
+         -mode,
          -independence,
          -ind_3,
          -ind_3_alt,
