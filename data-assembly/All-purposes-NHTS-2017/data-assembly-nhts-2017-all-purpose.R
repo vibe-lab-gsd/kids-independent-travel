@@ -450,8 +450,6 @@ kid_short_trips <- kid_short_trips |>
   select(-TRPTRANS)
 
 c("## Summary statistics", 
-  "",
-  "### Sample size",
   "") |>
   write_lines(readme_path, append = TRUE) 
 
@@ -462,7 +460,7 @@ tibble(Unit = c("Households",
                   length(unique(kid_short_trips$person_hh)),
                   nrow(kid_short_trips))) |>
   kable(format = 'pipe',
-        caption = "Number of trips in sample by mode and (full) independence") |>
+        caption = "Sample size") |>
   write_lines(readme_path, append = TRUE) 
 
 c("",

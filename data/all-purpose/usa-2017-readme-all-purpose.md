@@ -165,9 +165,7 @@ Table: Modes excluded from analysis
 |Unspecified                       |              66|
 ## Summary statistics
 
-### Sample size
-
-Table: Number of trips in sample by mode and (full) independence
+Table: Sample size
 
 |Unit       | Sample|
 |:----------|------:|
