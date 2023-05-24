@@ -1,0 +1,217 @@
+---
+title: "Visualize Biogeme Results"
+author: "Carole Voulgaris"
+date: "2023-05-05"
+output: html_document
+---
+
+https://urban-stack.github.io/kids-independent-travel/models/indy-choice/indy-model-biogeme-results.html
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load libraries
+
+```{r, message=FALSE}
+library(tidyverse)
+library(here)
+library(knitr)
+```
+
+## Load Biogeme parameters
+
+```{r, message=FALSE}
+bio_results <- here("models",
+                    "indy-choice",
+                    "biogeme_parameters_indy_x.csv") |>
+  read_csv(show_col_types = FALSE) |>
+  rename(Parameter = `...1`) |>
+  mutate(sig = case_when(`Rob. p-value` < 0.001 ~ "***",
+                         `Rob. p-value` < 0.01 ~ "**",
+                         `Rob. p-value` < 0.05 ~ "*",
+                         TRUE ~ ""))
+  
+
+kable(bio_results, digits = 3)
+```
+
+## Load predictions
+
+```{r, message=FALSE}
+sim_data <- here("data",
+                 "sim-data.csv") |>
+  read_csv(show_col_types = FALSE)
+
+predictions <- here("models",
+                    "indy-choice",
+                    "biogeme_preds_indy.csv") |>
+  read_csv(show_col_types = FALSE) |>
+  cbind(sim_data)
+```
+
+## Visualizations
+
+```{r}
+# all 70% lightness
+indy_pal <- c("#a29cc9",
+              "#dcf174",
+              "#96d491",
+              "#86bddf",
+              "#fa796b",
+              "#fdd568")
+
+fn_plot_preds_c <- function(my_preds,
+                          to_vary) {
+  my_preds |>
+    filter(vary == to_vary) |>
+    select(c(matches(to_vary), starts_with("Prob. "))) |>
+    pivot_longer(cols = starts_with("Prob. "),
+                 names_to = "Mode",
+                 values_to = "Probability",
+                 names_prefix = "Prob. ") |>
+    mutate(Mode = factor(Mode, 
+                         levels = c("alone", 
+                                    "mom",
+                                    "mom and dad",
+                                    "dad",
+                                    "non-hh",
+                                    "sibling"),
+                         labels = c("Alone", 
+                                    "With mom",
+                                    "With both mom and dad",
+                                    "With dad",
+                                    "With a non-household member",
+                                    "With a sibling"))) |>
+    rename(to_vary = !!to_vary) |>
+    ggplot() +
+    geom_area(aes(x = to_vary,
+                  y = Probability,
+                  fill = Mode)) +
+    scale_fill_manual(values = indy_pal) +
+    theme_minimal() +
+    scale_y_continuous(breaks = c(0, 0.5, 1),
+                       labels = c("0", "50%", "100%")) 
+}
+
+fn_plot_preds_b <- function(my_preds,
+                          to_vary) {
+  my_preds |>
+    filter(vary == to_vary) |>
+    select(c(matches(to_vary), starts_with("Prob. "))) |>
+    pivot_longer(cols = starts_with("Prob. "),
+                 names_to = "Mode",
+                 values_to = "Probability",
+                 names_prefix = "Prob. ") |>
+    mutate(Mode = factor(Mode, 
+                         levels = c("alone", 
+                                    "mom",
+                                    "mom and dad",
+                                    "dad",
+                                    "non-hh",
+                                    "sibling"),
+                         labels = c("Alone", 
+                                    "With mom",
+                                    "With both mom and dad",
+                                    "With dad",
+                                    "With a non-household member",
+                                    "With a sibling"))) |>
+    rename(to_vary = !!to_vary) |>
+    ggplot() +
+    geom_col(aes(x = as_factor(to_vary),
+                  y = Probability,
+                  fill = Mode),
+             position = "stack") +
+    scale_fill_manual(values = indy_pal) +
+    theme_minimal() +
+    scale_y_continuous(breaks = c(0, 0.5, 1),
+                       labels = c("0", "50%", "100%")) 
+}
+```
+
+## Vary age
+
+```{r}
+fn_plot_preds_c(predictions, "age") +
+  scale_x_continuous(name = "Child's age")
+```
+
+## Vary gender
+
+```{r}
+fn_plot_preds_b(predictions, "female") +
+  scale_x_discrete(name = "Child's gender",
+                   labels = c("Boys", "Girls"))
+```
+
+## Vary presence of younger sibling
+
+```{r}
+fn_plot_preds_b(predictions, "has_lil_sib") +
+  scale_x_discrete(name = "Presence of younger sibling (or twin)",
+                   labels = c("False", "True"))
+```
+
+
+## Vary presence of older sibling
+
+```{r}
+fn_plot_preds_b(predictions, "has_big_sib") +
+  scale_x_discrete(name = "Presence of older sibling",
+                   labels = c("False", "True"))
+```
+
+## Vary income
+
+```{r}
+fn_plot_preds_c(predictions, "income_k") +
+  scale_x_continuous(name = "Household income (US$)",
+                     breaks = c(0, 125, 250),
+                     labels = c("0", "$125 000", "$250,000")) 
+  
+```
+
+## Vary non-working dad
+
+```{r}
+fn_plot_preds_b(predictions, "non_work_dad") +
+  scale_x_discrete(name = "Non-working dad in household",
+                   labels = c("False", "True"))
+```
+
+## Vary non-working mom
+
+```{r}
+fn_plot_preds_b(predictions, "non_work_mom") +
+  scale_x_discrete(name = "Non-working mom in household",
+                   labels = c("False", "True"))
+```
+
+## Vary vehicle availability
+
+```{r, warning=FALSE}
+fn_plot_preds_c(predictions, "veh_per_driver") +
+  scale_x_continuous(name = "Number of household vehicles per driver",
+                     limits = c(0, 3)) 
+  
+```
+
+### Vary distance
+
+```{r}
+fn_plot_preds_c(predictions, "distance") +
+  scale_x_continuous(name = "Trip distance (km)",
+                     breaks = c(0, 1, 2)) 
+  
+```
+
+### Vary density
+
+```{r}
+fn_plot_preds_c(predictions, "density") +
+  scale_x_continuous(name = "Population density (people per square km)",
+                     breaks = c(0, 6000, 12000),
+                     labels = c("0", "6 000", "12 000")) 
+  
+```
+

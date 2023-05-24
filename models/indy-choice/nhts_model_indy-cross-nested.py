@@ -1,5 +1,6 @@
 """
 Model predicting independence
+Example: https://github.com/michelbierlaire/biogeme/blob/master/examples/swissmetro/b11cnl.py
 """
 
 import pandas as pd
@@ -10,6 +11,9 @@ import biogeme.database as db
 from biogeme.expressions import Variable
 
 from pyprojroot.here import here
+from datetime import datetime
+
+print(datetime.now())
 
 # Read in data for both model estimation and simulation
 df_est = pd.read_csv(here('data/usa-2017.dat'), sep='\t')
@@ -132,6 +136,14 @@ b_has_big_sib_sib = Beta('b_has_big_sib_sib', 0, None, None, 0)
 b_log_density_sib = Beta('b_log_density_sib', 0, None, None, 0)
 b_log_distance_sib = Beta('b_log_distance_sib', 0, None, None, 0)
 
+# Nesting coefficients
+MU_ALONE = Beta('MU_ALONE', 1, 1, None, 0)
+MU_ADULT = Beta('MU_ADULT', 1, 1, None, 0)
+MU_CHILD = Beta('MU_CHILD', 1, 1, None, 0)
+
+ALPHA_ADULT = Beta('ALPHA_ADULT', 0.5, 0, 1, 0)
+ALPHA_CHILD = 1 - ALPHA_ADULT
+
 # Define utility functions
 V_mom = (
     asc_mom +
@@ -233,18 +245,47 @@ av = {10: alone_avail,
       24: with_non_hh_avail,
       30: with_sib_avail}
 
+# Definition of nests
+# Nest membership parameters
+alpha_alone = {10: 1.0,
+               21: 0.0,
+               22: 0.0,
+               23: 0.0,
+               24: 0.0,
+               30: 0.0}
+
+alpha_adult = {10: 0.0,
+               21: 1.0,
+               22: 1.0,
+               23: 1.0,
+               24: ALPHA_ADULT,
+               30: 0.0}
+
+alpha_child = {10: 0.0,
+               21: 0.0,
+               22: 0.0,
+               23: 0.0,
+               24: ALPHA_CHILD,
+               30: 1.0}
+
+nest_alone = MU_ALONE, alpha_alone
+nest_adult = MU_ADULT, alpha_adult
+nest_child = MU_CHILD, alpha_child
+nests = nest_alone, nest_adult, nest_child
+
 # Define the model
-indy_model = models.loglogit(V, av, independence)
+logprob = models.logcnl_avail(V, av, nests, independence)
 
 # Create Biogeme object for estimation
-indy_biogeme_est = bio.BIOGEME(database_est, indy_model)
-indy_biogeme_est.modelName = 'indy_model_est'
+indy_x_biogeme_est = bio.BIOGEME(database_est, logprob)
+indy_x_biogeme_est.modelName = 'indy_x_model_est'
 
 # Calculate null log likelihood for reporting
-indy_biogeme_est.calculateNullLoglikelihood(av)
+indy_x_biogeme_est.calculateNullLoglikelihood(av)
 
 # Estimate parameters
-results = indy_biogeme_est.estimate()
+# Estimate the parameters
+results = indy_x_biogeme_est.estimate()
 print(results.shortSummary())
 
 # Get results in a pandas table
@@ -252,8 +293,10 @@ pandas_results = results.getEstimatedParameters()
 print(pandas_results)
 
 # Save parameters to csv
-pandas_results.to_csv('biogeme_parameters_indy.csv')
+pandas_results.to_csv('biogeme_parameters_indy_x.csv')
 
+print(datetime.now())
+"""
 # Generate predictions
 prob_alone = models.logit(V, av, 10)
 prob_mom_dad = models.logit(V, av, 21)
@@ -282,3 +325,4 @@ mom_prob_summary = simulatedValues[["Prob. mom"]].describe()
 
 ## 99% probability of mom in all cases?
 print(mom_prob_summary)
+"""
