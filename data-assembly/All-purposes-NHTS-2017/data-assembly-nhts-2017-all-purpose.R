@@ -16,17 +16,17 @@ library(naniar)
 # citation info is in the gitignore file, so you won't have it immediately
 # upon cloning the repo.
 #
-# url <- "https://nhts.ornl.gov/assets/2016/download/csv.zip"
+url <- "https://nhts.ornl.gov/assets/2016/download/csv.zip"
 # 
-# nhts_zipped <- here("nhts",
-#                     "data2017",
-#                     "nhts2017.zip")
-# 
-# nhts_dir <- here("nhts",
-#                  "data2017")
-# 
-# download(url, nhts_zipped, mode="wb")
-# unzip(nhts_zipped, exdir = nhts_dir)
+nhts_zipped <- here("nhts",
+                    "data2017",
+                    "nhts2017.zip")
+
+nhts_dir <- here("nhts",
+                 "data2017")
+
+download(url, nhts_zipped, mode="wb")
+unzip(nhts_zipped, exdir = nhts_dir)
 ##############################################################
 
 
@@ -660,6 +660,5 @@ kid_short_trips |>
   write_lines(readme_path, append = TRUE) 
 
 kid_short_trips |>
-  write_tsv(file = here("data",
-                        "all-purpose",
-                        "usa-2017-all.dat"))
+  write_rds(file = here("data", "all-purpose", "usa-2017-all.rds")) 
+
