@@ -1,0 +1,41 @@
+---
+title: "Initial Apollo Models"
+author: "Macfarlane"
+format: html
+editor: visual
+---
+
+## Models
+
+These are simple test models where the independence alternatives are `alone`, `parent` and `others` and the modes are `walk`, `bike`, and `drive`. Additionally a class membership model only uses the `female` dummy and the alternative utilities only have `n_adults`.
+
+## Latent class MNL
+
+```{r setup, include = FALSE}
+library(apollo)
+library(tidyverse)
+library(here)
+```
+
+This model simply has a class membership model leading into one of two potential MNL models. There are actually a number of differences between the two sets of estimated coefficients. Need to work on a
+
+```{r lcmnl}
+lcmnlind3 <- read_rds(here("models/latent_class/LCMNLind3_model.rds"))
+apollo_modelOutput(lcmnlind3)
+```
+
+## Nested Logit
+
+This
+
+```{r nl}
+nlind3 <- read_rds(here("models/latent_class/NLind3_model.rds"))
+apollo_modelOutput(nlind3)
+```
+
+## Latent class NL
+
+```{r lcnl}
+lcnlind3 <- read_rds(here("models/latent_class/LCNLind3_model.rds"))
+apollo_modelOutput(lcnlind3)
+```

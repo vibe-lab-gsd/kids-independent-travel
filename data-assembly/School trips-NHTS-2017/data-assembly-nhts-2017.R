@@ -17,7 +17,7 @@ library(naniar)
 # upon cloning the repo.
 #
 # url <- "https://nhts.ornl.gov/assets/2016/download/csv.zip"
-# 
+# |> |> |> 
 # nhts_zipped <- here("nhts",
 #                     "data2017",
 #                     "nhts2017.zip")
@@ -674,5 +674,5 @@ school_trips |>
   write_lines(readme_path, append = TRUE) 
 
 school_trips |>
-  write_tsv(file = here("data",
-                        "usa-2017.dat"))
+  write_rds(file = here("data",
+                        "usa-2017.rds"))

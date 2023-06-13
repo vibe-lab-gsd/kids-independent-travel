@@ -1,0 +1,2087 @@
+Model run by gregmacfarlane using Apollo 0.2.9 on R 4.2.0 for Darwin.
+www.ApolloChoiceModelling.com
+
+Model name                                  : LCNLind3
+Model description                           : Latent class NL on kid trip data - simplified independence
+Model run at                                : 2023-06-12 19:27:26
+Estimation method                           : bfgs
+Model diagnosis                             : successful convergence
+Optimisation diagnosis                      : Saddle point found
+     hessian properties                     : Some eigenvalues are positive and others negative
+     maximum eigenvalue                     : 5752352.204631
+Number of individuals                       : 10642
+Number of rows in database                  : 10642
+Number of modelled outcomes                 : 10642
+
+Number of cores used                        :  1 
+Model without mixing
+
+LL(start)                                   : -22129.42
+LL (whole model) at equal shares, LL(0)     : -22129.42
+LL (whole model) at observed shares, LL(C)  : -13964.77
+LL(final, whole model)                      : -12316.8
+Rho-squared vs equal shares                  :  0.4434 
+Adj.Rho-squared vs equal shares              :  0.4418 
+Rho-squared vs observed shares               :  0.118 
+Adj.Rho-squared vs observed shares           :  0.1164 
+AIC                                         :  24705.6 
+BIC                                         :  24967.41 
+
+LL(0,Class_1)                    : -22129.42
+LL(final,Class_1)                : -Inf Likelihood equal to zero for at least
+                                        one individual in this component.
+LL(0,Class_2)                    : -22129.42
+LL(final,Class_2)                : -27543.85
+
+Estimated parameters                        : 36
+Time taken (hh:mm:ss)                       :  00:02:57.19 
+     pre-estimation                         :  00:00:1.12 
+     estimation                             :  00:02:15.63 
+          initial estimation                :  00:01:53.08 
+          estimation after rescaling        :  00:00:22.55 
+     post-estimation                        :  00:00:40.44 
+Iterations                                  :  200  
+     initial estimation                     :  169 
+     estimation after rescaling             :  31 
+
+Unconstrained optimisation.
+
+Estimates:
+                     Estimate        s.e.   t.rat.(0)    Rob.s.e.
+asc_dp_a              1.47495          NA          NA          NA
+asc_do_a             -0.65265          NA          NA          NA
+asc_wa_a              0.00000          NA          NA          NA
+asc_wp_a              1.45336          NA          NA          NA
+asc_wo_a              1.39127          NA          NA          NA
+asc_ba_a             -2.68037          NA          NA          NA
+asc_bp_a             -3.89823          NA          NA          NA
+asc_bo_a              1.67067          NA          NA          NA
+asc_dp_b              2.79283          NA          NA          NA
+asc_do_b             -0.23207          NA          NA          NA
+asc_wa_b              0.00000          NA          NA          NA
+asc_wp_b              3.22206          NA          NA          NA
+asc_wo_b            -23.76900          NA          NA          NA
+asc_ba_b              2.62452          NA          NA          NA
+asc_bp_b              0.41625          NA          NA          NA
+asc_bo_b             -4.33791          NA          NA          NA
+delta_a               0.00000          NA          NA          NA
+delta_b              -0.93928          NA          NA          NA
+gamma_female_a        0.00000          NA          NA          NA
+gamma_female_b       -0.56229          NA          NA          NA
+beta_nadults_dp_a    -0.61747          NA          NA          NA
+beta_nadults_do_a     0.29654          NA          NA          NA
+beta_nadults_wa_a     0.00000          NA          NA          NA
+beta_nadults_wp_a     0.29682          NA          NA          NA
+beta_nadults_wo_a     0.23784          NA          NA          NA
+beta_nadults_ba_a    -4.18399          NA          NA          NA
+beta_nadults_bp_a     0.97288          NA          NA          NA
+beta_nadults_bo_a    -0.77132          NA          NA          NA
+beta_nadults_dp_b    -1.34778          NA          NA          NA
+beta_nadults_do_b    -1.66095          NA          NA          NA
+beta_nadults_wa_b     0.00000          NA          NA          NA
+beta_nadults_wp_b    -5.33618          NA          NA          NA
+beta_nadults_wo_b     2.79017          NA          NA          NA
+beta_nadults_ba_b    -1.87436          NA          NA          NA
+beta_nadults_bp_b    -1.22085          NA          NA          NA
+beta_nadults_bo_b    -0.38447          NA          NA          NA
+lambda_alone         -1.61422          NA          NA          NA
+lambda_others      1.6248e-04          NA          NA          NA
+lambda_parent         0.01658          NA          NA          NA
+lambda_walk           6.42669          NA          NA          NA
+lambda_drive          1.57873          NA          NA          NA
+lambda_bike           3.52068          NA          NA          NA
+                  Rob.t.rat.(0)
+asc_dp_a                     NA
+asc_do_a                     NA
+asc_wa_a                     NA
+asc_wp_a                     NA
+asc_wo_a                     NA
+asc_ba_a                     NA
+asc_bp_a                     NA
+asc_bo_a                     NA
+asc_dp_b                     NA
+asc_do_b                     NA
+asc_wa_b                     NA
+asc_wp_b                     NA
+asc_wo_b                     NA
+asc_ba_b                     NA
+asc_bp_b                     NA
+asc_bo_b                     NA
+delta_a                      NA
+delta_b                      NA
+gamma_female_a               NA
+gamma_female_b               NA
+beta_nadults_dp_a            NA
+beta_nadults_do_a            NA
+beta_nadults_wa_a            NA
+beta_nadults_wp_a            NA
+beta_nadults_wo_a            NA
+beta_nadults_ba_a            NA
+beta_nadults_bp_a            NA
+beta_nadults_bo_a            NA
+beta_nadults_dp_b            NA
+beta_nadults_do_b            NA
+beta_nadults_wa_b            NA
+beta_nadults_wp_b            NA
+beta_nadults_wo_b            NA
+beta_nadults_ba_b            NA
+beta_nadults_bp_b            NA
+beta_nadults_bo_b            NA
+lambda_alone                 NA
+lambda_others                NA
+lambda_parent                NA
+lambda_walk                  NA
+lambda_drive                 NA
+lambda_bike                  NA
+
+Nesting structure for model component Class_1:
+Nest: root (1)
+|-Nest: Alone (-1.6142)
+|  |-Alternative: walk_alone
+|  '-Alternative: bike_alone
+|-Nest: Parent (0.0166)
+|  |-Alternative: walk_parent
+|  |-Alternative: bike_parent
+|  '-Alternative: drive_parent
+'-Nest: Others (2e-04)
+   |-Alternative: walk_others
+   |-Alternative: bike_others
+   '-Alternative: drive_others
+
+WARNING: The nesting parameter for nest "Alone" should be between 0 and
+  1 (the nesting parameter for nest "root"), yet its value is
+  -1.6142. 
+
+Nesting structure for model component Class_2:
+Nest: root (1)
+|-Nest: Walk (6.4267)
+|  |-Alternative: walk_alone
+|  |-Alternative: walk_others
+|  '-Alternative: walk_parent
+|-Nest: Drive (1.5787)
+|  |-Alternative: drive_others
+|  '-Alternative: drive_parent
+'-Nest: Bike (3.5207)
+   |-Alternative: bike_alone
+   |-Alternative: bike_others
+   '-Alternative: bike_parent
+
+WARNING: The nesting parameter for nest "Walk" should be between 0 and 1
+  (the nesting parameter for nest "root"), yet its value is
+  6.4267. 
+
+WARNING: The nesting parameter for nest "Bike" should be between 0 and 1
+  (the nesting parameter for nest "root"), yet its value is
+  3.5207. 
+
+WARNING: The nesting parameter for nest "Drive" should be between 0 and
+  1 (the nesting parameter for nest "root"), yet its value is
+  1.5787. 
+
+
+Summary of class allocation for model component :
+         Mean prob.
+Class_1      0.7672
+Class_2      0.2328
+
+
+Overview of choices for NL model component Class_1:
+                                 walk_alone walk_others walk_parent
+Times available                    10642.00    10642.00    10642.00
+Times chosen                        1197.00      604.00     1951.00
+Percentage chosen overall             11.25        5.68       18.33
+Percentage chosen when available      11.25        5.68       18.33
+                                 bike_alone bike_others bike_parent
+Times available                    10642.00    10642.00    10642.00
+Times chosen                         396.00      114.00      243.00
+Percentage chosen overall              3.72        1.07        2.28
+Percentage chosen when available       3.72        1.07        2.28
+                                 drive_others drive_parent
+Times available                      10642.00     10642.00
+Times chosen                            30.00      6107.00
+Percentage chosen overall                0.28        57.39
+Percentage chosen when available         0.28        57.39
+
+
+Overview of choices for NL model component Class_2:
+                                 walk_alone walk_others walk_parent
+Times available                    10642.00    10642.00    10642.00
+Times chosen                        1197.00      604.00     1951.00
+Percentage chosen overall             11.25        5.68       18.33
+Percentage chosen when available      11.25        5.68       18.33
+                                 bike_alone bike_others bike_parent
+Times available                    10642.00    10642.00    10642.00
+Times chosen                         396.00      114.00      243.00
+Percentage chosen overall              3.72        1.07        2.28
+Percentage chosen when available       3.72        1.07        2.28
+                                 drive_others drive_parent
+Times available                      10642.00     10642.00
+Times chosen                            30.00      6107.00
+Percentage chosen overall                0.28        57.39
+Percentage chosen when available         0.28        57.39
+
+
+Classical covariance matrix:
+                           asc_dp_a          asc_do_a          asc_wp_a
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+                           asc_wo_a          asc_ba_a          asc_bp_a
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+                           asc_bo_a          asc_dp_b          asc_do_b
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+                           asc_wp_b          asc_wo_b          asc_ba_b
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+                           asc_bp_b          asc_bo_b           delta_b
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+                     gamma_female_b beta_nadults_dp_a beta_nadults_do_a
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+                  beta_nadults_wp_a beta_nadults_wo_a beta_nadults_ba_a
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+                  beta_nadults_bp_a beta_nadults_bo_a beta_nadults_dp_b
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+                  beta_nadults_do_b beta_nadults_wp_b beta_nadults_wo_b
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+                  beta_nadults_ba_b beta_nadults_bp_b beta_nadults_bo_b
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+                       lambda_alone     lambda_others     lambda_parent
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+                        lambda_walk      lambda_drive       lambda_bike
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+ [ reached getOption("max.print") -- omitted 9 rows ]
+
+Robust covariance matrix:
+                           asc_dp_a          asc_do_a          asc_wp_a
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+beta_nadults_ba_b                NA                NA                NA
+beta_nadults_bp_b                NA                NA                NA
+beta_nadults_bo_b                NA                NA                NA
+lambda_alone                     NA                NA                NA
+lambda_others                    NA                NA                NA
+lambda_parent                    NA                NA                NA
+lambda_walk                      NA                NA                NA
+lambda_drive                     NA                NA                NA
+lambda_bike                      NA                NA                NA
+                           asc_wo_a          asc_ba_a          asc_bp_a
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+beta_nadults_ba_b                NA                NA                NA
+beta_nadults_bp_b                NA                NA                NA
+beta_nadults_bo_b                NA                NA                NA
+lambda_alone                     NA                NA                NA
+lambda_others                    NA                NA                NA
+lambda_parent                    NA                NA                NA
+lambda_walk                      NA                NA                NA
+lambda_drive                     NA                NA                NA
+lambda_bike                      NA                NA                NA
+                           asc_bo_a          asc_dp_b          asc_do_b
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+beta_nadults_ba_b                NA                NA                NA
+beta_nadults_bp_b                NA                NA                NA
+beta_nadults_bo_b                NA                NA                NA
+lambda_alone                     NA                NA                NA
+lambda_others                    NA                NA                NA
+lambda_parent                    NA                NA                NA
+lambda_walk                      NA                NA                NA
+lambda_drive                     NA                NA                NA
+lambda_bike                      NA                NA                NA
+                           asc_wp_b          asc_wo_b          asc_ba_b
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+beta_nadults_ba_b                NA                NA                NA
+beta_nadults_bp_b                NA                NA                NA
+beta_nadults_bo_b                NA                NA                NA
+lambda_alone                     NA                NA                NA
+lambda_others                    NA                NA                NA
+lambda_parent                    NA                NA                NA
+lambda_walk                      NA                NA                NA
+lambda_drive                     NA                NA                NA
+lambda_bike                      NA                NA                NA
+                           asc_bp_b          asc_bo_b           delta_b
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+beta_nadults_ba_b                NA                NA                NA
+beta_nadults_bp_b                NA                NA                NA
+beta_nadults_bo_b                NA                NA                NA
+lambda_alone                     NA                NA                NA
+lambda_others                    NA                NA                NA
+lambda_parent                    NA                NA                NA
+lambda_walk                      NA                NA                NA
+lambda_drive                     NA                NA                NA
+lambda_bike                      NA                NA                NA
+                     gamma_female_b beta_nadults_dp_a beta_nadults_do_a
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+beta_nadults_ba_b                NA                NA                NA
+beta_nadults_bp_b                NA                NA                NA
+beta_nadults_bo_b                NA                NA                NA
+lambda_alone                     NA                NA                NA
+lambda_others                    NA                NA                NA
+lambda_parent                    NA                NA                NA
+lambda_walk                      NA                NA                NA
+lambda_drive                     NA                NA                NA
+lambda_bike                      NA                NA                NA
+                  beta_nadults_wp_a beta_nadults_wo_a beta_nadults_ba_a
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+beta_nadults_ba_b                NA                NA                NA
+beta_nadults_bp_b                NA                NA                NA
+beta_nadults_bo_b                NA                NA                NA
+lambda_alone                     NA                NA                NA
+lambda_others                    NA                NA                NA
+lambda_parent                    NA                NA                NA
+lambda_walk                      NA                NA                NA
+lambda_drive                     NA                NA                NA
+lambda_bike                      NA                NA                NA
+                  beta_nadults_bp_a beta_nadults_bo_a beta_nadults_dp_b
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+beta_nadults_ba_b                NA                NA                NA
+beta_nadults_bp_b                NA                NA                NA
+beta_nadults_bo_b                NA                NA                NA
+lambda_alone                     NA                NA                NA
+lambda_others                    NA                NA                NA
+lambda_parent                    NA                NA                NA
+lambda_walk                      NA                NA                NA
+lambda_drive                     NA                NA                NA
+lambda_bike                      NA                NA                NA
+                  beta_nadults_do_b beta_nadults_wp_b beta_nadults_wo_b
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+beta_nadults_ba_b                NA                NA                NA
+beta_nadults_bp_b                NA                NA                NA
+beta_nadults_bo_b                NA                NA                NA
+lambda_alone                     NA                NA                NA
+lambda_others                    NA                NA                NA
+lambda_parent                    NA                NA                NA
+lambda_walk                      NA                NA                NA
+lambda_drive                     NA                NA                NA
+lambda_bike                      NA                NA                NA
+                  beta_nadults_ba_b beta_nadults_bp_b beta_nadults_bo_b
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+beta_nadults_ba_b                NA                NA                NA
+beta_nadults_bp_b                NA                NA                NA
+beta_nadults_bo_b                NA                NA                NA
+lambda_alone                     NA                NA                NA
+lambda_others                    NA                NA                NA
+lambda_parent                    NA                NA                NA
+lambda_walk                      NA                NA                NA
+lambda_drive                     NA                NA                NA
+lambda_bike                      NA                NA                NA
+                       lambda_alone     lambda_others     lambda_parent
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+beta_nadults_ba_b                NA                NA                NA
+beta_nadults_bp_b                NA                NA                NA
+beta_nadults_bo_b                NA                NA                NA
+lambda_alone                     NA                NA                NA
+lambda_others                    NA                NA                NA
+lambda_parent                    NA                NA                NA
+lambda_walk                      NA                NA                NA
+lambda_drive                     NA                NA                NA
+lambda_bike                      NA                NA                NA
+                        lambda_walk      lambda_drive       lambda_bike
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+beta_nadults_ba_b                NA                NA                NA
+beta_nadults_bp_b                NA                NA                NA
+beta_nadults_bo_b                NA                NA                NA
+lambda_alone                     NA                NA                NA
+lambda_others                    NA                NA                NA
+lambda_parent                    NA                NA                NA
+lambda_walk                      NA                NA                NA
+lambda_drive                     NA                NA                NA
+lambda_bike                      NA                NA                NA
+
+Classical correlation matrix:
+                           asc_dp_a          asc_do_a          asc_wp_a
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+                           asc_wo_a          asc_ba_a          asc_bp_a
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+                           asc_bo_a          asc_dp_b          asc_do_b
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+                           asc_wp_b          asc_wo_b          asc_ba_b
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+                           asc_bp_b          asc_bo_b           delta_b
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+                     gamma_female_b beta_nadults_dp_a beta_nadults_do_a
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+                  beta_nadults_wp_a beta_nadults_wo_a beta_nadults_ba_a
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+                  beta_nadults_bp_a beta_nadults_bo_a beta_nadults_dp_b
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+                  beta_nadults_do_b beta_nadults_wp_b beta_nadults_wo_b
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+                  beta_nadults_ba_b beta_nadults_bp_b beta_nadults_bo_b
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+                       lambda_alone     lambda_others     lambda_parent
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+                        lambda_walk      lambda_drive       lambda_bike
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+ [ reached getOption("max.print") -- omitted 9 rows ]
+
+Robust correlation matrix:
+                           asc_dp_a          asc_do_a          asc_wp_a
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+beta_nadults_ba_b                NA                NA                NA
+beta_nadults_bp_b                NA                NA                NA
+beta_nadults_bo_b                NA                NA                NA
+lambda_alone                     NA                NA                NA
+lambda_others                    NA                NA                NA
+lambda_parent                    NA                NA                NA
+lambda_walk                      NA                NA                NA
+lambda_drive                     NA                NA                NA
+lambda_bike                      NA                NA                NA
+                           asc_wo_a          asc_ba_a          asc_bp_a
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+beta_nadults_ba_b                NA                NA                NA
+beta_nadults_bp_b                NA                NA                NA
+beta_nadults_bo_b                NA                NA                NA
+lambda_alone                     NA                NA                NA
+lambda_others                    NA                NA                NA
+lambda_parent                    NA                NA                NA
+lambda_walk                      NA                NA                NA
+lambda_drive                     NA                NA                NA
+lambda_bike                      NA                NA                NA
+                           asc_bo_a          asc_dp_b          asc_do_b
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+beta_nadults_ba_b                NA                NA                NA
+beta_nadults_bp_b                NA                NA                NA
+beta_nadults_bo_b                NA                NA                NA
+lambda_alone                     NA                NA                NA
+lambda_others                    NA                NA                NA
+lambda_parent                    NA                NA                NA
+lambda_walk                      NA                NA                NA
+lambda_drive                     NA                NA                NA
+lambda_bike                      NA                NA                NA
+                           asc_wp_b          asc_wo_b          asc_ba_b
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+beta_nadults_ba_b                NA                NA                NA
+beta_nadults_bp_b                NA                NA                NA
+beta_nadults_bo_b                NA                NA                NA
+lambda_alone                     NA                NA                NA
+lambda_others                    NA                NA                NA
+lambda_parent                    NA                NA                NA
+lambda_walk                      NA                NA                NA
+lambda_drive                     NA                NA                NA
+lambda_bike                      NA                NA                NA
+                           asc_bp_b          asc_bo_b           delta_b
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+beta_nadults_ba_b                NA                NA                NA
+beta_nadults_bp_b                NA                NA                NA
+beta_nadults_bo_b                NA                NA                NA
+lambda_alone                     NA                NA                NA
+lambda_others                    NA                NA                NA
+lambda_parent                    NA                NA                NA
+lambda_walk                      NA                NA                NA
+lambda_drive                     NA                NA                NA
+lambda_bike                      NA                NA                NA
+                     gamma_female_b beta_nadults_dp_a beta_nadults_do_a
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+beta_nadults_ba_b                NA                NA                NA
+beta_nadults_bp_b                NA                NA                NA
+beta_nadults_bo_b                NA                NA                NA
+lambda_alone                     NA                NA                NA
+lambda_others                    NA                NA                NA
+lambda_parent                    NA                NA                NA
+lambda_walk                      NA                NA                NA
+lambda_drive                     NA                NA                NA
+lambda_bike                      NA                NA                NA
+                  beta_nadults_wp_a beta_nadults_wo_a beta_nadults_ba_a
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+beta_nadults_ba_b                NA                NA                NA
+beta_nadults_bp_b                NA                NA                NA
+beta_nadults_bo_b                NA                NA                NA
+lambda_alone                     NA                NA                NA
+lambda_others                    NA                NA                NA
+lambda_parent                    NA                NA                NA
+lambda_walk                      NA                NA                NA
+lambda_drive                     NA                NA                NA
+lambda_bike                      NA                NA                NA
+                  beta_nadults_bp_a beta_nadults_bo_a beta_nadults_dp_b
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+beta_nadults_ba_b                NA                NA                NA
+beta_nadults_bp_b                NA                NA                NA
+beta_nadults_bo_b                NA                NA                NA
+lambda_alone                     NA                NA                NA
+lambda_others                    NA                NA                NA
+lambda_parent                    NA                NA                NA
+lambda_walk                      NA                NA                NA
+lambda_drive                     NA                NA                NA
+lambda_bike                      NA                NA                NA
+                  beta_nadults_do_b beta_nadults_wp_b beta_nadults_wo_b
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+beta_nadults_ba_b                NA                NA                NA
+beta_nadults_bp_b                NA                NA                NA
+beta_nadults_bo_b                NA                NA                NA
+lambda_alone                     NA                NA                NA
+lambda_others                    NA                NA                NA
+lambda_parent                    NA                NA                NA
+lambda_walk                      NA                NA                NA
+lambda_drive                     NA                NA                NA
+lambda_bike                      NA                NA                NA
+                  beta_nadults_ba_b beta_nadults_bp_b beta_nadults_bo_b
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+beta_nadults_ba_b                NA                NA                NA
+beta_nadults_bp_b                NA                NA                NA
+beta_nadults_bo_b                NA                NA                NA
+lambda_alone                     NA                NA                NA
+lambda_others                    NA                NA                NA
+lambda_parent                    NA                NA                NA
+lambda_walk                      NA                NA                NA
+lambda_drive                     NA                NA                NA
+lambda_bike                      NA                NA                NA
+                       lambda_alone     lambda_others     lambda_parent
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+beta_nadults_ba_b                NA                NA                NA
+beta_nadults_bp_b                NA                NA                NA
+beta_nadults_bo_b                NA                NA                NA
+lambda_alone                     NA                NA                NA
+lambda_others                    NA                NA                NA
+lambda_parent                    NA                NA                NA
+lambda_walk                      NA                NA                NA
+lambda_drive                     NA                NA                NA
+lambda_bike                      NA                NA                NA
+                        lambda_walk      lambda_drive       lambda_bike
+asc_dp_a                         NA                NA                NA
+asc_do_a                         NA                NA                NA
+asc_wp_a                         NA                NA                NA
+asc_wo_a                         NA                NA                NA
+asc_ba_a                         NA                NA                NA
+asc_bp_a                         NA                NA                NA
+asc_bo_a                         NA                NA                NA
+asc_dp_b                         NA                NA                NA
+asc_do_b                         NA                NA                NA
+asc_wp_b                         NA                NA                NA
+asc_wo_b                         NA                NA                NA
+asc_ba_b                         NA                NA                NA
+asc_bp_b                         NA                NA                NA
+asc_bo_b                         NA                NA                NA
+delta_b                          NA                NA                NA
+gamma_female_b                   NA                NA                NA
+beta_nadults_dp_a                NA                NA                NA
+beta_nadults_do_a                NA                NA                NA
+beta_nadults_wp_a                NA                NA                NA
+beta_nadults_wo_a                NA                NA                NA
+beta_nadults_ba_a                NA                NA                NA
+beta_nadults_bp_a                NA                NA                NA
+beta_nadults_bo_a                NA                NA                NA
+beta_nadults_dp_b                NA                NA                NA
+beta_nadults_do_b                NA                NA                NA
+beta_nadults_wp_b                NA                NA                NA
+beta_nadults_wo_b                NA                NA                NA
+beta_nadults_ba_b                NA                NA                NA
+beta_nadults_bp_b                NA                NA                NA
+beta_nadults_bo_b                NA                NA                NA
+lambda_alone                     NA                NA                NA
+lambda_others                    NA                NA                NA
+lambda_parent                    NA                NA                NA
+lambda_walk                      NA                NA                NA
+lambda_drive                     NA                NA                NA
+lambda_bike                      NA                NA                NA
+
+ 20 worst outliers in terms of lowest average per choice prediction:
+   row Avg prob per choice
+  7542        0.0003084215
+  3036        0.0012406660
+  3642        0.0019138374
+   222        0.0020471035
+   223        0.0020471035
+   605        0.0020471035
+  1506        0.0020471035
+  2130        0.0020471035
+  2131        0.0020471035
+  2132        0.0020471035
+  2758        0.0020471035
+  8482        0.0020471035
+  8698        0.0020471035
+  8699        0.0020471035
+  9454        0.0020471035
+ 10195        0.0020471035
+ 10196        0.0020471035
+   369        0.0031578389
+  1820        0.0031578389
+  5255        0.0031578389
+
+Changes in parameter estimates from starting values:
+                      Initial    Estimate  Difference
+asc_dp_a                0.000     1.47495      1.4749
+asc_do_a                0.000    -0.65265     -0.6526
+asc_wa_a                0.000     0.00000      0.0000
+asc_wp_a                0.000     1.45336      1.4534
+asc_wo_a                0.000     1.39127      1.3913
+asc_ba_a                0.000    -2.68037     -2.6804
+asc_bp_a                0.000    -3.89823     -3.8982
+asc_bo_a                0.000     1.67067      1.6707
+asc_dp_b                0.000     2.79283      2.7928
+asc_do_b                0.000    -0.23207     -0.2321
+asc_wa_b                0.000     0.00000      0.0000
+asc_wp_b                0.000     3.22206      3.2221
+asc_wo_b                0.000   -23.76900    -23.7690
+asc_ba_b                0.000     2.62452      2.6245
+asc_bp_b                0.000     0.41625      0.4163
+asc_bo_b                0.000    -4.33791     -4.3379
+delta_a                 0.000     0.00000      0.0000
+delta_b                 0.000    -0.93928     -0.9393
+gamma_female_a          0.000     0.00000      0.0000
+gamma_female_b          0.000    -0.56229     -0.5623
+beta_nadults_dp_a       0.000    -0.61747     -0.6175
+beta_nadults_do_a       0.000     0.29654      0.2965
+beta_nadults_wa_a       0.000     0.00000      0.0000
+beta_nadults_wp_a       0.000     0.29682      0.2968
+beta_nadults_wo_a       0.000     0.23784      0.2378
+beta_nadults_ba_a       0.000    -4.18399     -4.1840
+beta_nadults_bp_a       0.000     0.97288      0.9729
+beta_nadults_bo_a       0.000    -0.77132     -0.7713
+beta_nadults_dp_b       0.000    -1.34778     -1.3478
+beta_nadults_do_b       0.000    -1.66095     -1.6609
+beta_nadults_wa_b       0.000     0.00000      0.0000
+beta_nadults_wp_b       0.000    -5.33618     -5.3362
+beta_nadults_wo_b       0.000     2.79017      2.7902
+beta_nadults_ba_b       0.000    -1.87436     -1.8744
+beta_nadults_bp_b       0.000    -1.22085     -1.2208
+beta_nadults_bo_b       0.000    -0.38447     -0.3845
+lambda_alone            1.000    -1.61422     -2.6142
+lambda_others           1.000  1.6248e-04     -0.9998
+lambda_parent           1.000     0.01658     -0.9834
+lambda_walk             1.000     6.42669      5.4267
+lambda_drive            1.000     1.57873      0.5787
+lambda_bike             1.000     3.52068      2.5207
+
+Settings and functions used in model definition:
+
+apollo_control
+--------------
+                       Value                                                                        
+modelName              "LCNLind3"                                                                   
+modelDescr             "Latent class NL on kid trip data - simplified independence"                 
+indivID                "id"                                                                         
+debug                  "FALSE"                                                                      
+nCores                 "1"                                                                          
+workInLogs             "FALSE"                                                                      
+seed                   "13"                                                                         
+mixing                 "FALSE"                                                                      
+HB                     "FALSE"                                                                      
+noValidation           "FALSE"                                                                      
+noDiagnostics          "FALSE"                                                                      
+calculateLLC           "TRUE"                                                                       
+outputDirectory        "/Users/gregmacfarlane/projects/kids-independent-travel/models/latent_class/"
+panelData              "FALSE"                                                                      
+analyticGrad           "TRUE"                                                                       
+analyticGrad_manualSet "FALSE"                                                                      
+overridePanel          "FALSE"                                                                      
+preventOverridePanel   "FALSE"                                                                      
+noModification         "FALSE"                                                                      
+
+Hessian routines attempted
+--------------------------
+numerical second derivative of LL (using numDeriv)
+
+Scaling in estimation
+---------------------
+                         Value
+asc_dp_a          1.442268e+00
+asc_do_a          6.526484e-01
+asc_wp_a          1.419283e+00
+asc_wo_a          1.375274e+00
+asc_ba_a          2.600677e+00
+asc_bp_a          3.898234e+00
+asc_bo_a          1.670667e+00
+asc_dp_b          3.617679e+00
+asc_do_b          2.294903e-01
+asc_wp_b          3.366400e+00
+asc_wo_b          2.445049e+01
+asc_ba_b          2.789075e+00
+asc_bp_b          4.340665e-01
+asc_bo_b          5.592703e+00
+delta_b           8.923673e-01
+gamma_female_b    5.427356e-01
+beta_nadults_dp_a 6.174695e-01
+beta_nadults_do_a 3.126500e-01
+beta_nadults_wp_a 3.087470e-01
+beta_nadults_wo_a 2.315233e-01
+beta_nadults_ba_a 3.681108e+00
+beta_nadults_bp_a 9.728837e-01
+beta_nadults_bo_a 7.713191e-01
+beta_nadults_dp_b 1.405624e+00
+beta_nadults_do_b 1.433687e+00
+beta_nadults_wp_b 4.779876e+00
+beta_nadults_wo_b 2.636987e+00
+beta_nadults_ba_b 2.752126e+00
+beta_nadults_bp_b 1.124585e+00
+beta_nadults_bo_b 3.970115e-01
+lambda_alone      1.643433e+00
+lambda_others     1.624763e-04
+lambda_parent     2.172125e-02
+lambda_walk       7.265290e+00
+lambda_drive      1.823100e+00
+lambda_bike       5.088176e+00
+
+Scaling used in computing Hessian
+---------------------------------
+                         Value
+asc_dp_a          1.474948e+00
+asc_do_a          6.526484e-01
+asc_wp_a          1.453358e+00
+asc_wo_a          1.391275e+00
+asc_ba_a          2.680373e+00
+asc_bp_a          3.898234e+00
+asc_bo_a          1.670667e+00
+asc_dp_b          2.792828e+00
+asc_do_b          2.320742e-01
+asc_wp_b          3.222056e+00
+asc_wo_b          2.376900e+01
+asc_ba_b          2.624525e+00
+asc_bp_b          4.162507e-01
+asc_bo_b          4.337909e+00
+delta_b           9.392815e-01
+gamma_female_b    5.622930e-01
+beta_nadults_dp_a 6.174695e-01
+beta_nadults_do_a 2.965393e-01
+beta_nadults_wp_a 2.968247e-01
+beta_nadults_wo_a 2.378414e-01
+beta_nadults_ba_a 4.183993e+00
+beta_nadults_bp_a 9.728837e-01
+beta_nadults_bo_a 7.713191e-01
+beta_nadults_dp_b 1.347781e+00
+beta_nadults_do_b 1.660947e+00
+beta_nadults_wp_b 5.336180e+00
+beta_nadults_wo_b 2.790173e+00
+beta_nadults_ba_b 1.874359e+00
+beta_nadults_bp_b 1.220846e+00
+beta_nadults_bo_b 3.844679e-01
+lambda_alone      1.614218e+00
+lambda_others     1.624763e-04
+lambda_parent     1.658173e-02
+lambda_walk       6.426686e+00
+lambda_drive      1.578726e+00
+lambda_bike       3.520682e+00
+
+
+apollo_lcPars
+---------------
+function(apollo_beta, apollo_inputs) {
+  # parameters that vary by class
+  lcpars = list()
+  lcpars[["asc_dp"]] = list(asc_dp_a, asc_dp_b)
+  lcpars[["asc_do"]] = list(asc_do_a, asc_do_b)
+  lcpars[["asc_wa"]] = list(asc_wa_a, asc_wa_b)
+  lcpars[["asc_wp"]] = list(asc_wp_a, asc_wp_b)
+  lcpars[["asc_wo"]] = list(asc_wo_a, asc_wo_b)
+  lcpars[["asc_ba"]] = list(asc_ba_a, asc_ba_b)
+  lcpars[["asc_bp"]] = list(asc_bp_a, asc_bp_b)
+  lcpars[["asc_bo"]] = list(asc_bo_a, asc_bo_b)
+  lcpars[["beta_nadults_dp"]] = list(beta_nadults_dp_a, beta_nadults_dp_b)
+  lcpars[["beta_nadults_do"]] = list(beta_nadults_do_a, beta_nadults_do_b)
+  lcpars[["beta_nadults_wa"]] = list(beta_nadults_wa_a, beta_nadults_wa_b)
+  lcpars[["beta_nadults_wp"]] = list(beta_nadults_wp_a, beta_nadults_wp_b)
+  lcpars[["beta_nadults_wo"]] = list(beta_nadults_wo_a, beta_nadults_wo_b)
+  lcpars[["beta_nadults_ba"]] = list(beta_nadults_ba_a, beta_nadults_ba_b)
+  lcpars[["beta_nadults_bp"]] = list(beta_nadults_bp_a, beta_nadults_bp_b)
+  lcpars[["beta_nadults_bo"]] = list(beta_nadults_bo_a, beta_nadults_bo_b)
+  lcpars[["lambda_1"]] = list(lambda_alone,  lambda_walk)
+  lcpars[["lambda_2"]] = list(lambda_parent, lambda_bike)
+  lcpars[["lambda_3"]] = list(lambda_others, lambda_drive)
+  
+  
+  ## utilities of class allocation model
+  V = list()
+  V[["class_a"]] = delta_a + gamma_female_a * female
+  V[["class_b"]] = delta_b + gamma_female_b * female
+  
+  # settings for allocation model
+  classAlloc_settings = list(
+    classes = c(class_a = 1, class_b = 2),
+    utilities = V
+  )
+  
+  lcpars[["pi_values"]] = apollo_classAlloc((classAlloc_settings))
+  
+  return(lcpars)
+}
+<bytecode: 0x1281f3978>
+
+
+apollo_probabilities
+----------------------
+function(apollo_beta, apollo_inputs, functionality = "estimate") {
+  
+  ### Attach inputs and detach after function exit
+  apollo_attach(apollo_beta, apollo_inputs)
+  on.exit(apollo_detach(apollo_beta, apollo_inputs))
+  
+  ### Create list of probabilities P
+  P = list()
+  
+  # create nests
+  nests <- list()
+  
+  # first nest: group by independence
+  nests[["a"]]$nlNests <- list(root = 1, Alone = lambda_alone, Parent = lambda_parent, Others = lambda_others)
+  nests[["b"]]$nlNests <- list(root = 1, Walk  = lambda_walk,  Bike = lambda_bike,  Drive = lambda_drive)
+  
+  ### Specify tree structure for NL model
+  nests[["a"]]$nlStructure = list()
+  nests[["a"]]$nlStructure[["root"]]    = c("Alone", "Parent", "Others")
+  nests[["a"]]$nlStructure[["Alone"]]   = c("walk_alone","bike_alone")
+  nests[["a"]]$nlStructure[["Parent"]]  = c("walk_parent","bike_parent", "drive_parent")
+  nests[["a"]]$nlStructure[["Others"]]  = c("walk_others","bike_others", "drive_others")
+  
+  nests[["b"]]$nlStructure = list()
+  nests[["b"]]$nlStructure[["root"]]  = c("Walk", "Drive", "Bike")
+  nests[["b"]]$nlStructure[["Walk"]]  = c("walk_alone","walk_others", "walk_parent")
+  nests[["b"]]$nlStructure[["Drive"]] = c("drive_others", "drive_parent")
+  nests[["b"]]$nlStructure[["Bike"]]  = c("bike_alone","bike_others", "bike_parent")
+
+  ## loop over classes
+  for(s in 1:2){
+    
+    ### compute class-specific utilities
+    V = list()
+    V[["drive_parent"]]  = asc_dp[[s]] + beta_nadults_do[[s]] * n_adults
+    V[["drive_others"]]  = asc_do[[s]] + beta_nadults_dp[[s]] * n_adults
+    V[["walk_alone"]]    = asc_wa[[s]] + beta_nadults_wa[[s]] * n_adults
+    V[["walk_parent"]]   = asc_wp[[s]] + beta_nadults_wp[[s]] * n_adults
+    V[["walk_others"]]   = asc_wo[[s]] + beta_nadults_wo[[s]] * n_adults
+    V[["bike_alone"]]    = asc_ba[[s]] + beta_nadults_ba[[s]] * n_adults
+    V[["bike_parent"]]   = asc_bp[[s]] + beta_nadults_bp[[s]] * n_adults
+    V[["bike_others"]]   = asc_bo[[s]] + beta_nadults_bo[[s]] * n_adults
+    
+    ### Define settings for NL model
+    nl_settings = list(
+      alternatives = c(
+        walk_alone = "walk_alone", walk_others = "walk_others", walk_parent = "walk_parent",
+        bike_alone = "bike_alone", bike_others = "bike_others", bike_parent = "bike_parent",
+        drive_others = "drive_others", drive_parent = "drive_parent"
+      ),
+      choiceVar    = choice,
+      explanators  = c("female", "n_adults"),
+      utilities = V,
+      nlStructure = nests[[s]]$nlStructure,
+      nlNests = nests[[s]]$nlNests,
+      componentName = paste0("Class_", s)
+    )
+    
+    ### Compute within-class choice probabilities using MNL model
+    P[[paste0("Class_",s)]] = apollo_nl(nl_settings, functionality)
+  }
+  
+  # compute latent class model probabilities
+  lc_settings = list(inClassProb = P, classProb = pi_values)
+  P[["model"]] = apollo_lc(lc_settings, apollo_inputs, functionality)
+  
+  ### Prepare and return outputs of function
+  P = apollo_prepareProb(P, apollo_inputs, functionality)
+  return(P)
+}

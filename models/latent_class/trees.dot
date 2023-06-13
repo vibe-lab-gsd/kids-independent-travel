@@ -1,0 +1,26 @@
+
+digraph choice1 {
+  
+  # A 'graph statement'
+  # 
+  graph [overlab = true, fontsize = 10]
+  
+  # node statements
+  node [shape = box, fontname = Helvetica]
+  'Choice Maker'; 'Alone'; 'With Parent'; 'With Others'; 
+  'Walk Alone'; 'Walk with Parent'; 'Walk with Others';
+  'Drive with Parent'; 'Drive with Others'
+  
+  # Edge statements
+  'Choice Maker' -> 'Alone'
+  'Choice Maker' -> 'With Parent'
+  'Choice Maker' -> 'With Others'
+  'Alone'        -> 'Walk Alone'
+  'With Parent'  -> 'Walk with Parent'
+  'With Parent'  -> 'Drive with Parent'
+  'With Others'  -> 'Drive with Others'
+  'With Others'  -> 'Walk with Others'
+  
+  
+  
+}

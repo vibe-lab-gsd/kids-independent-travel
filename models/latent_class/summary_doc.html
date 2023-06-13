@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.313">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Macfarlane">
+
+<title>Initial Apollo Models</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="summary_doc_files/libs/clipboard/clipboard.min.js"></script>
+<script src="summary_doc_files/libs/quarto-html/quarto.js"></script>
+<script src="summary_doc_files/libs/quarto-html/popper.min.js"></script>
+<script src="summary_doc_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="summary_doc_files/libs/quarto-html/anchor.min.js"></script>
+<link href="summary_doc_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="summary_doc_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="summary_doc_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="summary_doc_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="summary_doc_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Initial Apollo Models</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Macfarlane </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="models" class="level2">
+<h2 class="anchored" data-anchor-id="models">Models</h2>
+<p>These are simple test models where the independence alternatives are <code>alone</code>, <code>parent</code> and <code>others</code> and the modes are <code>walk</code>, <code>bike</code>, and <code>drive</code>. Additionally a class membership model only uses the <code>female</code> dummy and the alternative utilities only have <code>n_adults</code>.</p>
+</section>
+<section id="latent-class-mnl" class="level2">
+<h2 class="anchored" data-anchor-id="latent-class-mnl">Latent class MNL</h2>
+<p>This model simply has a class membership model leading into one of two potential MNL models. There are actually a number of differences between the two sets of estimated coefficients. Need to work on a</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>lcmnlind3 <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="fu">here</span>(<span class="st">"models/latent_class/LCMNLind3_model.rds"</span>))</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">apollo_modelOutput</span>(lcmnlind3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Model run by gregmacfarlane using Apollo 0.2.9 on R 4.2.0 for Darwin.
+www.ApolloChoiceModelling.com
+
+Model name                                  : LCMNLind3
+Model description                           : Latent class MNL on kid trip data - simplified independence
+Model run at                                : 2023-06-12 15:29:52
+Estimation method                           : bfgs
+Model diagnosis                             : successful convergence
+Optimisation diagnosis                      : Saddle point found
+     hessian properties                     : Some eigenvalues are positive and others negative
+     maximum eigenvalue                     : 2.501815
+Number of individuals                       : 10642
+Number of rows in database                  : 10642
+Number of modelled outcomes                 : 10642
+
+Number of cores used                        :  1 
+Model without mixing
+
+LL(start)                                   : -22129.42
+LL (whole model) at equal shares, LL(0)     : -22129.42
+LL (whole model) at observed shares, LL(C)  : -13964.77
+LL(final, whole model)                      : -13830.39
+Rho-squared vs equal shares                  :  0.375 
+Adj.Rho-squared vs equal shares              :  0.3737 
+Rho-squared vs observed shares               :  0.0096 
+Adj.Rho-squared vs observed shares           :  0.0085 
+AIC                                         :  27720.79 
+BIC                                         :  27938.96 
+
+LL(0,Class_1)                    : -22129.42
+LL(final,Class_1)                : -19795.98
+LL(0,Class_2)                    : -22129.42
+LL(final,Class_2)                : -28048.26
+
+Estimated parameters                        : 30
+Time taken (hh:mm:ss)                       :  00:01:1.86 
+     pre-estimation                         :  00:00:1.11 
+     estimation                             :  00:00:45.03 
+          initial estimation                :  00:00:43.88 
+          estimation after rescaling        :  00:00:1.16 
+     post-estimation                        :  00:00:15.72 
+Iterations                                  :  135  
+     initial estimation                     :  132 
+     estimation after rescaling             :  3 
+
+Unconstrained optimisation.
+
+Estimates:
+                     Estimate        s.e.   t.rat.(0)    Rob.s.e. Rob.t.rat.(0)
+asc_dp_a               2.3465     0.18138   12.937108     0.16868     13.911181
+asc_do_a              -3.6370         NaN         NaN     0.46621     -7.801231
+asc_wa_a               0.0000          NA          NA          NA            NA
+asc_wp_a               1.3759     0.20239    6.798032     0.18873      7.290223
+asc_wo_a              -1.1382     0.29019   -3.922088     0.31744     -3.585373
+asc_ba_a              -9.8987   812.54180   -0.012182    39.16049     -0.252772
+asc_bp_a              -1.2413     0.41481   -2.992395     0.30291     -4.097834
+asc_bo_a              -3.3843     0.63842   -5.301098     0.45163     -7.493523
+asc_dp_b              -5.5944     2.63394   -2.123969     2.85538     -1.959256
+asc_do_b              -6.4648     1.96669   -3.287123     1.26350     -5.116560
+asc_wa_b               0.0000          NA          NA          NA            NA
+asc_wp_b              -5.9356     1.42246   -4.172777     1.68986     -3.512491
+asc_wo_b              -1.4861     0.65769   -2.259526     0.75721     -1.962540
+asc_ba_b              -1.7781     0.45071   -3.945118     0.49666     -3.580089
+asc_bp_b              -3.4217     0.73132   -4.678817     0.60699     -5.637247
+asc_bo_b              -5.0822     0.72739   -6.986805     0.66823     -7.605400
+delta_a                0.0000          NA          NA          NA            NA
+delta_b               -1.4560     0.16173   -9.003030     0.17177     -8.476571
+gamma_female_a         0.0000          NA          NA          NA            NA
+gamma_female_b        -1.4680     0.13531  -10.849640     0.14707     -9.981999
+beta_nadults_dp_a  6.1746e-04         NaN         NaN     0.10238      0.006031
+beta_nadults_do_a     -0.2011     0.07174   -2.803439     0.06676     -3.012318
+beta_nadults_wa_a      0.0000          NA          NA          NA            NA
+beta_nadults_wp_a     -0.3096     0.08743   -3.541097     0.08209     -3.771451
+beta_nadults_wo_a      0.1843     0.10665    1.727989     0.11807      1.560886
+beta_nadults_ba_a     -3.2041  1096.23438   -0.002923    58.46851     -0.054801
+beta_nadults_bp_a     -0.3091     0.19702   -1.569071     0.12863     -2.403263
+beta_nadults_bo_a      0.1788     0.24439    0.731677     0.10979      1.628725
+beta_nadults_dp_b      1.3893     0.80375    1.728568     0.38123      3.644329
+beta_nadults_do_b      2.0984     0.68765    3.051530     0.75347      2.784962
+beta_nadults_wa_b      0.0000          NA          NA          NA            NA
+beta_nadults_wp_b      2.3488     0.47569    4.937681     0.59062      3.976880
+beta_nadults_wo_b      0.5325     0.37456    1.421621     0.42966      1.239325
+beta_nadults_ba_b      1.0561     0.27419    3.851674     0.31182      3.386842
+beta_nadults_bp_b      1.2290     0.38293    3.209335     0.35339      3.477637
+beta_nadults_bo_b      1.8172     0.36991    4.912555     0.38383      4.734499
+
+
+Summary of class allocation for model component :
+         Mean prob.
+Class_1      0.8784
+Class_2      0.1216</code></pre>
+</div>
+</div>
+</section>
+<section id="nested-logit" class="level2">
+<h2 class="anchored" data-anchor-id="nested-logit">Nested Logit</h2>
+<p>This</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>nlind3 <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="fu">here</span>(<span class="st">"models/latent_class/NLind3_model.rds"</span>))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">apollo_modelOutput</span>(nlind3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Model run by gregmacfarlane using Apollo 0.2.9 on R 4.2.0 for Darwin.
+www.ApolloChoiceModelling.com
+
+Model name                                  : NLind3
+Model description                           : NL on kid trip data - simplified independence
+Model run at                                : 2023-06-12 19:09:42
+Estimation method                           : bfgs
+Model diagnosis                             : successful convergence
+Optimisation diagnosis                      : Maximum found
+     hessian properties                     : Negative definitive
+     maximum eigenvalue                     : -0.000204
+Number of individuals                       : 10642
+Number of rows in database                  : 10642
+Number of modelled outcomes                 : 10642
+
+Number of cores used                        :  1 
+Model without mixing
+
+LL(start)                                   : -22129.42
+LL at equal shares, LL(0)                   : -22129.42
+LL at observed shares, LL(C)                : -13964.77
+LL(final)                                   : -13954.33
+Rho-squared vs equal shares                  :  0.3694 
+Adj.Rho-squared vs equal shares              :  0.3687 
+Rho-squared vs observed shares               :  7e-04 
+Adj.Rho-squared vs observed shares           :  0 
+AIC                                         :  27942.67 
+BIC                                         :  28066.3 
+
+Estimated parameters                        : 17
+Time taken (hh:mm:ss)                       :  00:00:12.98 
+     pre-estimation                         :  00:00:0.62 
+     estimation                             :  00:00:7.53 
+          initial estimation                :  00:00:7.1 
+          estimation after rescaling        :  00:00:0.43 
+     post-estimation                        :  00:00:4.83 
+Iterations                                  :  41  
+     initial estimation                     :  38 
+     estimation after rescaling             :  3 
+
+Unconstrained optimisation.
+
+Estimates:
+                   Estimate        s.e.   t.rat.(0)    Rob.s.e. Rob.t.rat.(0)
+asc_dp             1.497357     11.5051    0.130147     2.29424       0.65266
+asc_do            -3.930690     26.5978   -0.147783    22.96165      -0.17119
+asc_wa             0.000000          NA          NA          NA            NA
+asc_wp             0.969104     11.9126    0.081351     2.31495       0.41863
+asc_wo            -1.329342     11.6130   -0.114470     2.54646      -0.52203
+asc_ba            -0.248280     47.9508   -0.005178     9.66287      -0.02569
+asc_bp            -0.056352     14.8960   -0.003783     2.38087      -0.02367
+asc_bo            -3.190784     20.9319   -0.152437    16.81764      -0.18973
+beta_nadults_dp    0.227138      0.4161    0.545835     0.28435       0.79880
+beta_nadults_do    0.033024      0.2150    0.153563     0.07210       0.45804
+beta_nadults_wa    0.000000          NA          NA          NA            NA
+beta_nadults_wp    0.018256      0.2168    0.084199     0.07522       0.24270
+beta_nadults_wo    0.223233      0.3785    0.589791     0.30876       0.72299
+beta_nadults_ba    0.004230      0.8212    0.005151     0.18245       0.02318
+beta_nadults_bp    0.022128      0.2191    0.100985     0.08319       0.26598
+beta_nadults_bo    0.421565      1.4564    0.289450     1.36278       0.30934
+lambda_alone       0.216896     41.8825    0.005179     8.41025       0.02579
+lambda_others      0.863708      7.5921    0.113763     7.21038       0.11979
+lambda_parent      0.488620      3.0367    0.160906     0.15996       3.05460
+
+Nesting structure for model component :
+Nest: root (1)
+|-Nest: Alone (0.2169)
+|  |-Alternative: walk_alone
+|  '-Alternative: bike_alone
+|-Nest: Parent (0.4886)
+|  |-Alternative: walk_parent
+|  |-Alternative: bike_parent
+|  '-Alternative: drive_parent
+'-Nest: Others (0.8637)
+   |-Alternative: walk_others
+   |-Alternative: bike_others
+   '-Alternative: drive_others</code></pre>
+</div>
+</div>
+</section>
+<section id="latent-class-nl" class="level2">
+<h2 class="anchored" data-anchor-id="latent-class-nl">Latent class NL</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>lcnlind3 <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="fu">here</span>(<span class="st">"models/latent_class/LCNLind3_model.rds"</span>))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">apollo_modelOutput</span>(lcnlind3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Model run by gregmacfarlane using Apollo 0.2.9 on R 4.2.0 for Darwin.
+www.ApolloChoiceModelling.com
+
+Model name                                  : LCNLind3
+Model description                           : Latent class NL on kid trip data - simplified independence
+Model run at                                : 2023-06-12 19:27:26
+Estimation method                           : bfgs
+Model diagnosis                             : successful convergence
+Optimisation diagnosis                      : Saddle point found
+     hessian properties                     : Some eigenvalues are positive and others negative
+     maximum eigenvalue                     : 5752352.204631
+Number of individuals                       : 10642
+Number of rows in database                  : 10642
+Number of modelled outcomes                 : 10642
+
+Number of cores used                        :  1 
+Model without mixing
+
+LL(start)                                   : -22129.42
+LL (whole model) at equal shares, LL(0)     : -22129.42
+LL (whole model) at observed shares, LL(C)  : -13964.77
+LL(final, whole model)                      : -12316.8
+Rho-squared vs equal shares                  :  0.4434 
+Adj.Rho-squared vs equal shares              :  0.4418 
+Rho-squared vs observed shares               :  0.118 
+Adj.Rho-squared vs observed shares           :  0.1164 
+AIC                                         :  24705.6 
+BIC                                         :  24967.41 
+
+LL(0,Class_1)                    : -22129.42
+LL(final,Class_1)                : -Inf Likelihood equal to zero for at least
+                                        one individual in this component.
+LL(0,Class_2)                    : -22129.42
+LL(final,Class_2)                : -27543.85
+
+Estimated parameters                        : 36
+Time taken (hh:mm:ss)                       :  00:02:57.19 
+     pre-estimation                         :  00:00:1.12 
+     estimation                             :  00:02:15.63 
+          initial estimation                :  00:01:53.08 
+          estimation after rescaling        :  00:00:22.55 
+     post-estimation                        :  00:00:40.44 
+Iterations                                  :  200  
+     initial estimation                     :  169 
+     estimation after rescaling             :  31 
+
+Unconstrained optimisation.
+
+Estimates:
+                     Estimate        s.e.   t.rat.(0)    Rob.s.e. Rob.t.rat.(0)
+asc_dp_a              1.47495          NA          NA          NA            NA
+asc_do_a             -0.65265          NA          NA          NA            NA
+asc_wa_a              0.00000          NA          NA          NA            NA
+asc_wp_a              1.45336          NA          NA          NA            NA
+asc_wo_a              1.39127          NA          NA          NA            NA
+asc_ba_a             -2.68037          NA          NA          NA            NA
+asc_bp_a             -3.89823          NA          NA          NA            NA
+asc_bo_a              1.67067          NA          NA          NA            NA
+asc_dp_b              2.79283          NA          NA          NA            NA
+asc_do_b             -0.23207          NA          NA          NA            NA
+asc_wa_b              0.00000          NA          NA          NA            NA
+asc_wp_b              3.22206          NA          NA          NA            NA
+asc_wo_b            -23.76900          NA          NA          NA            NA
+asc_ba_b              2.62452          NA          NA          NA            NA
+asc_bp_b              0.41625          NA          NA          NA            NA
+asc_bo_b             -4.33791          NA          NA          NA            NA
+delta_a               0.00000          NA          NA          NA            NA
+delta_b              -0.93928          NA          NA          NA            NA
+gamma_female_a        0.00000          NA          NA          NA            NA
+gamma_female_b       -0.56229          NA          NA          NA            NA
+beta_nadults_dp_a    -0.61747          NA          NA          NA            NA
+beta_nadults_do_a     0.29654          NA          NA          NA            NA
+beta_nadults_wa_a     0.00000          NA          NA          NA            NA
+beta_nadults_wp_a     0.29682          NA          NA          NA            NA
+beta_nadults_wo_a     0.23784          NA          NA          NA            NA
+beta_nadults_ba_a    -4.18399          NA          NA          NA            NA
+beta_nadults_bp_a     0.97288          NA          NA          NA            NA
+beta_nadults_bo_a    -0.77132          NA          NA          NA            NA
+beta_nadults_dp_b    -1.34778          NA          NA          NA            NA
+beta_nadults_do_b    -1.66095          NA          NA          NA            NA
+beta_nadults_wa_b     0.00000          NA          NA          NA            NA
+beta_nadults_wp_b    -5.33618          NA          NA          NA            NA
+beta_nadults_wo_b     2.79017          NA          NA          NA            NA
+beta_nadults_ba_b    -1.87436          NA          NA          NA            NA
+beta_nadults_bp_b    -1.22085          NA          NA          NA            NA
+beta_nadults_bo_b    -0.38447          NA          NA          NA            NA
+lambda_alone         -1.61422          NA          NA          NA            NA
+lambda_others      1.6248e-04          NA          NA          NA            NA
+lambda_parent         0.01658          NA          NA          NA            NA
+lambda_walk           6.42669          NA          NA          NA            NA
+lambda_drive          1.57873          NA          NA          NA            NA
+lambda_bike           3.52068          NA          NA          NA            NA
+
+Nesting structure for model component Class_1:
+Nest: root (1)
+|-Nest: Alone (-1.6142)
+|  |-Alternative: walk_alone
+|  '-Alternative: bike_alone
+|-Nest: Parent (0.0166)
+|  |-Alternative: walk_parent
+|  |-Alternative: bike_parent
+|  '-Alternative: drive_parent
+'-Nest: Others (2e-04)
+   |-Alternative: walk_others
+   |-Alternative: bike_others
+   '-Alternative: drive_others
+
+WARNING: The nesting parameter for nest "Alone" should be between 0 and
+  1 (the nesting parameter for nest "root"), yet its value is
+  -1.6142. 
+
+Nesting structure for model component Class_2:
+Nest: root (1)
+|-Nest: Walk (6.4267)
+|  |-Alternative: walk_alone
+|  |-Alternative: walk_others
+|  '-Alternative: walk_parent
+|-Nest: Drive (1.5787)
+|  |-Alternative: drive_others
+|  '-Alternative: drive_parent
+'-Nest: Bike (3.5207)
+   |-Alternative: bike_alone
+   |-Alternative: bike_others
+   '-Alternative: bike_parent
+
+WARNING: The nesting parameter for nest "Walk" should be between 0 and 1
+  (the nesting parameter for nest "root"), yet its value is
+  6.4267. 
+
+WARNING: The nesting parameter for nest "Bike" should be between 0 and 1
+  (the nesting parameter for nest "root"), yet its value is
+  3.5207. 
+
+WARNING: The nesting parameter for nest "Drive" should be between 0 and
+  1 (the nesting parameter for nest "root"), yet its value is
+  1.5787. 
+
+
+Summary of class allocation for model component :
+         Mean prob.
+Class_1      0.7672
+Class_2      0.2328</code></pre>
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
