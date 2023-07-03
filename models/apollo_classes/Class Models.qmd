@@ -1,0 +1,31 @@
+---
+title: "A series of models all trips"
+format: html
+editor: visual
+---
+
+## Quarto
+
+All trip by all students, multinomial logit model
+
+Elements of utility:
+
+-   age
+
+-   distance
+
+-   density
+
+-   school trip or not
+
+-   income
+
+Elements of class
+
+-   presence of adults
+
+-   working status
+
+Nesting structures
+
+Cross nested logit
