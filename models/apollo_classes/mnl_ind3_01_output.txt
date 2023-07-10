@@ -3,9 +3,12 @@ www.ApolloChoiceModelling.com
 
 Model name                                  : mnl_ind3_01
 Model description                           : MNL on kid trip data - simplified independence with first covariates
-Model run at                                : 2023-07-03 09:46:44
+Model run at                                : 2023-07-06 10:01:39
 Estimation method                           : bfgs
 Model diagnosis                             : successful convergence
+Optimisation diagnosis                      : Non-symmetrical hessian
+     hessian properties                     : Complex eigenvalues
+     maximum eigenvalue                     : NA
 Number of individuals                       : 10642
 Number of rows in database                  : 10642
 Number of modelled outcomes                 : 10642
@@ -16,81 +19,85 @@ Model without mixing
 LL(start)                                   : -22129.42
 LL at equal shares, LL(0)                   : -22129.42
 LL at observed shares, LL(C)                : -13964.77
-LL(final)                                   : -11934.87
-Rho-squared vs equal shares                  :  0.4607 
-Adj.Rho-squared vs equal shares              :  0.4585 
-Rho-squared vs observed shares               :  0.1454 
-Adj.Rho-squared vs observed shares           :  0.1424 
-AIC                                         :  23967.74 
-BIC                                         :  24324.1 
+LL(final)                                   : -13964.77
+Rho-squared vs equal shares                  :  0.3689 
+Adj.Rho-squared vs equal shares              :  0.3667 
+Rho-squared vs observed shares               :  0 
+Adj.Rho-squared vs observed shares           :  -0.003 
+AIC                                         :  28027.54 
+BIC                                         :  28383.9 
 
 Estimated parameters                        : 49
-Time taken (hh:mm:ss)                       :  00:01:24.86 
-     pre-estimation                         :  00:00:5.85 
-     estimation                             :  00:00:44.72 
-     post-estimation                        :  00:00:34.29 
-Iterations                                  :  80  
+Time taken (hh:mm:ss)                       :  00:00:11.21 
+     pre-estimation                         :  00:00:1.72 
+     estimation                             :  00:00:0.7 
+          initial estimation                :  00:00:0.52 
+          estimation after rescaling        :  00:00:0.18 
+     post-estimation                        :  00:00:8.8 
+Iterations                                  :  21  
+     initial estimation                     :  20 
+     estimation after rescaling             :  1 
 
 Unconstrained optimisation.
 
 Estimates:
                     Estimate        s.e.   t.rat.(0)    Rob.s.e. Rob.t.rat.(0)
-asc_dp              3.529548          NA          NA          NA            NA
-asc_do             -8.007801          NA          NA          NA            NA
-asc_wa              0.000000          NA          NA          NA            NA
-asc_wp              4.238615          NA          NA          NA            NA
-asc_wo              1.808758          NA          NA          NA            NA
-asc_ba             -0.307886          NA          NA          NA            NA
-asc_bp              1.935258          NA          NA          NA            NA
-asc_bo              1.599939          NA          NA          NA            NA
-beta_age_dp        -0.382987          NA          NA          NA            NA
-beta_age_do         0.187609          NA          NA          NA            NA
-beta_age_wa         0.000000          NA          NA          NA            NA
-beta_age_wp        -0.418193          NA          NA          NA            NA
-beta_age_wo        -0.231158          NA          NA          NA            NA
-beta_age_ba        -0.152993          NA          NA          NA            NA
-beta_age_bp        -0.462035          NA          NA          NA            NA
-beta_age_bo        -0.372842          NA          NA          NA            NA
-beta_female_dp      0.382637          NA          NA          NA            NA
-beta_female_do      0.301946          NA          NA          NA            NA
-beta_female_wa      0.000000          NA          NA          NA            NA
-beta_female_wp      0.269324          NA          NA          NA            NA
-beta_female_wo     -0.110575          NA          NA          NA            NA
-beta_female_ba     -1.135968          NA          NA          NA            NA
-beta_female_bp     -0.158995          NA          NA          NA            NA
-beta_female_bo     -0.318145          NA          NA          NA            NA
-beta_distance_dp    3.080437          NA          NA          NA            NA
-beta_distance_do    3.104453          NA          NA          NA            NA
-beta_distance_wa    0.000000          NA          NA          NA            NA
-beta_distance_wp    0.896461          NA          NA          NA            NA
-beta_distance_wo    0.221374          NA          NA          NA            NA
-beta_distance_ba    2.151400          NA          NA          NA            NA
-beta_distance_bp    2.317110          NA          NA          NA            NA
-beta_distance_bo    1.685171          NA          NA          NA            NA
-beta_density_dp   -5.190e-05          NA          NA          NA            NA
-beta_density_do  -4.2609e-04          NA          NA          NA            NA
-beta_density_wa     0.000000          NA          NA          NA            NA
-beta_density_wp   1.1255e-04          NA          NA          NA            NA
-beta_density_wo    1.459e-05          NA          NA          NA            NA
-beta_density_ba  -1.5378e-04          NA          NA          NA            NA
-beta_density_bp   -3.322e-05          NA          NA          NA            NA
-beta_density_bo  -1.5405e-04          NA          NA          NA            NA
-beta_school_dp     -1.095555          NA          NA          NA            NA
-beta_school_do     -0.146099          NA          NA          NA            NA
-beta_school_wa      0.000000          NA          NA          NA            NA
-beta_school_wp     -0.943135          NA          NA          NA            NA
-beta_school_wo     -0.232418          NA          NA          NA            NA
-beta_school_ba     -0.770929          NA          NA          NA            NA
-beta_school_bp     -1.369200          NA          NA          NA            NA
-beta_school_bo     -1.117703          NA          NA          NA            NA
-beta_income_dp   -2.7347e-04          NA          NA          NA            NA
-beta_income_do      0.001317          NA          NA          NA            NA
-beta_income_wa      0.000000          NA          NA          NA            NA
-beta_income_wp    5.2194e-04          NA          NA          NA            NA
-beta_income_wo   -1.8561e-04          NA          NA          NA            NA
-beta_income_ba      0.002372          NA          NA          NA            NA
-beta_income_bp      0.002424          NA          NA          NA            NA
-beta_income_bo     -0.003311          NA          NA          NA            NA
+asc_dp               0.23280          NA          NA          NA            NA
+asc_do              -0.52663          NA          NA          NA            NA
+asc_wa               0.00000          NA          NA          NA            NA
+asc_wp               0.06979          NA          NA          NA            NA
+asc_wo              -0.09771          NA          NA          NA            NA
+asc_ba              -0.15802          NA          NA          NA            NA
+asc_bp              -0.22778          NA          NA          NA            NA
+asc_bo              -0.33591          NA          NA          NA            NA
+beta_age_dp          0.23280          NA          NA          NA            NA
+beta_age_do         -0.52663          NA          NA          NA            NA
+beta_age_wa          0.00000          NA          NA          NA            NA
+beta_age_wp          0.06979          NA          NA          NA            NA
+beta_age_wo         -0.09771          NA          NA          NA            NA
+beta_age_ba         -0.15802          NA          NA          NA            NA
+beta_age_bp         -0.22778          NA          NA          NA            NA
+beta_age_bo         -0.33591          NA          NA          NA            NA
+beta_female_dp       0.23280          NA          NA          NA            NA
+beta_female_do      -0.52663          NA          NA          NA            NA
+beta_female_wa       0.00000          NA          NA          NA            NA
+beta_female_wp       0.06979          NA          NA          NA            NA
+beta_female_wo      -0.09771          NA          NA          NA            NA
+beta_female_ba      -0.15802          NA          NA          NA            NA
+beta_female_bp      -0.22778          NA          NA          NA            NA
+beta_female_bo      -0.33591          NA          NA          NA            NA
+beta_distance_dp     0.23280          NA          NA          NA            NA
+beta_distance_do    -0.52663          NA          NA          NA            NA
+beta_distance_wa     0.00000          NA          NA          NA            NA
+beta_distance_wp     0.06979          NA          NA          NA            NA
+beta_distance_wo    -0.09771          NA          NA          NA            NA
+beta_distance_ba    -0.15802          NA          NA          NA            NA
+beta_distance_bp    -0.22778          NA          NA          NA            NA
+beta_distance_bo    -0.33591          NA          NA          NA            NA
+beta_density_dp      0.23280          NA          NA          NA            NA
+beta_density_do     -0.52663          NA          NA          NA            NA
+beta_density_wa      0.00000          NA          NA          NA            NA
+beta_density_wp      0.06979          NA          NA          NA            NA
+beta_density_wo     -0.09771          NA          NA          NA            NA
+beta_density_ba     -0.15802          NA          NA          NA            NA
+beta_density_bp     -0.22778          NA          NA          NA            NA
+beta_density_bo     -0.33591          NA          NA          NA            NA
+beta_school_dp       0.23280          NA          NA          NA            NA
+beta_school_do      -0.52663          NA          NA          NA            NA
+beta_school_wa       0.00000          NA          NA          NA            NA
+beta_school_wp       0.06979          NA          NA          NA            NA
+beta_school_wo      -0.09771          NA          NA          NA            NA
+beta_school_ba      -0.15802          NA          NA          NA            NA
+beta_school_bp      -0.22778          NA          NA          NA            NA
+beta_school_bo      -0.33591          NA          NA          NA            NA
+beta_income_dp       0.23280          NA          NA          NA            NA
+beta_income_do      -0.52663          NA          NA          NA            NA
+beta_income_wa       0.00000          NA          NA          NA            NA
+beta_income_wp       0.06979          NA          NA          NA            NA
+beta_income_wo      -0.09771          NA          NA          NA            NA
+beta_income_ba      -0.15802          NA          NA          NA            NA
+beta_income_bp      -0.22778          NA          NA          NA            NA
+beta_income_bo      -0.33591          NA          NA          NA            NA
 
 
 Overview of choices for MNL model component :
@@ -253,6 +260,35 @@ beta_female_wp                 NA               NA               NA             
 beta_female_wo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
 beta_female_ba                 NA               NA               NA               NA               NA               NA               NA               NA               NA
 beta_female_bp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_female_bo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_dp               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_do               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_wp               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_wo               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_ba               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_bp               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_bo               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_dp                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_do                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_wp                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_wo                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_ba                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_bp                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_bo                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_dp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_do                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_wp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_wo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_ba                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_bp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_bo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_dp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_do                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_wp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_wo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_ba                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_bp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_bo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
                       beta_age_wp      beta_age_wo      beta_age_ba      beta_age_bp      beta_age_bo   beta_female_dp   beta_female_do   beta_female_wp   beta_female_wo
 asc_dp                         NA               NA               NA               NA               NA               NA               NA               NA               NA
 asc_do                         NA               NA               NA               NA               NA               NA               NA               NA               NA
@@ -274,6 +310,35 @@ beta_female_wp                 NA               NA               NA             
 beta_female_wo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
 beta_female_ba                 NA               NA               NA               NA               NA               NA               NA               NA               NA
 beta_female_bp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_female_bo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_dp               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_do               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_wp               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_wo               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_ba               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_bp               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_bo               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_dp                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_do                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_wp                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_wo                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_ba                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_bp                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_bo                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_dp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_do                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_wp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_wo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_ba                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_bp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_bo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_dp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_do                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_wp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_wo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_ba                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_bp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_bo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
                    beta_female_ba   beta_female_bp   beta_female_bo beta_distance_dp beta_distance_do beta_distance_wp beta_distance_wo beta_distance_ba beta_distance_bp
 asc_dp                         NA               NA               NA               NA               NA               NA               NA               NA               NA
 asc_do                         NA               NA               NA               NA               NA               NA               NA               NA               NA
@@ -295,6 +360,35 @@ beta_female_wp                 NA               NA               NA             
 beta_female_wo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
 beta_female_ba                 NA               NA               NA               NA               NA               NA               NA               NA               NA
 beta_female_bp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_female_bo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_dp               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_do               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_wp               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_wo               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_ba               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_bp               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_bo               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_dp                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_do                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_wp                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_wo                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_ba                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_bp                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_bo                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_dp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_do                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_wp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_wo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_ba                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_bp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_bo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_dp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_do                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_wp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_wo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_ba                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_bp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_bo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
                  beta_distance_bo  beta_density_dp  beta_density_do  beta_density_wp  beta_density_wo  beta_density_ba  beta_density_bp  beta_density_bo   beta_school_dp
 asc_dp                         NA               NA               NA               NA               NA               NA               NA               NA               NA
 asc_do                         NA               NA               NA               NA               NA               NA               NA               NA               NA
@@ -316,6 +410,35 @@ beta_female_wp                 NA               NA               NA             
 beta_female_wo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
 beta_female_ba                 NA               NA               NA               NA               NA               NA               NA               NA               NA
 beta_female_bp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_female_bo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_dp               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_do               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_wp               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_wo               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_ba               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_bp               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_bo               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_dp                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_do                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_wp                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_wo                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_ba                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_bp                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_bo                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_dp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_do                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_wp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_wo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_ba                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_bp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_bo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_dp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_do                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_wp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_wo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_ba                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_bp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_bo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
                    beta_school_do   beta_school_wp   beta_school_wo   beta_school_ba   beta_school_bp   beta_school_bo   beta_income_dp   beta_income_do   beta_income_wp
 asc_dp                         NA               NA               NA               NA               NA               NA               NA               NA               NA
 asc_do                         NA               NA               NA               NA               NA               NA               NA               NA               NA
@@ -337,6 +460,35 @@ beta_female_wp                 NA               NA               NA             
 beta_female_wo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
 beta_female_ba                 NA               NA               NA               NA               NA               NA               NA               NA               NA
 beta_female_bp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_female_bo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_dp               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_do               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_wp               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_wo               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_ba               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_bp               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_bo               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_dp                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_do                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_wp                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_wo                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_ba                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_bp                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_bo                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_dp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_do                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_wp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_wo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_ba                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_bp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_bo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_dp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_do                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_wp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_wo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_ba                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_bp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_bo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
                    beta_income_wo   beta_income_ba   beta_income_bp   beta_income_bo
 asc_dp                         NA               NA               NA               NA
 asc_do                         NA               NA               NA               NA
@@ -358,7 +510,35 @@ beta_female_wp                 NA               NA               NA             
 beta_female_wo                 NA               NA               NA               NA
 beta_female_ba                 NA               NA               NA               NA
 beta_female_bp                 NA               NA               NA               NA
- [ reached getOption("max.print") -- omitted 29 rows ]
+beta_female_bo                 NA               NA               NA               NA
+beta_distance_dp               NA               NA               NA               NA
+beta_distance_do               NA               NA               NA               NA
+beta_distance_wp               NA               NA               NA               NA
+beta_distance_wo               NA               NA               NA               NA
+beta_distance_ba               NA               NA               NA               NA
+beta_distance_bp               NA               NA               NA               NA
+beta_distance_bo               NA               NA               NA               NA
+beta_density_dp                NA               NA               NA               NA
+beta_density_do                NA               NA               NA               NA
+beta_density_wp                NA               NA               NA               NA
+beta_density_wo                NA               NA               NA               NA
+beta_density_ba                NA               NA               NA               NA
+beta_density_bp                NA               NA               NA               NA
+beta_density_bo                NA               NA               NA               NA
+beta_school_dp                 NA               NA               NA               NA
+beta_school_do                 NA               NA               NA               NA
+beta_school_wp                 NA               NA               NA               NA
+beta_school_wo                 NA               NA               NA               NA
+beta_school_ba                 NA               NA               NA               NA
+beta_school_bp                 NA               NA               NA               NA
+beta_school_bo                 NA               NA               NA               NA
+beta_income_dp                 NA               NA               NA               NA
+beta_income_do                 NA               NA               NA               NA
+beta_income_wp                 NA               NA               NA               NA
+beta_income_wo                 NA               NA               NA               NA
+beta_income_ba                 NA               NA               NA               NA
+beta_income_bp                 NA               NA               NA               NA
+beta_income_bo                 NA               NA               NA               NA
 
 Classical correlation matrix:
                            asc_dp           asc_do           asc_wp           asc_wo           asc_ba           asc_bp           asc_bo      beta_age_dp      beta_age_do
@@ -511,6 +691,35 @@ beta_female_wp                 NA               NA               NA             
 beta_female_wo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
 beta_female_ba                 NA               NA               NA               NA               NA               NA               NA               NA               NA
 beta_female_bp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_female_bo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_dp               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_do               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_wp               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_wo               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_ba               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_bp               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_bo               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_dp                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_do                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_wp                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_wo                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_ba                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_bp                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_bo                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_dp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_do                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_wp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_wo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_ba                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_bp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_bo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_dp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_do                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_wp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_wo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_ba                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_bp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_bo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
                       beta_age_wp      beta_age_wo      beta_age_ba      beta_age_bp      beta_age_bo   beta_female_dp   beta_female_do   beta_female_wp   beta_female_wo
 asc_dp                         NA               NA               NA               NA               NA               NA               NA               NA               NA
 asc_do                         NA               NA               NA               NA               NA               NA               NA               NA               NA
@@ -532,6 +741,35 @@ beta_female_wp                 NA               NA               NA             
 beta_female_wo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
 beta_female_ba                 NA               NA               NA               NA               NA               NA               NA               NA               NA
 beta_female_bp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_female_bo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_dp               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_do               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_wp               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_wo               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_ba               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_bp               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_bo               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_dp                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_do                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_wp                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_wo                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_ba                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_bp                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_bo                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_dp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_do                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_wp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_wo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_ba                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_bp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_bo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_dp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_do                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_wp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_wo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_ba                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_bp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_bo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
                    beta_female_ba   beta_female_bp   beta_female_bo beta_distance_dp beta_distance_do beta_distance_wp beta_distance_wo beta_distance_ba beta_distance_bp
 asc_dp                         NA               NA               NA               NA               NA               NA               NA               NA               NA
 asc_do                         NA               NA               NA               NA               NA               NA               NA               NA               NA
@@ -553,6 +791,35 @@ beta_female_wp                 NA               NA               NA             
 beta_female_wo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
 beta_female_ba                 NA               NA               NA               NA               NA               NA               NA               NA               NA
 beta_female_bp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_female_bo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_dp               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_do               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_wp               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_wo               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_ba               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_bp               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_bo               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_dp                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_do                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_wp                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_wo                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_ba                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_bp                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_bo                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_dp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_do                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_wp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_wo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_ba                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_bp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_bo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_dp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_do                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_wp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_wo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_ba                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_bp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_bo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
                  beta_distance_bo  beta_density_dp  beta_density_do  beta_density_wp  beta_density_wo  beta_density_ba  beta_density_bp  beta_density_bo   beta_school_dp
 asc_dp                         NA               NA               NA               NA               NA               NA               NA               NA               NA
 asc_do                         NA               NA               NA               NA               NA               NA               NA               NA               NA
@@ -574,6 +841,35 @@ beta_female_wp                 NA               NA               NA             
 beta_female_wo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
 beta_female_ba                 NA               NA               NA               NA               NA               NA               NA               NA               NA
 beta_female_bp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_female_bo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_dp               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_do               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_wp               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_wo               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_ba               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_bp               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_bo               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_dp                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_do                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_wp                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_wo                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_ba                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_bp                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_bo                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_dp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_do                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_wp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_wo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_ba                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_bp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_bo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_dp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_do                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_wp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_wo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_ba                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_bp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_bo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
                    beta_school_do   beta_school_wp   beta_school_wo   beta_school_ba   beta_school_bp   beta_school_bo   beta_income_dp   beta_income_do   beta_income_wp
 asc_dp                         NA               NA               NA               NA               NA               NA               NA               NA               NA
 asc_do                         NA               NA               NA               NA               NA               NA               NA               NA               NA
@@ -595,6 +891,35 @@ beta_female_wp                 NA               NA               NA             
 beta_female_wo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
 beta_female_ba                 NA               NA               NA               NA               NA               NA               NA               NA               NA
 beta_female_bp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_female_bo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_dp               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_do               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_wp               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_wo               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_ba               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_bp               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_distance_bo               NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_dp                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_do                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_wp                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_wo                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_ba                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_bp                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_density_bo                NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_dp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_do                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_wp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_wo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_ba                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_bp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_school_bo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_dp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_do                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_wp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_wo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_ba                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_bp                 NA               NA               NA               NA               NA               NA               NA               NA               NA
+beta_income_bo                 NA               NA               NA               NA               NA               NA               NA               NA               NA
                    beta_income_wo   beta_income_ba   beta_income_bp   beta_income_bo
 asc_dp                         NA               NA               NA               NA
 asc_do                         NA               NA               NA               NA
@@ -616,89 +941,117 @@ beta_female_wp                 NA               NA               NA             
 beta_female_wo                 NA               NA               NA               NA
 beta_female_ba                 NA               NA               NA               NA
 beta_female_bp                 NA               NA               NA               NA
- [ reached getOption("max.print") -- omitted 29 rows ]
+beta_female_bo                 NA               NA               NA               NA
+beta_distance_dp               NA               NA               NA               NA
+beta_distance_do               NA               NA               NA               NA
+beta_distance_wp               NA               NA               NA               NA
+beta_distance_wo               NA               NA               NA               NA
+beta_distance_ba               NA               NA               NA               NA
+beta_distance_bp               NA               NA               NA               NA
+beta_distance_bo               NA               NA               NA               NA
+beta_density_dp                NA               NA               NA               NA
+beta_density_do                NA               NA               NA               NA
+beta_density_wp                NA               NA               NA               NA
+beta_density_wo                NA               NA               NA               NA
+beta_density_ba                NA               NA               NA               NA
+beta_density_bp                NA               NA               NA               NA
+beta_density_bo                NA               NA               NA               NA
+beta_school_dp                 NA               NA               NA               NA
+beta_school_do                 NA               NA               NA               NA
+beta_school_wp                 NA               NA               NA               NA
+beta_school_wo                 NA               NA               NA               NA
+beta_school_ba                 NA               NA               NA               NA
+beta_school_bp                 NA               NA               NA               NA
+beta_school_bo                 NA               NA               NA               NA
+beta_income_dp                 NA               NA               NA               NA
+beta_income_do                 NA               NA               NA               NA
+beta_income_wp                 NA               NA               NA               NA
+beta_income_wo                 NA               NA               NA               NA
+beta_income_ba                 NA               NA               NA               NA
+beta_income_bp                 NA               NA               NA               NA
+beta_income_bo                 NA               NA               NA               NA
 
  20 worst outliers in terms of lowest average per choice prediction:
-   row Avg prob per choice
-  2758        0.0002549356
-  8632        0.0008698047
-  8631        0.0009675022
- 10195        0.0010197373
- 10196        0.0010247544
-  5255        0.0019804730
-  3024        0.0023696907
-  3025        0.0023696907
-  7224        0.0023779318
-  7225        0.0023779318
-  7227        0.0023784445
-  7228        0.0023784445
-   444        0.0024619797
-   446        0.0024619797
-  2108        0.0030151688
-  2109        0.0030206659
-  3022        0.0031803219
-  3023        0.0031803219
-  8634        0.0036783476
-  9975        0.0040116568
+  row Avg prob per choice
+  222         0.002818868
+  223         0.002818868
+  369         0.002818868
+  605         0.002818868
+ 1506         0.002818868
+ 1820         0.002818868
+ 2130         0.002818868
+ 2131         0.002818868
+ 2132         0.002818868
+ 2758         0.002818868
+ 3036         0.002818868
+ 3642         0.002818868
+ 5255         0.002818868
+ 5878         0.002818868
+ 6153         0.002818868
+ 8103         0.002818868
+ 8104         0.002818868
+ 8482         0.002818868
+ 8631         0.002818868
+ 8632         0.002818868
 
 Changes in parameter estimates from starting values:
                      Initial    Estimate  Difference
-asc_dp                 0.000    3.529548    3.529548
-asc_do                 0.000   -8.007801   -8.007801
-asc_wa                 0.000    0.000000    0.000000
-asc_wp                 0.000    4.238615    4.238615
-asc_wo                 0.000    1.808758    1.808758
-asc_ba                 0.000   -0.307886   -0.307886
-asc_bp                 0.000    1.935258    1.935258
-asc_bo                 0.000    1.599939    1.599939
-beta_age_dp            0.000   -0.382987   -0.382987
-beta_age_do            0.000    0.187609    0.187609
-beta_age_wa            0.000    0.000000    0.000000
-beta_age_wp            0.000   -0.418193   -0.418193
-beta_age_wo            0.000   -0.231158   -0.231158
-beta_age_ba            0.000   -0.152993   -0.152993
-beta_age_bp            0.000   -0.462035   -0.462035
-beta_age_bo            0.000   -0.372842   -0.372842
-beta_female_dp         0.000    0.382637    0.382637
-beta_female_do         0.000    0.301946    0.301946
-beta_female_wa         0.000    0.000000    0.000000
-beta_female_wp         0.000    0.269324    0.269324
-beta_female_wo         0.000   -0.110575   -0.110575
-beta_female_ba         0.000   -1.135968   -1.135968
-beta_female_bp         0.000   -0.158995   -0.158995
-beta_female_bo         0.000   -0.318145   -0.318145
-beta_distance_dp       0.000    3.080437    3.080437
-beta_distance_do       0.000    3.104453    3.104453
-beta_distance_wa       0.000    0.000000    0.000000
-beta_distance_wp       0.000    0.896461    0.896461
-beta_distance_wo       0.000    0.221374    0.221374
-beta_distance_ba       0.000    2.151400    2.151400
-beta_distance_bp       0.000    2.317110    2.317110
-beta_distance_bo       0.000    1.685171    1.685171
-beta_density_dp        0.000  -5.190e-05  -5.190e-05
-beta_density_do        0.000 -4.2609e-04 -4.2609e-04
-beta_density_wa        0.000    0.000000    0.000000
-beta_density_wp        0.000  1.1255e-04  1.1255e-04
-beta_density_wo        0.000   1.459e-05   1.459e-05
-beta_density_ba        0.000 -1.5378e-04 -1.5378e-04
-beta_density_bp        0.000  -3.322e-05  -3.322e-05
-beta_density_bo        0.000 -1.5405e-04 -1.5405e-04
-beta_school_dp         0.000   -1.095555   -1.095555
-beta_school_do         0.000   -0.146099   -0.146099
-beta_school_wa         0.000    0.000000    0.000000
-beta_school_wp         0.000   -0.943135   -0.943135
-beta_school_wo         0.000   -0.232418   -0.232418
-beta_school_ba         0.000   -0.770929   -0.770929
-beta_school_bp         0.000   -1.369200   -1.369200
-beta_school_bo         0.000   -1.117703   -1.117703
-beta_income_dp         0.000 -2.7347e-04 -2.7347e-04
-beta_income_do         0.000    0.001317    0.001317
-beta_income_wa         0.000    0.000000    0.000000
-beta_income_wp         0.000  5.2194e-04  5.2194e-04
-beta_income_wo         0.000 -1.8561e-04 -1.8561e-04
-beta_income_ba         0.000    0.002372    0.002372
-beta_income_bp         0.000    0.002424    0.002424
-beta_income_bo         0.000   -0.003311   -0.003311
+asc_dp                 0.000     0.23280     0.23280
+asc_do                 0.000    -0.52663    -0.52663
+asc_wa                 0.000     0.00000     0.00000
+asc_wp                 0.000     0.06979     0.06979
+asc_wo                 0.000    -0.09771    -0.09771
+asc_ba                 0.000    -0.15802    -0.15802
+asc_bp                 0.000    -0.22778    -0.22778
+asc_bo                 0.000    -0.33591    -0.33591
+beta_age_dp            0.000     0.23280     0.23280
+beta_age_do            0.000    -0.52663    -0.52663
+beta_age_wa            0.000     0.00000     0.00000
+beta_age_wp            0.000     0.06979     0.06979
+beta_age_wo            0.000    -0.09771    -0.09771
+beta_age_ba            0.000    -0.15802    -0.15802
+beta_age_bp            0.000    -0.22778    -0.22778
+beta_age_bo            0.000    -0.33591    -0.33591
+beta_female_dp         0.000     0.23280     0.23280
+beta_female_do         0.000    -0.52663    -0.52663
+beta_female_wa         0.000     0.00000     0.00000
+beta_female_wp         0.000     0.06979     0.06979
+beta_female_wo         0.000    -0.09771    -0.09771
+beta_female_ba         0.000    -0.15802    -0.15802
+beta_female_bp         0.000    -0.22778    -0.22778
+beta_female_bo         0.000    -0.33591    -0.33591
+beta_distance_dp       0.000     0.23280     0.23280
+beta_distance_do       0.000    -0.52663    -0.52663
+beta_distance_wa       0.000     0.00000     0.00000
+beta_distance_wp       0.000     0.06979     0.06979
+beta_distance_wo       0.000    -0.09771    -0.09771
+beta_distance_ba       0.000    -0.15802    -0.15802
+beta_distance_bp       0.000    -0.22778    -0.22778
+beta_distance_bo       0.000    -0.33591    -0.33591
+beta_density_dp        0.000     0.23280     0.23280
+beta_density_do        0.000    -0.52663    -0.52663
+beta_density_wa        0.000     0.00000     0.00000
+beta_density_wp        0.000     0.06979     0.06979
+beta_density_wo        0.000    -0.09771    -0.09771
+beta_density_ba        0.000    -0.15802    -0.15802
+beta_density_bp        0.000    -0.22778    -0.22778
+beta_density_bo        0.000    -0.33591    -0.33591
+beta_school_dp         0.000     0.23280     0.23280
+beta_school_do         0.000    -0.52663    -0.52663
+beta_school_wa         0.000     0.00000     0.00000
+beta_school_wp         0.000     0.06979     0.06979
+beta_school_wo         0.000    -0.09771    -0.09771
+beta_school_ba         0.000    -0.15802    -0.15802
+beta_school_bp         0.000    -0.22778    -0.22778
+beta_school_bo         0.000    -0.33591    -0.33591
+beta_income_dp         0.000     0.23280     0.23280
+beta_income_do         0.000    -0.52663    -0.52663
+beta_income_wa         0.000     0.00000     0.00000
+beta_income_wp         0.000     0.06979     0.06979
+beta_income_wo         0.000    -0.09771    -0.09771
+beta_income_ba         0.000    -0.15802    -0.15802
+beta_income_bp         0.000    -0.22778    -0.22778
+beta_income_bo         0.000    -0.33591    -0.33591
 
 Settings and functions used in model definition:
 
@@ -727,60 +1080,113 @@ noModification         "FALSE"
 
 Hessian routines attempted
 --------------------------
-numerical second derivative of LL (using numDeriv) numerical second derivative of LL (using maxLik) Failed
+numerical jacobian of LL analytical gradient
+
+Scaling in estimation
+---------------------
+                      Value
+asc_dp           0.23280238
+asc_do           0.52663303
+asc_wp           0.06978929
+asc_wo           0.09771379
+asc_ba           0.15802293
+asc_bp           0.22778426
+asc_bo           0.33590458
+beta_age_dp      0.23280238
+beta_age_do      0.52663303
+beta_age_wp      0.06978929
+beta_age_wo      0.09771379
+beta_age_ba      0.15802293
+beta_age_bp      0.22778426
+beta_age_bo      0.33590458
+beta_female_dp   0.23280238
+beta_female_do   0.52663303
+beta_female_wp   0.06978929
+beta_female_wo   0.09771379
+beta_female_ba   0.15802293
+beta_female_bp   0.22778426
+beta_female_bo   0.33590458
+beta_distance_dp 0.23280238
+beta_distance_do 0.52663303
+beta_distance_wp 0.06978929
+beta_distance_wo 0.09771379
+beta_distance_ba 0.15802293
+beta_distance_bp 0.22778426
+beta_distance_bo 0.33590458
+beta_density_dp  0.23280238
+beta_density_do  0.52663303
+beta_density_wp  0.06978929
+beta_density_wo  0.09771379
+beta_density_ba  0.15802293
+beta_density_bp  0.22778426
+beta_density_bo  0.33590458
+beta_school_dp   0.23280238
+beta_school_do   0.52663303
+beta_school_wp   0.06978929
+beta_school_wo   0.09771379
+beta_school_ba   0.15802293
+beta_school_bp   0.22778426
+beta_school_bo   0.33590458
+beta_income_dp   0.23280238
+beta_income_do   0.52663303
+beta_income_wp   0.06978929
+beta_income_wo   0.09771379
+beta_income_ba   0.15802293
+beta_income_bp   0.22778426
+beta_income_bo   0.33590458
 
 Scaling used in computing Hessian
 ---------------------------------
-                        Value
-asc_dp           3.529548e+00
-asc_do           8.007801e+00
-asc_wp           4.238615e+00
-asc_wo           1.808758e+00
-asc_ba           3.078864e-01
-asc_bp           1.935258e+00
-asc_bo           1.599939e+00
-beta_age_dp      3.829869e-01
-beta_age_do      1.876091e-01
-beta_age_wp      4.181926e-01
-beta_age_wo      2.311579e-01
-beta_age_ba      1.529926e-01
-beta_age_bp      4.620350e-01
-beta_age_bo      3.728422e-01
-beta_female_dp   3.826367e-01
-beta_female_do   3.019458e-01
-beta_female_wp   2.693239e-01
-beta_female_wo   1.105750e-01
-beta_female_ba   1.135968e+00
-beta_female_bp   1.589950e-01
-beta_female_bo   3.181451e-01
-beta_distance_dp 3.080437e+00
-beta_distance_do 3.104453e+00
-beta_distance_wp 8.964610e-01
-beta_distance_wo 2.213741e-01
-beta_distance_ba 2.151400e+00
-beta_distance_bp 2.317110e+00
-beta_distance_bo 1.685171e+00
-beta_density_dp  5.190446e-05
-beta_density_do  4.260931e-04
-beta_density_wp  1.125450e-04
-beta_density_wo  1.459362e-05
-beta_density_ba  1.537770e-04
-beta_density_bp  3.321929e-05
-beta_density_bo  1.540521e-04
-beta_school_dp   1.095555e+00
-beta_school_do   1.460987e-01
-beta_school_wp   9.431351e-01
-beta_school_wo   2.324177e-01
-beta_school_ba   7.709294e-01
-beta_school_bp   1.369200e+00
-beta_school_bo   1.117703e+00
-beta_income_dp   2.734698e-04
-beta_income_do   1.316981e-03
-beta_income_wp   5.219441e-04
-beta_income_wo   1.856134e-04
-beta_income_ba   2.371694e-03
-beta_income_bp   2.423891e-03
-beta_income_bo   3.311338e-03
+                      Value
+asc_dp           0.23280315
+asc_do           0.52663229
+asc_wp           0.06978929
+asc_wo           0.09771381
+asc_ba           0.15802290
+asc_bp           0.22778470
+asc_bo           0.33590545
+beta_age_dp      0.23280315
+beta_age_do      0.52663229
+beta_age_wp      0.06978929
+beta_age_wo      0.09771381
+beta_age_ba      0.15802290
+beta_age_bp      0.22778470
+beta_age_bo      0.33590545
+beta_female_dp   0.23280315
+beta_female_do   0.52663229
+beta_female_wp   0.06978929
+beta_female_wo   0.09771381
+beta_female_ba   0.15802290
+beta_female_bp   0.22778470
+beta_female_bo   0.33590545
+beta_distance_dp 0.23280315
+beta_distance_do 0.52663229
+beta_distance_wp 0.06978929
+beta_distance_wo 0.09771381
+beta_distance_ba 0.15802290
+beta_distance_bp 0.22778470
+beta_distance_bo 0.33590545
+beta_density_dp  0.23280315
+beta_density_do  0.52663229
+beta_density_wp  0.06978929
+beta_density_wo  0.09771381
+beta_density_ba  0.15802290
+beta_density_bp  0.22778470
+beta_density_bo  0.33590545
+beta_school_dp   0.23280315
+beta_school_do   0.52663229
+beta_school_wp   0.06978929
+beta_school_wo   0.09771381
+beta_school_ba   0.15802290
+beta_school_bp   0.22778470
+beta_school_bo   0.33590545
+beta_income_dp   0.23280315
+beta_income_do   0.52663229
+beta_income_wp   0.06978929
+beta_income_wo   0.09771381
+beta_income_ba   0.15802290
+beta_income_bp   0.22778470
+beta_income_bo   0.33590545
 
 
 apollo_probabilities
@@ -812,15 +1218,14 @@ function(apollo_beta, apollo_inputs, functionality = "estimate") {
   )
   V = list()
   ### compute class-specific utilities
-  V = lapply(J, function(j){
-    get(paste0("asc_", j)) + 
-      get(paste0("beta_age_", j)) * age + 
-      get(paste0("beta_female_", j)) * female + 
-      get(paste0("beta_distance_", j)) * distance +
-      get(paste0("beta_density_", j)) * density + 
-      get(paste0("beta_school_", j)) * school + 
-      get(paste0("beta_income_", j)) * income
-  })
+  V[["walk_alone"  ]] = asc_wa + beta_age_wa+ beta_female_wa + beta_distance_wa + beta_density_wa + beta_school_wa + beta_income_wa
+  V[["walk_parent" ]] = asc_wp + beta_age_wp+ beta_female_wp + beta_distance_wp + beta_density_wp + beta_school_wp + beta_income_wp
+  V[["walk_others" ]] = asc_wo + beta_age_wo+ beta_female_wo + beta_distance_wo + beta_density_wo + beta_school_wo + beta_income_wo
+  V[["drive_parent"]] = asc_dp + beta_age_dp+ beta_female_dp + beta_distance_dp + beta_density_dp + beta_school_dp + beta_income_dp
+  V[["drive_others"]] = asc_do + beta_age_do+ beta_female_do + beta_distance_do + beta_density_do + beta_school_do + beta_income_do
+  V[["bike_alone"  ]] = asc_ba + beta_age_ba+ beta_female_ba + beta_distance_ba + beta_density_ba + beta_school_ba + beta_income_ba
+  V[["bike_parent" ]] = asc_bp + beta_age_bp+ beta_female_bp + beta_distance_bp + beta_density_bp + beta_school_bp + beta_income_bp
+  V[["bike_others" ]] = asc_bo + beta_age_bo+ beta_female_bo + beta_distance_bo + beta_density_bo + beta_school_bo + beta_income_bo
     
     
   mnl_settings$utilities <- V

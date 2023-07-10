@@ -112,15 +112,14 @@ apollo_probabilities = function(apollo_beta, apollo_inputs, functionality = "est
   )
   V = list()
   ### compute class-specific utilities
-  V = lapply(J, function(j){
-    get(paste0("asc_", j)) + 
-      get(paste0("beta_age_", j)) * age + 
-      get(paste0("beta_female_", j)) * female + 
-      get(paste0("beta_distance_", j)) * distance +
-      get(paste0("beta_density_", j)) * density + 
-      get(paste0("beta_school_", j)) * school + 
-      get(paste0("beta_income_", j)) * income
-  })
+  V[["walk_alone"  ]] = asc_wa + beta_age_wa+ beta_female_wa + beta_distance_wa + beta_density_wa + beta_school_wa + beta_income_wa
+  V[["walk_parent" ]] = asc_wp + beta_age_wp+ beta_female_wp + beta_distance_wp + beta_density_wp + beta_school_wp + beta_income_wp
+  V[["walk_others" ]] = asc_wo + beta_age_wo+ beta_female_wo + beta_distance_wo + beta_density_wo + beta_school_wo + beta_income_wo
+  V[["drive_parent"]] = asc_dp + beta_age_dp+ beta_female_dp + beta_distance_dp + beta_density_dp + beta_school_dp + beta_income_dp
+  V[["drive_others"]] = asc_do + beta_age_do+ beta_female_do + beta_distance_do + beta_density_do + beta_school_do + beta_income_do
+  V[["bike_alone"  ]] = asc_ba + beta_age_ba+ beta_female_ba + beta_distance_ba + beta_density_ba + beta_school_ba + beta_income_ba
+  V[["bike_parent" ]] = asc_bp + beta_age_bp+ beta_female_bp + beta_distance_bp + beta_density_bp + beta_school_bp + beta_income_bp
+  V[["bike_others" ]] = asc_bo + beta_age_bo+ beta_female_bo + beta_distance_bo + beta_density_bo + beta_school_bo + beta_income_bo
     
     
   mnl_settings$utilities <- V
