@@ -3,6 +3,7 @@ Try estimating a model for choice of independence and mode
 """
 import biogeme.tools
 import pandas as pd
+import scipy.stats as stats
 
 import biogeme.biogeme as bio
 from biogeme import models
@@ -156,7 +157,7 @@ b_female_non_hh_bike = Beta('b_female_non_hh_bike', 0, None, None, 0)
 b_has_lil_sib_non_hh_bike = Beta('b_has_lil_sib_non_hh_bike', 0, None, None, 0)
 b_has_big_sib_non_hh_bike = Beta('b_has_big_sib_non_hh_bike', 0, None, None, 0)
 
-b_log_density_non_hh_bike = Beta('b_log_density_non_hh_walk', 0, None, None, 0)
+b_log_density_non_hh_bike = Beta('b_log_density_non_hh_bike', 0, None, None, 0)
 b_log_distance_non_hh_bike = Beta('b_log_distance_non_hh_bike', 0, None, None, 0)
 
 # Define utility functions
@@ -292,6 +293,9 @@ av = {720: 1,
       920: 1,
       930: 1}
 
+# Top-level scale parameter (???)
+#MU = Beta('MU', 0.5, 0.000001, 1.0, 0)
+
 #Definition of mode nests:
 nest_car = Beta('nest_car', 1, 1.0, None, 0)
 nest_walk = Beta('nest_walk', 1, 1.0, None, 0)
@@ -339,4 +343,45 @@ no_nest_results = no_nests_biogeme_est.estimate()
 mode_nest_results = mode_nests_biogeme_est.estimate()
 ind_nest_results = ind_nests_biogeme_est.estimate()
 
+# Perform likelihood-ratio test for independence nests
+LLR = 2 * (no_nest_results.data.logLike - ind_nest_results.data.logLike)
+df_diff = ind_nest_results.numberOfFreeParameters() - no_nest_results.numberOfFreeParameters()
+p_value = 1 - stats.chi2.cdf(abs(LLR), df_diff)
 
+print("Likelihood-Ratio Test (compare indy nests to no nests):")
+print("LR Statistic:", LLR)
+print("p-value:", p_value)
+
+# Generate predictions for independence nests
+prob_adult_car = models.nested(V, av, ind_nests, 720)
+prob_non_hh_car = models.nested(V, av, ind_nests, 730)
+
+prob_alone_walk = models.nested(V, av, ind_nests, 810)
+prob_adult_walk = models.nested(V, av, ind_nests, 820)
+prob_non_hh_walk = models.nested(V, av, ind_nests, 830)
+
+prob_alone_bike = models.nested(V, av, ind_nests, 910)
+prob_adult_bike = models.nested(V, av, ind_nests, 920)
+prob_non_hh_bike = models.nested(V, av, ind_nests, 930)
+
+simulate = {'Prob. adult car': prob_adult_car,
+            'Prob. non-hh car': prob_non_hh_car,
+            'Prob. alone walk': prob_alone_walk,
+            'Prob. adult walk': prob_adult_walk,
+            'Prob. non-hh walk': prob_non_hh_walk,
+            'Prob. alone bike': prob_alone_bike,
+            'Prob. adult bike': prob_adult_bike,
+            'Prob. non-hh bike': prob_non_hh_bike}
+
+# Create biogeme object for simulation
+ind_nests_biogeme_sim = bio.BIOGEME(database_sim, simulate)
+ind_nests_biogeme_sim.modelName = "predictions"
+
+betaValues = ind_nest_results.getBetaValues ()
+simulatedValues = ind_nests_biogeme_sim.simulate(betaValues)
+
+simulatedValues.to_csv('biogeme_preds_ind-nests.csv')
+
+adult_car_prob_summary = simulatedValues[["Prob. adult car"]].describe()
+
+print(adult_car_prob_summary)
