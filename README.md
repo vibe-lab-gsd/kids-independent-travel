@@ -4,6 +4,8 @@ The purpose of this project is to study relationships between
 children's independent mobility and the use of active modes of 
 transportation.
 
+Contributors to this project include Aanchal Chopra, Sheyla Chevarria, and Dawon Oh.
+
 ## Subproject 1: Gender and independent active travel to school
 
 This subproject specifically examines the role of parental and child
