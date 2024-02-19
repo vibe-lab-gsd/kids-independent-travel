@@ -130,7 +130,7 @@ for(i in 1:length(predictors)) {
 
 write_tsv(cases_biogeme,
           here("data",
-               "usa-2017-test.dat"))
+               "sim-data.dat"))
 
 write_csv(cases_r_vis,
           here("data",
