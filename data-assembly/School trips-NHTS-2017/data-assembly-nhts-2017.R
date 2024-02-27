@@ -676,3 +676,5 @@ school_trips |>
 school_trips |>
   write_rds(file = here("data",
                         "usa-2017.rds"))
+
+
