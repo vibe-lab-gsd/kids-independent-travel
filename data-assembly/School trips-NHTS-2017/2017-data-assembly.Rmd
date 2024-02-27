@@ -10,6 +10,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Data Assembly notes
 
+Sample text
+
 ## Sample
   
 Data are drawn from the 2017 National Household Travel Survey (https://nhts.ornl.gov/).
