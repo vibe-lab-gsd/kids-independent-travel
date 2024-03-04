@@ -1,193 +1,174 @@
 ---
-title: "Data Assembly 2017"
+title: "Data Assembly: 2017 NHTS"
 output: html_document
-date: "2024-02-27"
+date: "4 March 2024"
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Data Assembly notes
+# Sample
 
-Sample text
+Data for this analysis is drawn from the 2017 National Household Travel Survey (https://nhts.ornl.gov/).
+  
+### Criteria for inclusion in sample
 
-## Sample
-  
-Data are drawn from the 2017 National Household Travel Survey (https://nhts.ornl.gov/).
-  
-### Criteria for inclusion in sample"
-  
-* Trip distance is shorter than 2km/1.25 miles"
-* Trip ends at school", 
-* Traveler is between 8 and 13",
-  * Trip is not by transit, motorcycle, or an unspecified mode (these are rare,",
-  and I assume they are not available to the remaining children)",
-  * Child does not use a school bus for the trip to _or_ from school (assume",
-  the remaining students are ineligible for school bus service)",
-  * Survey does not indicate that the child drove to school unaccompanied (assume ",
-  these are survey coding errors)",
-  * Survey does not indicate the child traveled to school by car with",
-  "only siblings unless the child has a sibling who is a driver.",
-  "* Data not missing for any outcome or predictor variables",
-  "* To filter out some weird cases and only have one trip per child:",
-  "    * Trip does not begin AND end at school",
-  "    * Trip ends before 10am",
-  "    * This is the first qualifying trip of the day",
-  "",
-  "### Multi-stage trips",
-  "",
-  "If the trip ending at school begins with a transfer from another",
-  "mode, the prior trip is included as part of this trip, and trip",
-  "characteristics are determined as follows:",
-  "",
-  "* Match the characteristics of the longest-distance segment of the trip",
-  "    * Mode",
-  "    * Presence of others",
-  "* Summed across all segments",
-  "    * Trip distance",
-  "* Taken from the first segment of the trip",
-  "    * Population density at trip origin",
-  "    * All individual- and household-level variables",
-  "* Taken from last segment of trip",
-  "    * Population density at trip destination",
-  "",
-  "## Variables",
-  "",
-  "### Outcome variables",
-  "* 'mode': One of", 
-  "    * 7 = car",
-  "    * 8 = walk", 
-  "    * 9 = bike",
-  "* 'independence': (string) For purposes of this analysis, we describe all",
-  "female household adults as moms, all male household adults as dads, and all",
-  "household children as siblings. Also note that NHTS codes all household",
-  "members as either male or female. We know how many non-household members",
-  "are on a trip, but we don't know their ages, genders, or drivers status.",
-  "The full independence variable takes one",
-  "of the following 6 values to describe who was with the child on their trip", 
-  "to school:",
-  "    * 10 = alone: There was only one person (the child) on the trip.",
-  "    * 21 = with mom and dad: The child was accompanied by a male household adult",
-  "_and_ a female household adult.",
-  "    * 22 = with mom: The child was accompanied by a female household adult",
-  "but no male household adult.",
-  "    * 23 = with dad: The child was accompanied by a male household adult but",
-  "no female household adult.",
-  "no household adults or non-household members.",
-  "    * 24 = with non-household: The child was accompanied by non-household",
-  "members and no household members were on the trip.",
-  "    * 30 = with sibling: The child was accompanied by household children, but",
-  "* 'ind_3': A simplified independence variable. One of:",
-  "    * 10 = alone: Same as 1 (alone) in the full independence variable",
-  "    * 20 = with adults: Combination of these values from the full",
-  "independence variable:",
-  "        * 21 (with mom and dad)", 
-  "        * 22 (with mom)",
-  "        * 23 (with dad)", 
-  "        * 24 (with non-household)",
-  "    * 30 = with kids: same as 3 (with sibling) in the full independence variable.",
-  "* 'ind_3_alt': Same as 'ind_3a', but trips with non-household members", 
-  "(indpendence = 3) are classified as trips with kids. Since we don't know if the",
-  "non-household members are kids or adults, we might want to test it both",
-  "ways and see if it effects the result.",
-  "* 'mode_ind': Combination of mode and the full independence variable. Takes",
-  "the following values:",
-  "    * 721 = car with mom and dad",
-  "    * 722 = car with mom",
-  "    * 723 = car with dad",
-  "    * 724 = car with non-household",
-  "    * 730 = car with sibling",
-  "    * 810 = walk alone",
-  "    * 821 = walk with mom and dad",
-  "    * 822 = walk with mom",
-  "    * 823 = walk with dad",
-  "    * 824 = walk with non-household",
-  "    * 830 = walk with sibling",
-  "    * 910 = bike alone",
-  "    * 921 = bike with mom and dad",
-  "    * 922 = bike with mom",
-  "    * 923 = bike with dad",
-  "    * 924 = bike with non-household",
-  "    * 930 = bike with sibling",
-  "* 'mode_ind_3': Combination of mode and the simplified independence",
-  "variable. Takes the following values",
-  "    * 720 = car with adult",
-  "    * 730 = car with kid",
-  "    * 810 = walk alone",
-  "    * 820 = walk with adults",
-  "    * 830 = walk with kids",
-  "    * 910 = bike alone",
-  "    * 920 = bike with adults",
-  "    * 930 = bike with kids",
-  "* 'mode_ind_3_alt': Combination of mode and the simplified independence",
-  "variable that classifies non-household members as kids. Same categories",
-  "as 'mode_ind_3.",
-  "",
-  "### Availability variables",
-  "",
-  "'av_car', 'av_walk', and 'av_bike' indicate the trips for which travel by",
-  "car, walking, or bike is available. We are assuming that these three modes",
-  "are available for all children in the sample (even if there is not car in",
-  "the household, since some children in the sample in zero-vehicle households",
-  "_do_ travel by car) so this value is set to one for all cases.",
-  "",
-  "The following variables indicate the availability of independence", 
-  "alternatives:",
-  "",
-  "* alone_avail: TRUE/1 for all trips",
-  "* with_mom_dad_avail: True if there is both a female and a male adult in",
-  "the household.",
-  "* with_mom_avail: True if there is a female adult in the household",
-  "* with_dad_avail: True if there is a male adult in the household",
-  "* with_non_hh_avail: True for all trips",
-  "* with_sib_avail: True if there are any other children in the household",
-  "* with_adult_avail: True for all trips",
-  "",
-  "### Predictor variables",
-  "",
-  "* Household-level variables",
-  "    * income_k: NHTS codes income in one of 11 income categories. We",
-  "convert this to a continuous variable by assigning households in each",
-  "category the mid-point value of that category. The highest income category",
-  "is for incomes greater than $200,000 per year. We assign an income of", 
-  "$250,000 to that category. log_income_k is the natural log of income_k.",
-  "    * veh_per_driver: We divide the number of household vehicles by the",
-  "number of household drivers. We assign a value of zero to households with",
-  "zero drivers",
-  "    * n_adults: The number of household adults",
-  "    * has_mom: A binary variable indicating whether there is a female", 
-  "adult in the household",
-  "    * has_dad: A binary variable indicating whether there is a male", 
-  "adult in the household",
-  "    * non_work_mom: A binary variable indicating whether there is a female", 
-  "adult in the household who is not a worker",
-  "    * non_work_dad: A binary variable indicating whether there is a male", 
-  "adult in the household who is not a worker",
-  "Individual-level variables",
-  "    * age: The child's age",
-  "    * female: A binary variable indicating whether the child is female",
-  "    * has_lil_sib: A binary variable indicating whether there are any",
-  "younger children in the household (includes children who are the same",
-  "age as the respondent).",
-  "    * has_big_sib: A binary variable indicating whether there are any",
-  "older children in the household",
-  "Trip-level variables",
-  "    * distance: Trip distance in kilometers. The NHTS records distance",
-  "in miles and these are converted to kilometers by multiplying by 1.609.",
-  "log_distance is the natural log of distance.",
-  "    * density: The approximate population density of the census block", 
-  "in which the trip begins or ends (whichever is higher). NHTS reports", 
-  "this value in people per square mile. We convert to people per square",
-  "kilometer by dividing by 2.59. log_density is the natural log of density.",
-  "") 
-  
-```{r}
-#### Load NHTS trip and person files
+**Data**
 
-trips <- here("nhts",
-              "data2017", 
-              "trippub.csv") |>
-  read_csv(show_col_types = FALSE) 
+* Data not missing for any outcome or predictor variables
+
+**Trip (to ensure one trip per child, and only school trips):**
+
+* Trip distance is shorter than 2km/1.25 miles
+* Trip ends at school
+* Trip is not by transit, motorcycle, or an unspecified mode (these are rare and I assume they are not available to the remaining children)
+* Child does not use a school bus for the trip to _or_ from school (assume the remaining students are ineligible for school bus service)
+* Survey does not indicate that the child drove to school unaccompanied (assume these are survey coding errors)
+* Survey does not indicate the child traveled to school by car with "only siblings" unless the child has a sibling who is a driver.
+* Trip does not begin AND end at school
+* Trip ends before 10am
+* This is the first qualifying trip of the day
+
+**Traveler**
+
+* Traveler is between 8 and 13
+
+### Assembling Multi-stage trips
+
+If the trip ending at school begins with a transfer from another mode, the prior trip is included as part of this trip, and trip characteristics are determined as follows:
+  
+* Matched with the characteristics of the longest-distance segment of the trip:
+  * Mode
+  * Presence of others
+*Summed across all segments:
+  * Trip distance
+*Taken from the first segment of the trip:
+  * Population density at trip origin
+  * All individual- and household-level variables
+* Taken from last segment of trip
+  * Population density at trip destination
+  
+# Variables
+
+### Outcome variables
+
+* **'mode'**: One of:
+  * 7 = car
+  * 8 = walk
+  * 9 = bike
+* **'independence'**: (string) For purposes of this analysis, we describe all female household adults as moms, all male household adults as dads, and all household children as siblings. Also note that NHTS codes all household members as either male or female. We know how many non-household members are on a trip, but we don't know their ages, genders, or drivers status.The full independence variable takes one of the following 6 values to describe who was with the child on their trip to school:
+  * 10 = alone: There was only one person (the child) on the trip
+  * 21 = with mom and dad: The child was accompanied by a male household adult _and_ a female household adult
+  * 22 = with mom: The child was accompanied by a female household adult but no male household adult
+  * 23 = with dad: The child was accompanied by a male household adult but no female household adult
+  * 24 = with non-household: The child was accompanied by non-household members and no household members were on the trip
+  * 30 = with sibling: The child was accompanied by household children, but no household adults or non-household members
+* **'ind_3'**: A simplified independence variable. One of:
+  * 10 = alone: Same as 1 (alone) in the full independence variable
+  * 20 = with adults: Combination of these values from the full independence variable
+     * 21 (with mom and dad)
+     * 22 (with mom)
+     * 23 (with dad)
+     * 24 (with non-household)
+  * 30 = with kids: same as 30 (with sibling) in the full independence variable
+* **'ind_3_alt'**: Same as 'ind_3a', but trips with non-household members (independence = 3) are classified as trips with kids. Since we don't know if the non-household members are kids or adults, we might want to test it both ways and see if it effects the result
+* **'mode_ind'**: Combination of mode and the full independence variable. Takes the following values:
+  * 721 = car with mom and dad
+  * 722 = car with mom
+  * 723 = car with dad
+  * 724 = car with non-household
+  * 730 = car with sibling
+  * 810 = walk alone
+  * 821 = walk with mom and dad
+  * 822 = walk with mom
+  * 823 = walk with dad
+  * 824 = walk with non-household
+  * 830 = walk with sibling
+  * 910 = bike alone
+  * 921 = bike with mom and dad
+  * 922 = bike with mom
+  * 923 = bike with dad
+  * 924 = bike with non-household
+  * 930 = bike with sibling
+* **'mode_ind_3'**: Combination of mode and the simplified independence
+  variable. Takes the following values
+  * 720 = car with adult
+  * 730 = car with kid
+  * 810 = walk alone
+  * 820 = walk with adults
+  * 830 = walk with kids
+  * 910 = bike alone
+  * 920 = bike with adults
+  * 930 = bike with kids
+* **'mode_ind_3_alt'**: Combination of mode and the simplified independence variable that classifies non-household members as kids. Same categories as 'mode_ind_3.
+  
+### Availability variables
+
+**'av_car', 'av_walk', and 'av_bike'** indicate the trips for which travel by car, walking, or bike is available. We are assuming that these three modes are available for all children in the sample (even if there is not car in the household, since some children in the sample in zero-vehicle households _do_ travel by car) so this value is set to one for all cases.
+
+The following variables indicate the availability of independence alternatives:
+  
+  * alone_avail: TRUE/1 for all trips
+  * with_mom_dad_avail: True if there is both a female and a male adult in the household.
+  * with_mom_avail: True if there is a female adult in the household
+  * with_dad_avail: True if there is a male adult in the household
+  * with_non_hh_avail: True for all trips
+  * with_sib_avail: True if there are any other children in the household
+  * with_adult_avail: True for all trips
+  
+### Predictor variables
+  
+**Household-level variables**:
+  
+  * income_k: NHTS codes income in one of 11 income categories. We convert this to a continuous variable by assigning households in each category the mid-point value of that category. The highest income category is for incomes greater than $200,000 per year. We assign an income of $250,000 to that category. log_income_k is the natural log of income_k.
+  * veh_per_driver: We divide the number of household vehicles by the number of household drivers. We assign a value of zero to households with zero drivers
+  * n_adults: The number of household adults
+  * has_mom: A binary variable indicating whether there is a female adult in the household
+  * has_dad: A binary variable indicating whether there is a male adult in the household
+  * non_work_mom: A binary variable indicating whether there is a female adult in the household who is not a worker
+  * non_work_dad: A binary variable indicating whether there is a male adult in the household who is not a worker
+  
+**Individual-level variables**:
+  
+  * age: The child's age
+  *female: A binary variable indicating whether the child is female
+  * has_lil_sib: A binary variable indicating whether there are any younger children in the household (includes children who are the same age as the respondent)
+  * has_big_sib: A binary variable indicating whether there are any older children in the household
+  
+**Trip-level variables**:
+
+  * distance: Trip distance in kilometers. The NHTS records distance in miles and these are converted to kilometers by multiplying by 1.609
+    * log_distance is the natural log of distance
+  * density: The approximate population density of the census block in which the trip begins or ends (whichever is higher). NHTS reports this value in people per square mile. We convert to people per square kilometer by dividing by 2.59. 
+    * log_density is the natural log of density
+  
+```{r, message = FALSE, warning = FALSE}
+
+library(tidyverse)
+library(knitr)
+library(tidyr)
+library(dplyr)
+library(here)
+
+#Load NHTS trip and person files
+#trips <- here("nhts",
+              #"2017data",
+              #"trippub.csv") |>
+  #read_csv()
+#people <- read_csv("perpub.csv") |>
+  #mutate(person_hh = paste(PERSONID, HOUSEID, sep = "-")) #Joins Person & Household ID
+
+#Preview data
+#trips |>
+#head() |>
+#kable(caption = "NHTS 2017: Trip Data") |>
+#kable_styling(full_width = FALSE, position = "left")
+
+#people |>
+#head() |>
+#kable(caption = "NHTS 2017: People Data") |>
+#kable_styling(full_width = FALSE, position = "left")
+
 ```
 
