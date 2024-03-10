@@ -288,11 +288,20 @@ po/*~
 rsconnect/
 
 # NHTS data
-nhts/data2017/nhts2017.zip
 nhts/data2017/hhpub.csv
 nhts/data2017/perpub.csv
 nhts/data2017/trippub.csv
 nhts/data2017/vehpub.csv
+nhts/data2009/DAYV2PUB.csv
+nhts/data2009/HHV2PUB.csv
+nhts/data2009/PERV2PUB.csv
+nhts/data2009/VEHV2PUB.csv
+nhts/data2022/hhv2pub.csv
+nhts/data2022/ldtv2pub.csv
+nhts/data2022/perv2pub.csv
+nhts/data2022/tripv2pub.csv
+nhts/data2022/vehv2pub.csv
+
  
  
 .idea/
