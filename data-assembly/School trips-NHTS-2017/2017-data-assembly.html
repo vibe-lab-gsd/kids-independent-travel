@@ -572,30 +572,94 @@ kilometer by dividing by 2.59.
 <li>log_density is the natural log of density</li>
 </ul></li>
 </ul>
+</div>
+</div>
+<div id="data-assembly" class="section level1">
+<h1>Data Assembly</h1>
+<div id="load-nhts-trip-and-person-files" class="section level4">
+<h4>Load NHTS trip and person files</h4>
 <pre class="r"><code>library(tidyverse)
 library(knitr)
 library(tidyr)
 library(dplyr)
 library(here)
+library(kableExtra)
 
-#Load NHTS trip and person files
-#trips &lt;- here(&quot;nhts&quot;,
-              #&quot;2017data&quot;,
-              #&quot;trippub.csv&quot;) |&gt;
-  #read_csv()
-#people &lt;- read_csv(&quot;perpub.csv&quot;) |&gt;
-  #mutate(person_hh = paste(PERSONID, HOUSEID, sep = &quot;-&quot;)) #Joins Person &amp; Household ID
+trips &lt;- here(&quot;nhts&quot;,
+              &quot;data2017&quot;, 
+              &quot;trippub.csv&quot;) |&gt;
+  read_csv(show_col_types = FALSE) 
 
-#Preview data
-#trips |&gt;
-#head() |&gt;
-#kable(caption = &quot;NHTS 2017: Trip Data&quot;) |&gt;
-#kable_styling(full_width = FALSE, position = &quot;left&quot;)
+people &lt;- here(&quot;nhts&quot;,
+               &quot;data2017&quot;, 
+               &quot;perpub.csv&quot;) |&gt;
+  read_csv(show_col_types = FALSE) |&gt;
+  mutate(person_hh = paste(PERSONID, HOUSEID, sep = &quot;-&quot;))</code></pre>
+</div>
+<div id="assemble-ages-and-genders-of-household-members" class="section level4">
+<h4>Assemble ages and genders of household members</h4>
+<pre class="r"><code>hh_ages &lt;- people |&gt;
+  select(HOUSEID, PERSONID, R_AGE) |&gt;
+  pivot_wider(names_from = PERSONID,
+              names_prefix = &quot;age_&quot;,
+              values_from = R_AGE)
 
-#people |&gt;
-#head() |&gt;
-#kable(caption = &quot;NHTS 2017: People Data&quot;) |&gt;
-#kable_styling(full_width = FALSE, position = &quot;left&quot;)</code></pre>
+hh_genders &lt;- people %&gt;%
+  select(HOUSEID, PERSONID, R_SEX_IMP) |&gt;
+  pivot_wider(names_from = PERSONID,
+              names_prefix = &quot;gender_&quot;,
+              values_from = R_SEX_IMP)</code></pre>
+</div>
+<div id="assemble-relationship-status-of-all-individuals" class="section level4">
+<h4>Assemble relationship status of all individuals</h4>
+<pre class="r"><code>relationships &lt;- people |&gt;
+  mutate(adult = R_AGE &gt; 17,
+         mom = R_AGE &gt; 17 &amp; R_SEX_IMP == &quot;02&quot;,
+         dad = R_AGE &gt; 17 &amp; R_SEX_IMP != &quot;02&quot;,
+         kid_age = ifelse(R_AGE &lt; 18, R_AGE, -2),
+         R_AGE = ifelse(R_AGE &lt; 0, 999, R_AGE),
+         non_worker_mom = R_AGE &gt; 17 &amp; WORKER != &quot;01&quot; &amp; R_SEX_IMP == &quot;02&quot;,
+         non_worker_dad = R_AGE &gt; 17 &amp; WORKER != &quot;01&quot; &amp; R_SEX_IMP != &quot;02&quot;,
+         driver_mom = R_AGE &gt; 17 &amp; DRIVER == &quot;01&quot; &amp; R_SEX_IMP == &quot;02&quot;,
+         driver_dad = R_AGE &gt; 17 &amp; DRIVER == &quot;01&quot; &amp; R_SEX_IMP != &quot;02&quot;,
+         driver_sib = R_AGE &lt; 18 &amp; DRIVER == &quot;01&quot;) |&gt;
+  group_by(HOUSEID) |&gt;
+  mutate(n_adults = sum(adult),
+         has_mom = sum(mom) &gt; 0,
+         has_dad = sum(dad) &gt; 0,
+         driver_mom = sum(driver_mom) &gt; 0,
+         driver_dad = sum(driver_dad) &gt; 0,
+         driver_sib = sum(driver_sib) &gt; 0,
+         num_records = n(),
+         non_work_mom = sum(non_worker_mom) &gt; 0,
+         non_work_dad = sum(non_worker_dad) &gt; 0) |&gt;
+  mutate(youngest_kid = ifelse(num_records &gt; HHSIZE, 1, min(R_AGE)),
+         oldest_kid = max(kid_age),
+         n_children = HHSIZE - n_adults) |&gt;
+  mutate(has_big_sib = n_children &gt; 1 &amp; R_AGE != oldest_kid) |&gt;
+  mutate(has_lil_sib = n_children &gt; 1 &amp; (R_AGE != youngest_kid | !has_big_sib)) |&gt;
+  mutate(person_hh = paste(PERSONID, HOUSEID, sep = &quot;-&quot;)) |&gt;
+  ungroup() |&gt;
+  select(person_hh, 
+         R_AGE,
+         R_SEX_IMP,
+         WORKER, 
+         has_lil_sib, 
+         has_big_sib,
+         n_adults,
+         has_mom, 
+         has_dad,
+         non_work_mom,
+         non_work_dad,
+         driver_mom,
+         driver_dad,
+         driver_sib)</code></pre>
+<p>#Preview data</p>
+<p>#trips |&gt; #head() |&gt; #kable(caption = “NHTS 2017: Trip Data”)
+|&gt; #kable_styling(full_width = FALSE, position = “left”)</p>
+<p>#people |&gt; #head() |&gt; #kable(caption = “NHTS 2017: People
+Data”) |&gt; #kable_styling(full_width = FALSE, position = “left”)</p>
+<p>```</p>
 </div>
 </div>
 
