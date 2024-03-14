@@ -1,0 +1,157 @@
+---
+title: "Survey Quintile Example"
+output: html_document
+date: "2024-03-14"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Required packages
+
+This example uses the following packages:
+
+```{r, message=FALSE}
+library(tidyverse)
+library(srvyr)
+library(here)
+library(knitr)
+```
+
+# Load data and create survey object
+
+Here, I'm just using the household data from the 2017 NHTS.
+
+In one long pipe, I'm: 
+
+* Reading in the data
+* Creating a continuous version fo the income variable
+* Filtering rows with missing income values
+* Converting this data frame to a survey object 
+* Calculating quintile thresholds
+* Comparing the continuous income value to the threshold value to deterime 
+which income quintile each household is in.
+
+```{r, message=FALSE}
+hh_2017 <- here("nhts",
+                "data2017",
+                "hhpub.csv") |>
+  # read data
+  read_csv() |> 
+  # make numeric income variable based on category midpoints
+  mutate(income_k = case_when(HHFAMINC == "01" ~ 5, 
+                              HHFAMINC == "02" ~ 12.5,
+                              HHFAMINC == "03" ~ 20,
+                              HHFAMINC == "04" ~ 30,
+                              HHFAMINC == "05" ~ 42.5,
+                              HHFAMINC == "06" ~ 62.5,
+                              HHFAMINC == "07" ~ 87.5,
+                              HHFAMINC == "08" ~ 112.5,
+                              HHFAMINC == "09" ~ 137.5,
+                              HHFAMINC == "10" ~ 175,
+                              HHFAMINC == "11" ~ 250,
+                              TRUE ~ -9)) |>
+  # filter rows with missing value for income
+  filter(income_k > 0) |> 
+  # create survey object with weights
+  as_survey_design(weights = WTHHFIN) |> 
+  # Calculate quintile thresholds
+  mutate(quint_break = survey_quantile(income_k, 
+                                       quantiles = c(0.2, 
+                                                     0.4, 
+                                                     0.6, 
+                                                     0.8))) |>
+  # compare income_k value to thresholds to get income quintile of each HH
+  mutate(inc_quint = case_when(income_k < quint_break$`_q20`[1] ~ "q1",
+                               income_k < quint_break$`_q40`[1] ~ "q2",
+                               income_k < quint_break$`_q60`[1] ~ "q3",
+                               income_k < quint_break$`_q80`[1] ~ "q4",
+                               TRUE ~ "q5"))
+```
+
+# Check quintile proportions
+
+To see how this all worked, we can create a summary table showing the 
+(unweighted) number of respondents in each income category.
+
+```{r}
+hh_2017 |>
+  group_by(inc_quint) |>
+  summarise(n = n()) |>
+  mutate(proportion = n/sum(n)) |>
+  kable(digits = c(0, 0, 2))
+```
+
+Based on the unweighted numbers, we see that only 10 percent of households
+are in the bottom quintile. There are two reasons for this: 
+
+1. These are unweighted counts
+2. All households in the same NHTS income category are given the same 
+assumed income. If this value is right on the threshold, they will all
+fall on the same side.
+
+Now let's see the weighted counts.
+
+```{r}
+hh_2017 |>
+  group_by(inc_quint) |>
+  survey_tally(vartype = "ci") |>
+  mutate(proportion = n/sum(n)) |>
+  kable(digits = c(0, 0, 0, 0, 2))
+```
+
+Even with the weights applied, we still don't have even proportions in each 
+category - although it's closer now with 14 rather than 10 percent in the lowest
+quintile. 
+
+# Recalculate quintiles with new threshold rule
+
+We assigned households into quintiles by saying those with incomes below the
+threshold would fall into the lower quintile. Let's try it again with a rule that
+households with incomes less than _or equal to_ the threshold go into the 
+lower quintile.
+
+```{r}
+hh_2017 <- hh_2017 |>
+  # compare income_k value to thresholds to get income quintile of each HH
+  mutate(inc_quint_2 = case_when(income_k <= quint_break$`_q20`[1] ~ "q1",
+                                 income_k <= quint_break$`_q40`[1] ~ "q2",
+                                 income_k <= quint_break$`_q60`[1] ~ "q3",
+                                 income_k <= quint_break$`_q80`[1] ~ "q4",
+                                 TRUE ~ "q5"))
+```
+
+
+# Recheck proportions
+
+Now let's see how the unweighted proportions look.
+
+```{r}
+hh_2017 |>
+  group_by(inc_quint_2) |>
+  summarise(n = n()) |>
+  mutate(proportion = n/sum(n)) |>
+  kable(digits = c(0, 0, 2))
+```
+
+And here are the weighted proportions:
+
+```{r}
+hh_2017 |>
+  group_by(inc_quint_2) |>
+  survey_tally(vartype = "ci") |>
+  mutate(proportion = n/sum(n)) |>
+  kable(digits = c(0, 0, 0, 0, 2))
+```
+
+
+These proportions are much closer to having 20 percent of all households in 
+each quintile.
+
+It's interesting that the unweighted proportions are much closer to even
+quintiles than the weighted proportions -- so this doesn't work quite as well
+as I might have hoped as a demonstration of the importance of weighting. They're
+both pretty close though, and weighting is still important when you calculate
+summary statistics that are meant to represent the population you've sampled
+from.
