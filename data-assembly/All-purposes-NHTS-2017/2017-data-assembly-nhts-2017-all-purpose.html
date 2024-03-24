@@ -9,10 +9,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Aanchal Chopra" />
 
-<meta name="date" content="2024-03-04" />
+<meta name="date" content="2024-03-24" />
 
-<title>Data Assembly: 2017 NHTS (School Trips)</title>
+<title>Data Assembly: 2017 NHTS (All Purposes Trips)</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -573,9 +574,10 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">Data Assembly: 2017 NHTS (School
+<h1 class="title toc-ignore">Data Assembly: 2017 NHTS (All Purposes
 Trips)</h1>
-<h4 class="date">4 March 2024</h4>
+<h4 class="author">Aanchal Chopra</h4>
+<h4 class="date">2024-03-24</h4>
 
 </div>
 
@@ -586,68 +588,53 @@ Trips)</h1>
 <h2>Constructing the Sample</h2>
 <p>Data for this analysis is drawn from the 2017 National Household
 Travel Survey (<a href="https://nhts.ornl.gov/" class="uri">https://nhts.ornl.gov/</a>).</p>
-<div id="criteria-for-inclusion-in-sample" class="section level4">
-<h4>Criteria for inclusion in sample</h4>
+<div id="criteria-for-inclusion-in-sample" class="section level3">
+<h3>Criteria for inclusion in sample</h3>
 <p><strong>Data</strong></p>
 <ul>
 <li>Data not missing for any outcome or predictor variables</li>
 </ul>
-<p><strong>Trip (to ensure one trip per child, and only school
-trips):</strong></p>
+<p><strong>Trip</strong></p>
 <ul>
-<li>Trip distance is shorter than 2km/1.25 miles</li>
-<li>Trip ends at school</li>
-<li>Trip is not by transit, motorcycle, or an unspecified mode (these
-are rare and I assume they are not available to the remaining
-children)</li>
-<li>Child does not use a school bus for the trip to <em>or</em> from
-school (assume the remaining students are ineligible for school bus
-service)</li>
-<li>Survey does not indicate that the child drove to school
-unaccompanied (assume these are survey coding errors)</li>
-<li>Survey does not indicate the child traveled to school by car with
-“only siblings” unless the child has a sibling who is a driver.</li>
-<li>Trip does not begin AND end at school</li>
-<li>Trip ends before 10am</li>
-<li>This is the first qualifying trip of the day</li>
+<li>Trip distance is shorter than 2km/1.25 miles,</li>
+<li>Survey does not indicate that the child drove unaccompanied (assume
+these are survey coding errors),</li>
+<li>Survey does not indicate the child traveled by car with only
+siblings unless the child has a sibling who is a driver.</li>
 </ul>
 <p><strong>Traveler</strong></p>
 <ul>
 <li>Traveler is between 8 and 13</li>
+<li>Traveler is not eligible for school bus service,
+<ul>
+<li>Not a school trip <em>or</em>,</li>
+<li>Child did not use a school bus on the survey day.</li>
+</ul></li>
 </ul>
-</div>
 <div id="assembling-multi-stage-trips" class="section level4">
 <h4>Assembling Multi-stage trips</h4>
-<p>If the trip ending at school begins with a transfer from another
-mode, the prior trip is included as part of this trip, and trip
-characteristics are determined as follows:</p>
-<ul>
-<li>Matched with the characteristics of the longest-distance segment of
-the trip:
-<ul>
-<li>Mode</li>
-<li>Presence of others *Summed across all segments:</li>
-<li>Trip distance *Taken from the first segment of the trip:</li>
-<li>Population density at trip origin</li>
-<li>All individual- and household-level variables</li>
-</ul></li>
-<li>Taken from last segment of trip
-<ul>
-<li>Population density at trip destination</li>
-</ul></li>
-</ul>
+<p>Trips with the purpose of transferring to another mode are included
+as separate trips rather than being linked together.</p>
+</div>
 </div>
 </div>
 <div id="defining-the-variables" class="section level2">
 <h2>Defining the variables</h2>
+<div id="indentifier-variables" class="section level4">
+<h4>Indentifier variables</h4>
+<ul>
+<li>HOUSEID: A unique identifier for the household,</li>
+<li>person_hh: A unique identifier for the person,</li>
+</ul>
+</div>
 <div id="outcome-variables" class="section level4">
 <h4>Outcome variables</h4>
 <ul>
-<li><p><strong>‘mode’</strong>: One of:</p>
+<li><p><strong>‘mode’</strong>: One of,</p>
 <ul>
-<li>7 = car</li>
-<li>8 = walk</li>
-<li>9 = bike</li>
+<li>7 = car,</li>
+<li>8 = walk,</li>
+<li>9 = bike,</li>
 </ul></li>
 <li><p><strong>‘independence’</strong>: (string) For purposes of this
 analysis, we describe all female household adults as moms, all male
@@ -656,18 +643,18 @@ note that NHTS codes all household members as either male or female. We
 know how many non-household members are on a trip, but we don’t know
 their ages, genders, or drivers status.The full independence variable
 takes one of the following 6 values to describe who was with the child
-on their trip to school:</p>
+on their trip:</p>
 <ul>
 <li>10 = alone: There was only one person (the child) on the trip</li>
 <li>21 = with mom and dad: The child was accompanied by a male household
 adult <em>and</em> a female household adult</li>
 <li>22 = with mom: The child was accompanied by a female household adult
-but no male household adult</li>
+<em>but no</em> male household adult</li>
 <li>23 = with dad: The child was accompanied by a male household adult
-but no female household adult</li>
+<em>but no</em> female household adult</li>
 <li>24 = with non-household: The child was accompanied by non-household
 members and no household members were on the trip</li>
-<li>30 = with sibling: The child was accompanied by household children,
+<li>30 = with sibling: The child was accompanied by household children
 but no household adults or non-household members</li>
 </ul></li>
 <li><p><strong>‘ind_3’</strong>: A simplified independence variable. One
@@ -689,13 +676,13 @@ variable</li>
 non-household members (independence = 30) are classified as trips with
 kids. Since we don’t know if the non-household members are kids or
 adults, we might want to test it both ways and see if it effects the
-result</p></li>
+result.</p></li>
 <li><p><strong>‘mode_ind’</strong>: Combination of mode and the full
 independence variable. Takes the following values:</p>
 <ul>
-<li>721 = car with mom and dad</li>
 <li>722 = car with mom</li>
 <li>723 = car with dad</li>
+<li>721 = car with mom and dad</li>
 <li>724 = car with non-household</li>
 <li>730 = car with sibling</li>
 <li>810 = walk alone</li>
@@ -712,17 +699,10 @@ independence variable. Takes the following values:</p>
 <li>930 = bike with sibling</li>
 </ul></li>
 <li><p><strong>‘mode_ind_3’</strong>: Combination of mode and the
-simplified independence variable. Takes the following values</p>
-<ul>
-<li>720 = car with adult</li>
-<li>730 = car with kid</li>
-<li>810 = walk alone</li>
-<li>820 = walk with adults</li>
-<li>830 = walk with kids</li>
-<li>910 = bike alone</li>
-<li>920 = bike with adults</li>
-<li>930 = bike with kids</li>
-</ul></li>
+simplified independence variable. Takes the following values: <em>720 =
+car with adult </em>730 = car with kid <em>810 = walk alone </em>820 =
+walk with adults <em>830 = walk with kids </em>910 = bike alone <em>920
+= bike with adults </em>930 = bike with kids</p></li>
 <li><p><strong>‘mode_ind_3_alt’</strong>: Combination of mode and the
 simplified independence variable that classifies non-household members
 as kids. Same categories as ’mode_ind_3.</p></li>
@@ -765,10 +745,6 @@ income_k.</li>
 number of household drivers. We assign a value of zero to households
 with zero drivers</li>
 <li>n_adults: The number of household adults</li>
-<li>has_mom: A binary variable indicating whether there is a female
-adult in the household</li>
-<li>has_dad: A binary variable indicating whether there is a male adult
-in the household</li>
 <li>non_work_mom: A binary variable indicating whether there is a female
 adult in the household who is not a worker</li>
 <li>non_work_dad: A binary variable indicating whether there is a male
@@ -786,6 +762,8 @@ older children in the household</li>
 </ul>
 <p><strong>Trip-level variables</strong>:</p>
 <ul>
+<li>school: A binary variable indicating whether this is a school
+trip</li>
 <li>distance: Trip distance in kilometers. The NHTS records distance in
 miles and these are converted to kilometers by multiplying by 1.609
 <ul>
@@ -798,6 +776,13 @@ kilometer by dividing by 2.59.
 <ul>
 <li>log_density is the natural log of density</li>
 </ul></li>
+</ul>
+<p><strong>Travel-day variables</strong>:</p>
+<ul>
+<li>had_school: Child attended school</li>
+<li>school_dist: Distance from home to school (km)</li>
+<li>n_non_school_trips: Number of non-school trips that day</li>
+<li>avg_trip_dist: Average length of trips that day (km)</li>
 </ul>
 </div>
 </div>
@@ -870,11 +855,10 @@ hh_genders &lt;- people %&gt;%
   mutate(has_big_sib = n_children &gt; 1 &amp; R_AGE != oldest_kid) |&gt;
   mutate(has_lil_sib = n_children &gt; 1 &amp; (R_AGE != youngest_kid | !has_big_sib)) |&gt;
   mutate(person_hh = paste(PERSONID, HOUSEID, sep = &quot;-&quot;)) |&gt;
+  mutate(school_dist = 1.609 * DISTTOSC17) |&gt;
   ungroup() |&gt;
-  select(person_hh, 
-         R_AGE,
-         R_SEX_IMP,
-         WORKER, 
+  select(HOUSEID,
+         person_hh, 
          has_lil_sib, 
          has_big_sib,
          n_adults,
@@ -884,124 +868,69 @@ hh_genders &lt;- people %&gt;%
          non_work_dad,
          driver_mom,
          driver_dad,
-         driver_sib)</code></pre>
+         driver_sib,
+         school_dist) </code></pre>
 </div>
-<div id="assemble-trips-and-school-trips" class="section level4">
-<h4>4 Assemble trips and school trips</h4>
-<pre class="r"><code>school_trips &lt;- trips |&gt;
-  mutate(include_trip = (WHYTO == &quot;08&quot; &amp;
-                           WHYFROM != &quot;08&quot; &amp;
-                           R_AGE &gt; 7 &amp; 
+<div id="assemble-all-trips-involving-children" class="section level4">
+<h4>4 Assemble all trips involving children</h4>
+<pre class="r"><code>kid_short_trips &lt;- trips |&gt;
+  mutate(include_trip = (R_AGE &gt; 7 &amp; 
                            R_AGE &lt; 14 &amp;
-                           as.numeric(ENDTIME) &lt; 1000 &amp;
-                           TRPMILES &gt; 0)) |&gt;
-  mutate(WHYTO = ifelse(WHYTO == &quot;07&quot;, &quot;transfer&quot;, WHYTO),
-         WHYFROM = ifelse(WHYFROM == &quot;07&quot;, &quot;transfer&quot;, WHYFROM),
+                           TRPMILES &gt; 0 &amp;
+                           TRPMILES &lt; 1.25)) |&gt;
+  mutate(WHYTO = case_when(WHYTO == &quot;07&quot; ~ &quot;transfer&quot;, 
+                           WHYTO == &quot;08&quot; ~ &quot;school&quot;,
+                           TRUE ~ WHYTO),
+         WHYFROM = case_when(WHYFROM == &quot;07&quot; ~ &quot;transfer&quot;, 
+                             WHYFROM == &quot;08&quot; ~ &quot;school&quot;,
+                             TRUE ~ WHYFROM),
          mode = case_when(TRPTRANS == &quot;10&quot; ~ 1, # school bus
                           TRPTRANS == &quot;03&quot; ~ 7, # car
                           TRPTRANS == &quot;04&quot; ~ 7,
                           TRPTRANS == &quot;05&quot; ~ 7,
                           TRPTRANS == &quot;06&quot; ~ 7,
+                          TRPTRANS == &quot;18&quot; ~ 7,
                           TRPTRANS == &quot;01&quot; ~ 8, # walk
                           TRPTRANS == &quot;02&quot; ~ 9, # bike
-                          TRPTRANS == &quot;11&quot; ~ 2, # transit
-                          TRPTRANS == &quot;12&quot; ~ 2,
-                          TRPTRANS == &quot;13&quot; ~ 2,
-                          TRPTRANS == &quot;14&quot; ~ 2,
-                          TRPTRANS == &quot;15&quot; ~ 2,
-                          TRPTRANS == &quot;16&quot; ~ 2,
-                          TRPTRANS == &quot;08&quot; ~ 3, # motorcycle
-                          TRPTRANS == &quot;97&quot; ~ 4, # unspecified
                           TRUE ~ 5)) |&gt;
-  mutate(TDTRPNUM = ifelse(WHYFROM == &quot;transfer&quot;, 
-                           paste0(&quot;0&quot;, as.numeric(TDTRPNUM) - 1), 
-                           TDTRPNUM)) |&gt;
   mutate(trip_person_hh = paste(TDTRPNUM, PERSONID, HOUSEID, sep = &quot;-&quot;)) |&gt;
   mutate(person_hh = paste(PERSONID, HOUSEID, sep = &quot;-&quot;)) |&gt;
-  group_by(trip_person_hh) |&gt;
-  mutate(longest_seg = TRPMILES == max(TRPMILES)) |&gt;
-  mutate(mode = ifelse(longest_seg, mode, 999)) |&gt;
-  mutate(NUMONTRP = ifelse(longest_seg, NUMONTRP, -1),
-         NONHHCNT = ifelse(longest_seg, NONHHCNT, -1),
-         ONTD_P1 = ifelse(longest_seg, as.numeric(ONTD_P1), -1),
-         ONTD_P2 = ifelse(longest_seg, as.numeric(ONTD_P2), -1),
-         ONTD_P3 = ifelse(longest_seg, as.numeric(ONTD_P3), -1),
-         ONTD_P4 = ifelse(longest_seg, as.numeric(ONTD_P4), -1),
-         ONTD_P5 = ifelse(longest_seg, as.numeric(ONTD_P5), -1),
-         ONTD_P6 = ifelse(longest_seg, as.numeric(ONTD_P6), -1),
-         ONTD_P7 = ifelse(longest_seg, as.numeric(ONTD_P7), -1),
-         ONTD_P8 = ifelse(longest_seg, as.numeric(ONTD_P8), -1),
-         ONTD_P9 = ifelse(longest_seg, as.numeric(ONTD_P9), -1),
-         ONTD_P10 = ifelse(longest_seg, as.numeric(ONTD_P10), -1),
-         ONTD_P11 = ifelse(longest_seg, as.numeric(ONTD_P11), -1),
-         ONTD_P12 = ifelse(longest_seg, as.numeric(ONTD_P12), -1),
-         ONTD_P13 = ifelse(longest_seg, as.numeric(ONTD_P13), -1)) |&gt;
-  summarise(person_hh = first(person_hh),
-            HOUSEID = first(HOUSEID),
-            WHYFROM = first(WHYFROM),
-            WHYTO = last(WHYTO),
-            mode = min(mode),
-            NUMONTRP = max(NUMONTRP),
-            NONHHCNT = max(NONHHCNT),
-            R_AGE = first(R_AGE),
-            ENDTIME = last(ENDTIME),
-            include_trip = max(include_trip),
-            ONTD_P1 = max(ONTD_P1),
-            ONTD_P2 = max(ONTD_P2),
-            ONTD_P3 = max(ONTD_P3),
-            ONTD_P4 = max(ONTD_P4),
-            ONTD_P5 = max(ONTD_P5),
-            ONTD_P6 = max(ONTD_P6),
-            ONTD_P7 = max(ONTD_P7),
-            ONTD_P8 = max(ONTD_P8),
-            ONTD_P9 = max(ONTD_P9),
-            ONTD_P10 = max(ONTD_P10),
-            ONTD_P11 = max(ONTD_P11),
-            ONTD_P12 = max(ONTD_P12),
-            ONTD_P13 = max(ONTD_P13),
-            HHVEHCNT = first(HHVEHCNT),
-            DRVRCNT = first(DRVRCNT),
-            HHFAMINC = first(HHFAMINC),
-            R_SEX_IMP = first(R_SEX_IMP),
-            TRPMILES = sum(TRPMILES),
-            DBPPOPDN = last(DBPPOPDN),
-            OBPPOPDN = first(OBPPOPDN)) |&gt;
+  mutate(school = WHYTO == &quot;school&quot; | WHYFROM == &quot;school&quot;) |&gt;
   group_by(person_hh) |&gt;
-  mutate(can_drive = DRVRCNT &gt; 0 &amp; HHVEHCNT &gt; 0,
-         can_sch_bus = sum(mode == 1) &gt; 0) |&gt;
+  mutate(can_sch_bus = sum(mode == 1) &gt; 0 &amp; school,
+         n_non_school_trips = sum(!school),
+         had_school = sum(school) &gt; 1,
+         avg_trip_dist = 1.609 * mean(TRPMILES)) |&gt;
   ungroup() |&gt;
-  filter(TRPMILES &lt; 1.25) |&gt;
+  filter(!school | !can_sch_bus) |&gt;
   filter(include_trip &gt; 0) |&gt;
-  filter(!duplicated(person_hh)) |&gt;
-  filter(mode &gt; 6,
-         !can_sch_bus) |&gt;
   left_join(hh_ages) |&gt;
   left_join(hh_genders) |&gt;
   mutate(alone = NUMONTRP == 1,
          with_mom = 
-           (ONTD_P1 == 1 &amp; age_01 &gt; 17 &amp; gender_01 == &quot;02&quot;) |
-           (ONTD_P2 == 1 &amp; age_02 &gt; 17 &amp; gender_02 == &quot;02&quot;) |
-           (ONTD_P3 == 1 &amp; age_03 &gt; 17 &amp; gender_03 == &quot;02&quot;) |
-           (ONTD_P4 == 1 &amp; age_04 &gt; 17 &amp; gender_04 == &quot;02&quot;) |
-           (ONTD_P5 == 1 &amp; age_05 &gt; 17 &amp; gender_05 == &quot;02&quot;) |
-           (ONTD_P6 == 1 &amp; age_06 &gt; 17 &amp; gender_06 == &quot;02&quot;) |
-           (ONTD_P7 == 1 &amp; age_07 &gt; 17 &amp; gender_07 == &quot;02&quot;) |
-           (ONTD_P8 == 1 &amp; age_08 &gt; 17 &amp; gender_08 == &quot;02&quot;) |
-           (ONTD_P9 == 1 &amp; age_09 &gt; 17 &amp; gender_09 == &quot;02&quot;) |
+           (ONTD_P1 == &quot;01&quot; &amp; age_01 &gt; 17 &amp; gender_01 == &quot;02&quot;) |
+           (ONTD_P2 == &quot;01&quot; &amp; age_02 &gt; 17 &amp; gender_02 == &quot;02&quot;) |
+           (ONTD_P3 == &quot;01&quot; &amp; age_03 &gt; 17 &amp; gender_03 == &quot;02&quot;) |
+           (ONTD_P4 == &quot;01&quot; &amp; age_04 &gt; 17 &amp; gender_04 == &quot;02&quot;) |
+           (ONTD_P5 == &quot;01&quot; &amp; age_05 &gt; 17 &amp; gender_05 == &quot;02&quot;) |
+           (ONTD_P6 == &quot;01&quot; &amp; age_06 &gt; 17 &amp; gender_06 == &quot;02&quot;) |
+           (ONTD_P7 == &quot;01&quot; &amp; age_07 &gt; 17 &amp; gender_07 == &quot;02&quot;) |
+           (ONTD_P8 == &quot;01&quot; &amp; age_08 &gt; 17 &amp; gender_08 == &quot;02&quot;) |
+           (ONTD_P9 == &quot;01&quot; &amp; age_09 &gt; 17 &amp; gender_09 == &quot;02&quot;) |
            (ONTD_P10 == 1 &amp; age_10 &gt; 17 &amp; gender_10 == &quot;02&quot;) |
            (ONTD_P11 == 1 &amp; age_11 &gt; 17 &amp; gender_11 == &quot;02&quot;) |
            (ONTD_P12 == 1 &amp; age_12 &gt; 17 &amp; gender_12 == &quot;02&quot;) |
            (ONTD_P13 == 1 &amp; age_13 &gt; 17 &amp; gender_13 == &quot;02&quot;),
          with_dad = 
-           (ONTD_P1 == 1 &amp; age_01 &gt; 17 &amp; gender_01 != &quot;02&quot;) |
-           (ONTD_P2 == 1 &amp; age_02 &gt; 17 &amp; gender_02 != &quot;02&quot;) |
-           (ONTD_P3 == 1 &amp; age_03 &gt; 17 &amp; gender_03 != &quot;02&quot;) |
-           (ONTD_P4 == 1 &amp; age_04 &gt; 17 &amp; gender_04 != &quot;02&quot;) |
-           (ONTD_P5 == 1 &amp; age_05 &gt; 17 &amp; gender_05 != &quot;02&quot;) |
-           (ONTD_P6 == 1 &amp; age_06 &gt; 17 &amp; gender_06 != &quot;02&quot;) |
-           (ONTD_P7 == 1 &amp; age_07 &gt; 17 &amp; gender_07 != &quot;02&quot;) |
-           (ONTD_P8 == 1 &amp; age_08 &gt; 17 &amp; gender_08 != &quot;02&quot;) |
-           (ONTD_P9 == 1 &amp; age_09 &gt; 17 &amp; gender_09 != &quot;02&quot;) |
+           (ONTD_P1 == &quot;01&quot; &amp; age_01 &gt; 17 &amp; gender_01 != &quot;02&quot;) |
+           (ONTD_P2 == &quot;01&quot; &amp; age_02 &gt; 17 &amp; gender_02 != &quot;02&quot;) |
+           (ONTD_P3 == &quot;01&quot; &amp; age_03 &gt; 17 &amp; gender_03 != &quot;02&quot;) |
+           (ONTD_P4 == &quot;01&quot; &amp; age_04 &gt; 17 &amp; gender_04 != &quot;02&quot;) |
+           (ONTD_P5 == &quot;01&quot; &amp; age_05 &gt; 17 &amp; gender_05 != &quot;02&quot;) |
+           (ONTD_P6 == &quot;01&quot; &amp; age_06 &gt; 17 &amp; gender_06 != &quot;02&quot;) |
+           (ONTD_P7 == &quot;01&quot; &amp; age_07 &gt; 17 &amp; gender_07 != &quot;02&quot;) |
+           (ONTD_P8 == &quot;01&quot; &amp; age_08 &gt; 17 &amp; gender_08 != &quot;02&quot;) |
+           (ONTD_P9 == &quot;01&quot; &amp; age_09 &gt; 17 &amp; gender_09 != &quot;02&quot;) |
            (ONTD_P10 == 1 &amp; age_10 &gt; 17 &amp; gender_10 != &quot;02&quot;) |
            (ONTD_P11 == 1 &amp; age_11 &gt; 17 &amp; gender_11 != &quot;02&quot;) |
            (ONTD_P12 == 1 &amp; age_12 &gt; 17 &amp; gender_12 != &quot;02&quot;) |
@@ -1063,7 +992,10 @@ hh_genders &lt;- people %&gt;%
          alone_avail = 1,
          with_non_hh_avail = 1,
          with_adult_avail = 1) |&gt;
-  select(mode,
+  select(HOUSEID,
+         person_hh,
+         mode,
+         TRPTRANS,
          independence,
          ind_3,
          ind_3_alt,
@@ -1080,10 +1012,15 @@ hh_genders &lt;- people %&gt;%
          female,
          has_lil_sib,
          has_big_sib,
+         school,
          distance,
          log_distance,
          density,
          log_density,
+         school_dist,
+         avg_trip_dist,
+         n_non_school_trips,
+         had_school,
          av_car,
          av_walk,
          av_bike,
@@ -1093,7 +1030,87 @@ hh_genders &lt;- people %&gt;%
          with_dad_avail,
          with_non_hh_avail,
          with_sib_avail,
-         with_adult_avail)</code></pre>
+         with_adult_avail)
+
+kid_short_trips |&gt;
+  filter(mode == 5) |&gt;
+  mutate(Mode = case_when(TRPTRANS == &quot;07&quot; ~ &quot;Golf cart or segway&quot;,
+                          TRPTRANS == &quot;08&quot; ~ &quot;Moped or motorcycle&quot;,
+                          TRPTRANS == &quot;09&quot; ~ &quot;RV, motorhome, ATV, or snowmobile&quot;,
+                          TRPTRANS == &quot;97&quot; ~ &quot;Unspecified&quot;,
+                          TRPTRANS == &quot;11&quot; ~ &quot;Transit&quot;, 
+                          TRPTRANS == &quot;12&quot; ~ &quot;Transit&quot;,
+                          TRPTRANS == &quot;13&quot; ~ &quot;Transit&quot;,
+                          TRPTRANS == &quot;14&quot; ~ &quot;Transit&quot;,
+                          TRPTRANS == &quot;15&quot; ~ &quot;Transit&quot;,
+                          TRPTRANS == &quot;16&quot; ~ &quot;Transit&quot;,
+                          TRPTRANS == &quot;17&quot; ~ &quot;Transit&quot;,
+                          TRPTRANS == &quot;20&quot; ~ &quot;Transit&quot;,
+                          TRUE ~ &quot;no idea&quot;)) |&gt;
+  group_by(Mode) |&gt;
+  summarise(`Number of trips` = n()) |&gt;
+  select(Mode, `Number of trips`) |&gt;
+  kable(caption = &quot;Modes excluded from analysis&quot;)</code></pre>
+<table>
+<caption>
+Modes excluded from analysis
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Mode
+</th>
+<th style="text-align:right;">
+Number of trips
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Golf cart or segway
+</td>
+<td style="text-align:right;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Moped or motorcycle
+</td>
+<td style="text-align:right;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RV, motorhome, ATV, or snowmobile
+</td>
+<td style="text-align:right;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Transit
+</td>
+<td style="text-align:right;">
+54
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Unspecified
+</td>
+<td style="text-align:right;">
+66
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>kid_short_trips &lt;- kid_short_trips |&gt;
+  filter(mode != 5) |&gt;
+  select(-TRPTRANS)</code></pre>
 </div>
 </div>
 <div id="summary-statistics" class="section level1">
@@ -1120,7 +1137,7 @@ Sample
 Households
 </td>
 <td style="text-align:right;">
-1658
+4182
 </td>
 </tr>
 <tr>
@@ -1128,7 +1145,7 @@ Households
 Children
 </td>
 <td style="text-align:right;">
-1658
+5281
 </td>
 </tr>
 <tr>
@@ -1136,7 +1153,7 @@ Children
 Trips
 </td>
 <td style="text-align:right;">
-1658
+10684
 </td>
 </tr>
 </tbody>
@@ -1176,13 +1193,13 @@ Alone
 0
 </td>
 <td style="text-align:right;">
-67
+396
 </td>
 <td style="text-align:right;">
-155
+1197
 </td>
 <td style="text-align:right;">
-222
+1593
 </td>
 </tr>
 <tr>
@@ -1190,16 +1207,16 @@ Alone
 With mom and dad
 </td>
 <td style="text-align:right;">
-21
+884
 </td>
 <td style="text-align:right;">
-2
+19
 </td>
 <td style="text-align:right;">
-11
+314
 </td>
 <td style="text-align:right;">
-34
+1217
 </td>
 </tr>
 <tr>
@@ -1207,16 +1224,16 @@ With mom and dad
 With mom
 </td>
 <td style="text-align:right;">
-670
+3534
 </td>
 <td style="text-align:right;">
-16
+76
 </td>
 <td style="text-align:right;">
-115
+902
 </td>
 <td style="text-align:right;">
-801
+4512
 </td>
 </tr>
 <tr>
@@ -1224,16 +1241,16 @@ With mom
 With dad
 </td>
 <td style="text-align:right;">
-308
+1316
 </td>
 <td style="text-align:right;">
-6
+38
 </td>
 <td style="text-align:right;">
-46
+257
 </td>
 <td style="text-align:right;">
-360
+1611
 </td>
 </tr>
 <tr>
@@ -1241,16 +1258,16 @@ With dad
 With non-household
 </td>
 <td style="text-align:right;">
-58
+373
 </td>
 <td style="text-align:right;">
-8
+110
 </td>
 <td style="text-align:right;">
-68
+478
 </td>
 <td style="text-align:right;">
-134
+961
 </td>
 </tr>
 <tr>
@@ -1258,16 +1275,16 @@ With non-household
 With siblings
 </td>
 <td style="text-align:right;">
-7
+30
 </td>
 <td style="text-align:right;">
-15
+114
 </td>
 <td style="text-align:right;">
-85
+604
 </td>
 <td style="text-align:right;">
-107
+748
 </td>
 </tr>
 <tr>
@@ -1275,16 +1292,16 @@ With siblings
 Total
 </td>
 <td style="text-align:right;">
-1064
+6137
 </td>
 <td style="text-align:right;">
-114
+753
 </td>
 <td style="text-align:right;">
-480
+3752
 </td>
 <td style="text-align:right;">
-1658
+10684
 </td>
 </tr>
 </tbody>
@@ -1322,13 +1339,13 @@ Alone
 0%
 </td>
 <td style="text-align:left;">
-4%
+3.7%
 </td>
 <td style="text-align:left;">
-9.3%
+11.2%
 </td>
 <td style="text-align:left;">
-13.4%
+14.9%
 </td>
 </tr>
 <tr>
@@ -1336,16 +1353,16 @@ Alone
 With mom and dad
 </td>
 <td style="text-align:left;">
-1.3%
+8.3%
 </td>
 <td style="text-align:left;">
-0.1%
+0.2%
 </td>
 <td style="text-align:left;">
-0.7%
+2.9%
 </td>
 <td style="text-align:left;">
-2.1%
+11.4%
 </td>
 </tr>
 <tr>
@@ -1353,16 +1370,16 @@ With mom and dad
 With mom
 </td>
 <td style="text-align:left;">
-40.4%
+33.1%
 </td>
 <td style="text-align:left;">
-1%
+0.7%
 </td>
 <td style="text-align:left;">
-6.9%
+8.4%
 </td>
 <td style="text-align:left;">
-48.3%
+42.2%
 </td>
 </tr>
 <tr>
@@ -1370,16 +1387,16 @@ With mom
 With dad
 </td>
 <td style="text-align:left;">
-18.6%
+12.3%
 </td>
 <td style="text-align:left;">
 0.4%
 </td>
 <td style="text-align:left;">
-2.8%
+2.4%
 </td>
 <td style="text-align:left;">
-21.7%
+15.1%
 </td>
 </tr>
 <tr>
@@ -1390,13 +1407,13 @@ With non-household
 3.5%
 </td>
 <td style="text-align:left;">
-0.5%
+1%
 </td>
 <td style="text-align:left;">
-4.1%
+4.5%
 </td>
 <td style="text-align:left;">
-8.1%
+9%
 </td>
 </tr>
 <tr>
@@ -1404,16 +1421,16 @@ With non-household
 With siblings
 </td>
 <td style="text-align:left;">
-0.4%
+0.3%
 </td>
 <td style="text-align:left;">
-0.9%
+1.1%
 </td>
 <td style="text-align:left;">
-5.1%
+5.7%
 </td>
 <td style="text-align:left;">
-6.5%
+7%
 </td>
 </tr>
 <tr>
@@ -1421,13 +1438,13 @@ With siblings
 Total
 </td>
 <td style="text-align:left;">
-64.2%
+57.4%
 </td>
 <td style="text-align:left;">
-6.9%
+7%
 </td>
 <td style="text-align:left;">
-29%
+35.1%
 </td>
 <td style="text-align:left;">
 100%
@@ -1471,13 +1488,13 @@ Alone
 0
 </td>
 <td style="text-align:right;">
-67
+396
 </td>
 <td style="text-align:right;">
-155
+1197
 </td>
 <td style="text-align:right;">
-222
+1593
 </td>
 </tr>
 <tr>
@@ -1485,16 +1502,16 @@ Alone
 With adults
 </td>
 <td style="text-align:right;">
-1057
+6107
 </td>
 <td style="text-align:right;">
-32
+243
 </td>
 <td style="text-align:right;">
-240
+1951
 </td>
 <td style="text-align:right;">
-1329
+8301
 </td>
 </tr>
 <tr>
@@ -1502,16 +1519,16 @@ With adults
 With kids
 </td>
 <td style="text-align:right;">
-7
+30
 </td>
 <td style="text-align:right;">
-15
+114
 </td>
 <td style="text-align:right;">
-85
+604
 </td>
 <td style="text-align:right;">
-107
+748
 </td>
 </tr>
 <tr>
@@ -1519,16 +1536,16 @@ With kids
 Total
 </td>
 <td style="text-align:right;">
-1064
+6137
 </td>
 <td style="text-align:right;">
-114
+753
 </td>
 <td style="text-align:right;">
-480
+3752
 </td>
 <td style="text-align:right;">
-1658
+10684
 </td>
 </tr>
 </tbody>
@@ -1566,13 +1583,13 @@ Alone
 0%
 </td>
 <td style="text-align:left;">
-4%
+3.7%
 </td>
 <td style="text-align:left;">
-9.3%
+11.2%
 </td>
 <td style="text-align:left;">
-13.4%
+14.9%
 </td>
 </tr>
 <tr>
@@ -1580,16 +1597,16 @@ Alone
 With adults
 </td>
 <td style="text-align:left;">
-63.8%
+57.2%
 </td>
 <td style="text-align:left;">
-1.9%
+2.3%
 </td>
 <td style="text-align:left;">
-14.5%
+18.3%
 </td>
 <td style="text-align:left;">
-80.2%
+77.7%
 </td>
 </tr>
 <tr>
@@ -1597,16 +1614,16 @@ With adults
 With kids
 </td>
 <td style="text-align:left;">
-0.4%
+0.3%
 </td>
 <td style="text-align:left;">
-0.9%
+1.1%
 </td>
 <td style="text-align:left;">
-5.1%
+5.7%
 </td>
 <td style="text-align:left;">
-6.5%
+7%
 </td>
 </tr>
 <tr>
@@ -1614,13 +1631,13 @@ With kids
 Total
 </td>
 <td style="text-align:left;">
-64.2%
+57.4%
 </td>
 <td style="text-align:left;">
-6.9%
+7%
 </td>
 <td style="text-align:left;">
-29%
+35.1%
 </td>
 <td style="text-align:left;">
 100%
@@ -1630,8 +1647,8 @@ Total
 </table></li>
 </ul>
 </div>
-<div id="outcome-3-alternative-simplified-independence-variable" class="section level4">
-<h4>Outcome 3: Alternative Simplified Independence Variable</h4>
+<div id="outcome-3-alternate-simplified-independence-variable" class="section level4">
+<h4>Outcome 3: Alternate simplified Independence Variable</h4>
 <table class="table" style="width: auto !important; ">
 <caption>
 Number of trips in sample by mode and (alternative simplified)
@@ -1665,13 +1682,13 @@ Alone
 0
 </td>
 <td style="text-align:right;">
-67
+396
 </td>
 <td style="text-align:right;">
-155
+1197
 </td>
 <td style="text-align:right;">
-222
+1593
 </td>
 </tr>
 <tr>
@@ -1679,16 +1696,16 @@ Alone
 With adults
 </td>
 <td style="text-align:right;">
-999
+5734
 </td>
 <td style="text-align:right;">
-24
+133
 </td>
 <td style="text-align:right;">
-172
+1473
 </td>
 <td style="text-align:right;">
-1195
+7340
 </td>
 </tr>
 <tr>
@@ -1696,16 +1713,16 @@ With adults
 With kids
 </td>
 <td style="text-align:right;">
-65
+403
 </td>
 <td style="text-align:right;">
-23
+224
 </td>
 <td style="text-align:right;">
-153
+1082
 </td>
 <td style="text-align:right;">
-241
+1709
 </td>
 </tr>
 <tr>
@@ -1713,16 +1730,16 @@ With kids
 Total
 </td>
 <td style="text-align:right;">
-1064
+6137
 </td>
 <td style="text-align:right;">
-114
+753
 </td>
 <td style="text-align:right;">
-480
+3752
 </td>
 <td style="text-align:right;">
-1658
+10684
 </td>
 </tr>
 </tbody>
@@ -1761,13 +1778,13 @@ Alone
 0%
 </td>
 <td style="text-align:left;">
-4%
+3.7%
 </td>
 <td style="text-align:left;">
-9.3%
+11.2%
 </td>
 <td style="text-align:left;">
-13.4%
+14.9%
 </td>
 </tr>
 <tr>
@@ -1775,16 +1792,16 @@ Alone
 With adults
 </td>
 <td style="text-align:left;">
-60.3%
+53.7%
 </td>
 <td style="text-align:left;">
-1.4%
+1.2%
 </td>
 <td style="text-align:left;">
-10.4%
+13.8%
 </td>
 <td style="text-align:left;">
-72.1%
+68.7%
 </td>
 </tr>
 <tr>
@@ -1792,16 +1809,16 @@ With adults
 With kids
 </td>
 <td style="text-align:left;">
-3.9%
+3.8%
 </td>
 <td style="text-align:left;">
-1.4%
+2.1%
 </td>
 <td style="text-align:left;">
-9.2%
+10.1%
 </td>
 <td style="text-align:left;">
-14.5%
+16%
 </td>
 </tr>
 <tr>
@@ -1809,13 +1826,13 @@ With kids
 Total
 </td>
 <td style="text-align:left;">
-64.2%
+57.4%
 </td>
 <td style="text-align:left;">
-6.9%
+7%
 </td>
 <td style="text-align:left;">
-29%
+35.1%
 </td>
 <td style="text-align:left;">
 100%
@@ -1850,7 +1867,7 @@ Percent available
 Alone
 </td>
 <td style="text-align:left;">
-13%
+15%
 </td>
 <td style="text-align:left;">
 100%
@@ -1861,10 +1878,10 @@ Alone
 With mom and dad
 </td>
 <td style="text-align:left;">
-2%
+11%
 </td>
 <td style="text-align:left;">
-83%
+82%
 </td>
 </tr>
 <tr>
@@ -1872,7 +1889,7 @@ With mom and dad
 With mom
 </td>
 <td style="text-align:left;">
-48%
+42%
 </td>
 <td style="text-align:left;">
 97%
@@ -1883,10 +1900,10 @@ With mom
 With dad
 </td>
 <td style="text-align:left;">
-22%
+15%
 </td>
 <td style="text-align:left;">
-86%
+85%
 </td>
 </tr>
 <tr>
@@ -1894,7 +1911,7 @@ With dad
 With non-household
 </td>
 <td style="text-align:left;">
-8%
+9%
 </td>
 <td style="text-align:left;">
 100%
@@ -1905,10 +1922,10 @@ With non-household
 With siblings
 </td>
 <td style="text-align:left;">
-6%
+7%
 </td>
 <td style="text-align:left;">
-81%
+80%
 </td>
 </tr>
 </tbody>
@@ -1939,21 +1956,21 @@ Standard Deviation
 age
 </td>
 <td style="text-align:right;">
-10.158
+10.345
 </td>
 <td style="text-align:right;">
-1.644
+1.685
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-alone_avail
+avg_trip_dist
 </td>
 <td style="text-align:right;">
-1.000
+5.225
 </td>
 <td style="text-align:right;">
-0.000
+15.292
 </td>
 </tr>
 <tr>
@@ -1961,10 +1978,10 @@ alone_avail
 density
 </td>
 <td style="text-align:right;">
-2482.977
+2240.353
 </td>
 <td style="text-align:right;">
-2256.667
+2365.836
 </td>
 </tr>
 <tr>
@@ -1972,10 +1989,10 @@ density
 distance
 </td>
 <td style="text-align:right;">
-1.099
+0.959
 </td>
 <td style="text-align:right;">
-0.485
+0.563
 </td>
 </tr>
 <tr>
@@ -1983,7 +2000,18 @@ distance
 female
 </td>
 <td style="text-align:right;">
-0.479
+0.488
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+had_school
+</td>
+<td style="text-align:right;">
+0.582
 </td>
 <td style="text-align:right;">
 NA
@@ -1994,7 +2022,7 @@ NA
 has_big_sib
 </td>
 <td style="text-align:right;">
-0.457
+0.449
 </td>
 <td style="text-align:right;">
 NA
@@ -2016,43 +2044,10 @@ NA
 income_k
 </td>
 <td style="text-align:right;">
-97.603
+99.215
 </td>
 <td style="text-align:right;">
-70.048
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-log_density
-</td>
-<td style="text-align:right;">
-7.342
-</td>
-<td style="text-align:right;">
-1.187
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-log_distance
-</td>
-<td style="text-align:right;">
--0.040
-</td>
-<td style="text-align:right;">
-0.594
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-log_income_k
-</td>
-<td style="text-align:right;">
-4.253
-</td>
-<td style="text-align:right;">
-0.921
+71.414
 </td>
 </tr>
 <tr>
@@ -2060,10 +2055,21 @@ log_income_k
 n_adults
 </td>
 <td style="text-align:right;">
-2.044
+1.991
 </td>
 <td style="text-align:right;">
-0.696
+0.625
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+n_non_school_trips
+</td>
+<td style="text-align:right;">
+3.295
+</td>
+<td style="text-align:right;">
+2.650
 </td>
 </tr>
 <tr>
@@ -2071,7 +2077,7 @@ n_adults
 non_work_dad
 </td>
 <td style="text-align:right;">
-0.110
+0.115
 </td>
 <td style="text-align:right;">
 NA
@@ -2082,7 +2088,7 @@ NA
 non_work_mom
 </td>
 <td style="text-align:right;">
-0.345
+0.358
 </td>
 <td style="text-align:right;">
 NA
@@ -2090,13 +2096,35 @@ NA
 </tr>
 <tr>
 <td style="text-align:left;">
+school
+</td>
+<td style="text-align:right;">
+0.328
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+school_dist
+</td>
+<td style="text-align:right;">
+6.261
+</td>
+<td style="text-align:right;">
+85.676
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 veh_per_driver
 </td>
 <td style="text-align:right;">
-1.090
+1.092
 </td>
 <td style="text-align:right;">
-0.510
+0.498
 </td>
 </tr>
 </tbody>
