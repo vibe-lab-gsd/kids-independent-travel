@@ -1,0 +1,27 @@
+---
+title: "Plan for IATBR analysis"
+output: html_document
+date: "2024-03-25"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Simplified model structure
+
+Two independence categories:
+
+1. With household adults
+2. Without household adults
+
+Use a cross-nested model to see which of these two nests someone fits into 
+if we know they were with non-household member but we don't know if it was
+an adult or not.
+
+Two mode categories:
+
+1. Active
+2. Motorized
+
+
