@@ -418,6 +418,14 @@ school_trips_simple <- school_trips |>
 ```
 
 
+```{r}
+write_csv(school_trips_simple,
+          here("models",
+               "IATBR plan",
+               "trips.csv"))
+```
+
+
 ```{r,message = FALSE, warning = FALSE}
 
  mode_ind_table_count <- school_trips |>
