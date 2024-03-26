@@ -1,9 +1,9 @@
 ---
-title: "Data Assembly: 2017 NHTS (School Trips)"
+title: "Data Assembly: 2017 NHTS (All Purposes Trips)"
+author: "Aanchal Chopra"
+date: "`r Sys.Date()`"
 output: html_document
-date: "4 March 2024"
 ---
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -13,76 +13,66 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Constructing the Sample
 
 Data for this analysis is drawn from the 2017 National Household Travel Survey (https://nhts.ornl.gov/).
-  
-#### Criteria for inclusion in sample
+
+### Criteria for inclusion in sample
 
 **Data**
 
 * Data not missing for any outcome or predictor variables
 
-**Trip (to ensure one trip per child, and only school trips):**
+**Trip**
 
-* Trip distance is shorter than 2km/1.25 miles
-* Trip ends at school
-* Trip is not by transit, motorcycle, or an unspecified mode (these are rare and I assume they are not available to the remaining children)
-* Child does not use a school bus for the trip to _or_ from school (assume the remaining students are ineligible for school bus service)
-* Survey does not indicate that the child drove to school unaccompanied (assume these are survey coding errors)
-* Survey does not indicate the child traveled to school by car with "only siblings" unless the child has a sibling who is a driver.
-* Trip does not begin AND end at school
-* Trip ends before 10am
-* This is the first qualifying trip of the day
+* Trip distance is shorter than 2km/1.25 miles,
+* Survey does not indicate that the child drove unaccompanied (assume these are survey coding errors),
+* Survey does not indicate the child traveled by car with only siblings unless the child has a sibling who is a driver.
 
 **Traveler**
 
 * Traveler is between 8 and 13
+* Traveler is not eligible for school bus service,
+  * Not a school trip _or_,
+  * Child did not use a school bus on the survey day.
 
 #### Assembling Multi-stage trips
 
-If the trip ending at school begins with a transfer from another mode, the prior trip is included as part of this trip, and trip characteristics are determined as follows:
-  
-* Matched with the characteristics of the longest-distance segment of the trip:
-  * Mode
-  * Presence of others
-*Summed across all segments:
-  * Trip distance
-*Taken from the first segment of the trip:
-  * Population density at trip origin
-  * All individual- and household-level variables
-* Taken from last segment of trip
-  * Population density at trip destination
-  
+Trips with the purpose of transferring to another mode are included as separate trips rather than being linked together.
+
 ## Defining the variables
+
+#### Indentifier variables
+* HOUSEID: A unique identifier for the household,
+* person_hh: A unique identifier for the person,
 
 #### Outcome variables
 
-* **'mode'**: One of:
-  * 7 = car
-  * 8 = walk
-  * 9 = bike
-  
-* **'independence'**: (string) For purposes of this analysis, we describe all female household adults as moms, all male household adults as dads, and all household children as siblings. Also note that NHTS codes all household members as either male or female. We know how many non-household members are on a trip, but we don't know their ages, genders, or drivers status.The full independence variable takes one of the following 6 values to describe who was with the child on their trip to school:
+* **'mode'**: One of, 
+  * 7 = car,
+  * 8 = walk, 
+  * 9 = bike,
+
+* **'independence'**: (string) For purposes of this analysis, we describe all female household adults as moms, all male household adults as dads, and all household children as siblings. Also note that NHTS codes all household members as either male or female. We know how many non-household members are on a trip, but we don't know their ages, genders, or drivers status.The full independence variable takes one of the following 6 values to describe who was with the child on their trip:
   * 10 = alone: There was only one person (the child) on the trip
   * 21 = with mom and dad: The child was accompanied by a male household adult _and_ a female household adult
-  * 22 = with mom: The child was accompanied by a female household adult but no male household adult
-  * 23 = with dad: The child was accompanied by a male household adult but no female household adult
+  * 22 = with mom: The child was accompanied by a female household adult _but no_ male household adult
+  * 23 = with dad: The child was accompanied by a male household adult _but no_ female household adult
   * 24 = with non-household: The child was accompanied by non-household members and no household members were on the trip
-  * 30 = with sibling: The child was accompanied by household children, but no household adults or non-household members
-  
+  * 30 = with sibling: The child was accompanied by household children but no household adults or non-household members
+
 * **'ind_3'**: A simplified independence variable. One of:
   * 10 = alone: Same as 1 (alone) in the full independence variable
   * 20 = with adults: Combination of these values from the full independence variable
-     * 21 (with mom and dad)
-     * 22 (with mom)
-     * 23 (with dad)
-     * 24 (with non-household)
+    * 21 (with mom and dad)
+    * 22 (with mom)
+    * 23 (with dad)
+    * 24 (with non-household)
   * 30 = with kids: same as 30 (with sibling) in the full independence variable
-  
-* **'ind_3_alt'**: Same as 'ind_3a', but trips with non-household members (independence = 30) are classified as trips with kids. Since we don't know if the non-household members are kids or adults, we might want to test it both ways and see if it effects the result
+
+* **'ind_3_alt'**: Same as 'ind_3a', but trips with non-household members (independence = 30) are classified as trips with kids. Since we don't know if the non-household members are kids or adults, we might want to test it both ways and see if it effects the result.
 
 * **'mode_ind'**: Combination of mode and the full independence variable. Takes the following values:
-  * 721 = car with mom and dad
   * 722 = car with mom
   * 723 = car with dad
+  * 721 = car with mom and dad
   * 724 = car with non-household
   * 730 = car with sibling
   * 810 = walk alone
@@ -97,20 +87,19 @@ If the trip ending at school begins with a transfer from another mode, the prior
   * 923 = bike with dad
   * 924 = bike with non-household
   * 930 = bike with sibling
-  
-* **'mode_ind_3'**: Combination of mode and the simplified independence
-  variable. Takes the following values
-  * 720 = car with adult
-  * 730 = car with kid
-  * 810 = walk alone
-  * 820 = walk with adults
-  * 830 = walk with kids
-  * 910 = bike alone
-  * 920 = bike with adults
-  * 930 = bike with kids
-  
+
+* **'mode_ind_3'**: Combination of mode and the simplified independence variable. Takes the following values:
+  *720 = car with adult
+  *730 = car with kid
+  *810 = walk alone
+  *820 = walk with adults
+  *830 = walk with kids
+  *910 = bike alone
+  *920 = bike with adults
+  *930 = bike with kids
+
 * **'mode_ind_3_alt'**: Combination of mode and the simplified independence variable that classifies non-household members as kids. Same categories as 'mode_ind_3.
-  
+
 #### Availability variables
 
 **'av_car', 'av_walk', and 'av_bike'** indicate the trips for which travel by car, walking, or bike is available. We are assuming that these three modes are available for all children in the sample (even if there is not car in the household, since some children in the sample in zero-vehicle households _do_ travel by car) so this value is set to one for all cases.
@@ -126,14 +115,12 @@ The following variables indicate the availability of independence alternatives:
   * with_adult_avail: True for all trips
   
 #### Predictor variables
-  
+
 **Household-level variables**:
   
   * income_k: NHTS codes income in one of 11 income categories. We convert this to a continuous variable by assigning households in each category the mid-point value of that category. The highest income category is for incomes greater than $200,000 per year. We assign an income of $250,000 to that category. log_income_k is the natural log of income_k.
   * veh_per_driver: We divide the number of household vehicles by the number of household drivers. We assign a value of zero to households with zero drivers
   * n_adults: The number of household adults
-  * has_mom: A binary variable indicating whether there is a female adult in the household
-  * has_dad: A binary variable indicating whether there is a male adult in the household
   * non_work_mom: A binary variable indicating whether there is a female adult in the household who is not a worker
   * non_work_dad: A binary variable indicating whether there is a male adult in the household who is not a worker
   
@@ -146,15 +133,23 @@ The following variables indicate the availability of independence alternatives:
   
 **Trip-level variables**:
 
+  * school: A binary variable indicating whether this is a school trip
   * distance: Trip distance in kilometers. The NHTS records distance in miles and these are converted to kilometers by multiplying by 1.609
     * log_distance is the natural log of distance
   * density: The approximate population density of the census block in which the trip begins or ends (whichever is higher). NHTS reports this value in people per square mile. We convert to people per square kilometer by dividing by 2.59. 
     * log_density is the natural log of density
-    
+
+**Travel-day variables**:
+
+  * had_school: Child attended school
+  * school_dist: Distance from home to school (km)
+  * n_non_school_trips: Number of non-school trips that day
+  * avg_trip_dist: Average length of trips that day (km)
+
 # Data Assembly
 
 #### 1 Load NHTS trip and person files
-  
+
 ```{r, message = FALSE, warning = FALSE}
 
 library(tidyverse)
@@ -229,11 +224,10 @@ relationships <- people |>
   mutate(has_big_sib = n_children > 1 & R_AGE != oldest_kid) |>
   mutate(has_lil_sib = n_children > 1 & (R_AGE != youngest_kid | !has_big_sib)) |>
   mutate(person_hh = paste(PERSONID, HOUSEID, sep = "-")) |>
+  mutate(school_dist = 1.609 * DISTTOSC17) |>
   ungroup() |>
-  select(person_hh, 
-         R_AGE,
-         R_SEX_IMP,
-         WORKER, 
+  select(HOUSEID,
+         person_hh, 
          has_lil_sib, 
          has_big_sib,
          n_adults,
@@ -243,127 +237,72 @@ relationships <- people |>
          non_work_dad,
          driver_mom,
          driver_dad,
-         driver_sib)
+         driver_sib,
+         school_dist) 
 ```
 
-#### 4 Assemble trips and school trips
+#### 4 Assemble all trips involving children
 
 ```{r, message = FALSE, warning = FALSE}
 
-school_trips <- trips |>
-  mutate(include_trip = (WHYTO == "08" &
-                           WHYFROM != "08" &
-                           R_AGE > 7 & 
+kid_short_trips <- trips |>
+  mutate(include_trip = (R_AGE > 7 & 
                            R_AGE < 14 &
-                           as.numeric(ENDTIME) < 1000 &
-                           TRPMILES > 0)) |>
-  mutate(WHYTO = ifelse(WHYTO == "07", "transfer", WHYTO),
-         WHYFROM = ifelse(WHYFROM == "07", "transfer", WHYFROM),
+                           TRPMILES > 0 &
+                           TRPMILES < 1.25)) |>
+  mutate(WHYTO = case_when(WHYTO == "07" ~ "transfer", 
+                           WHYTO == "08" ~ "school",
+                           TRUE ~ WHYTO),
+         WHYFROM = case_when(WHYFROM == "07" ~ "transfer", 
+                             WHYFROM == "08" ~ "school",
+                             TRUE ~ WHYFROM),
          mode = case_when(TRPTRANS == "10" ~ 1, # school bus
                           TRPTRANS == "03" ~ 7, # car
                           TRPTRANS == "04" ~ 7,
                           TRPTRANS == "05" ~ 7,
                           TRPTRANS == "06" ~ 7,
+                          TRPTRANS == "18" ~ 7,
                           TRPTRANS == "01" ~ 8, # walk
                           TRPTRANS == "02" ~ 9, # bike
-                          TRPTRANS == "11" ~ 2, # transit
-                          TRPTRANS == "12" ~ 2,
-                          TRPTRANS == "13" ~ 2,
-                          TRPTRANS == "14" ~ 2,
-                          TRPTRANS == "15" ~ 2,
-                          TRPTRANS == "16" ~ 2,
-                          TRPTRANS == "08" ~ 3, # motorcycle
-                          TRPTRANS == "97" ~ 4, # unspecified
                           TRUE ~ 5)) |>
-  mutate(TDTRPNUM = ifelse(WHYFROM == "transfer", 
-                           paste0("0", as.numeric(TDTRPNUM) - 1), 
-                           TDTRPNUM)) |>
   mutate(trip_person_hh = paste(TDTRPNUM, PERSONID, HOUSEID, sep = "-")) |>
   mutate(person_hh = paste(PERSONID, HOUSEID, sep = "-")) |>
-  group_by(trip_person_hh) |>
-  mutate(longest_seg = TRPMILES == max(TRPMILES)) |>
-  mutate(mode = ifelse(longest_seg, mode, 999)) |>
-  mutate(NUMONTRP = ifelse(longest_seg, NUMONTRP, -1),
-         NONHHCNT = ifelse(longest_seg, NONHHCNT, -1),
-         ONTD_P1 = ifelse(longest_seg, as.numeric(ONTD_P1), -1),
-         ONTD_P2 = ifelse(longest_seg, as.numeric(ONTD_P2), -1),
-         ONTD_P3 = ifelse(longest_seg, as.numeric(ONTD_P3), -1),
-         ONTD_P4 = ifelse(longest_seg, as.numeric(ONTD_P4), -1),
-         ONTD_P5 = ifelse(longest_seg, as.numeric(ONTD_P5), -1),
-         ONTD_P6 = ifelse(longest_seg, as.numeric(ONTD_P6), -1),
-         ONTD_P7 = ifelse(longest_seg, as.numeric(ONTD_P7), -1),
-         ONTD_P8 = ifelse(longest_seg, as.numeric(ONTD_P8), -1),
-         ONTD_P9 = ifelse(longest_seg, as.numeric(ONTD_P9), -1),
-         ONTD_P10 = ifelse(longest_seg, as.numeric(ONTD_P10), -1),
-         ONTD_P11 = ifelse(longest_seg, as.numeric(ONTD_P11), -1),
-         ONTD_P12 = ifelse(longest_seg, as.numeric(ONTD_P12), -1),
-         ONTD_P13 = ifelse(longest_seg, as.numeric(ONTD_P13), -1)) |>
-  summarise(person_hh = first(person_hh),
-            HOUSEID = first(HOUSEID),
-            WHYFROM = first(WHYFROM),
-            WHYTO = last(WHYTO),
-            mode = min(mode),
-            NUMONTRP = max(NUMONTRP),
-            NONHHCNT = max(NONHHCNT),
-            R_AGE = first(R_AGE),
-            ENDTIME = last(ENDTIME),
-            include_trip = max(include_trip),
-            ONTD_P1 = max(ONTD_P1),
-            ONTD_P2 = max(ONTD_P2),
-            ONTD_P3 = max(ONTD_P3),
-            ONTD_P4 = max(ONTD_P4),
-            ONTD_P5 = max(ONTD_P5),
-            ONTD_P6 = max(ONTD_P6),
-            ONTD_P7 = max(ONTD_P7),
-            ONTD_P8 = max(ONTD_P8),
-            ONTD_P9 = max(ONTD_P9),
-            ONTD_P10 = max(ONTD_P10),
-            ONTD_P11 = max(ONTD_P11),
-            ONTD_P12 = max(ONTD_P12),
-            ONTD_P13 = max(ONTD_P13),
-            HHVEHCNT = first(HHVEHCNT),
-            DRVRCNT = first(DRVRCNT),
-            HHFAMINC = first(HHFAMINC),
-            R_SEX_IMP = first(R_SEX_IMP),
-            TRPMILES = sum(TRPMILES),
-            DBPPOPDN = last(DBPPOPDN),
-            OBPPOPDN = first(OBPPOPDN)) |>
+  mutate(school = WHYTO == "school" | WHYFROM == "school") |>
   group_by(person_hh) |>
-  mutate(can_drive = DRVRCNT > 0 & HHVEHCNT > 0,
-         can_sch_bus = sum(mode == 1) > 0) |>
+  mutate(can_sch_bus = sum(mode == 1) > 0 & school,
+         n_non_school_trips = sum(!school),
+         had_school = sum(school) > 1,
+         avg_trip_dist = 1.609 * mean(TRPMILES)) |>
   ungroup() |>
-  filter(TRPMILES < 1.25) |>
+  filter(!school | !can_sch_bus) |>
   filter(include_trip > 0) |>
-  filter(!duplicated(person_hh)) |>
-  filter(mode > 6,
-         !can_sch_bus) |>
   left_join(hh_ages) |>
   left_join(hh_genders) |>
   mutate(alone = NUMONTRP == 1,
          with_mom = 
-           (ONTD_P1 == 1 & age_01 > 17 & gender_01 == "02") |
-           (ONTD_P2 == 1 & age_02 > 17 & gender_02 == "02") |
-           (ONTD_P3 == 1 & age_03 > 17 & gender_03 == "02") |
-           (ONTD_P4 == 1 & age_04 > 17 & gender_04 == "02") |
-           (ONTD_P5 == 1 & age_05 > 17 & gender_05 == "02") |
-           (ONTD_P6 == 1 & age_06 > 17 & gender_06 == "02") |
-           (ONTD_P7 == 1 & age_07 > 17 & gender_07 == "02") |
-           (ONTD_P8 == 1 & age_08 > 17 & gender_08 == "02") |
-           (ONTD_P9 == 1 & age_09 > 17 & gender_09 == "02") |
+           (ONTD_P1 == "01" & age_01 > 17 & gender_01 == "02") |
+           (ONTD_P2 == "01" & age_02 > 17 & gender_02 == "02") |
+           (ONTD_P3 == "01" & age_03 > 17 & gender_03 == "02") |
+           (ONTD_P4 == "01" & age_04 > 17 & gender_04 == "02") |
+           (ONTD_P5 == "01" & age_05 > 17 & gender_05 == "02") |
+           (ONTD_P6 == "01" & age_06 > 17 & gender_06 == "02") |
+           (ONTD_P7 == "01" & age_07 > 17 & gender_07 == "02") |
+           (ONTD_P8 == "01" & age_08 > 17 & gender_08 == "02") |
+           (ONTD_P9 == "01" & age_09 > 17 & gender_09 == "02") |
            (ONTD_P10 == 1 & age_10 > 17 & gender_10 == "02") |
            (ONTD_P11 == 1 & age_11 > 17 & gender_11 == "02") |
            (ONTD_P12 == 1 & age_12 > 17 & gender_12 == "02") |
            (ONTD_P13 == 1 & age_13 > 17 & gender_13 == "02"),
          with_dad = 
-           (ONTD_P1 == 1 & age_01 > 17 & gender_01 != "02") |
-           (ONTD_P2 == 1 & age_02 > 17 & gender_02 != "02") |
-           (ONTD_P3 == 1 & age_03 > 17 & gender_03 != "02") |
-           (ONTD_P4 == 1 & age_04 > 17 & gender_04 != "02") |
-           (ONTD_P5 == 1 & age_05 > 17 & gender_05 != "02") |
-           (ONTD_P6 == 1 & age_06 > 17 & gender_06 != "02") |
-           (ONTD_P7 == 1 & age_07 > 17 & gender_07 != "02") |
-           (ONTD_P8 == 1 & age_08 > 17 & gender_08 != "02") |
-           (ONTD_P9 == 1 & age_09 > 17 & gender_09 != "02") |
+           (ONTD_P1 == "01" & age_01 > 17 & gender_01 != "02") |
+           (ONTD_P2 == "01" & age_02 > 17 & gender_02 != "02") |
+           (ONTD_P3 == "01" & age_03 > 17 & gender_03 != "02") |
+           (ONTD_P4 == "01" & age_04 > 17 & gender_04 != "02") |
+           (ONTD_P5 == "01" & age_05 > 17 & gender_05 != "02") |
+           (ONTD_P6 == "01" & age_06 > 17 & gender_06 != "02") |
+           (ONTD_P7 == "01" & age_07 > 17 & gender_07 != "02") |
+           (ONTD_P8 == "01" & age_08 > 17 & gender_08 != "02") |
+           (ONTD_P9 == "01" & age_09 > 17 & gender_09 != "02") |
            (ONTD_P10 == 1 & age_10 > 17 & gender_10 != "02") |
            (ONTD_P11 == 1 & age_11 > 17 & gender_11 != "02") |
            (ONTD_P12 == 1 & age_12 > 17 & gender_12 != "02") |
@@ -425,7 +364,10 @@ school_trips <- trips |>
          alone_avail = 1,
          with_non_hh_avail = 1,
          with_adult_avail = 1) |>
-  select(mode,
+  select(HOUSEID,
+         person_hh,
+         mode,
+         TRPTRANS,
          independence,
          ind_3,
          ind_3_alt,
@@ -442,10 +384,15 @@ school_trips <- trips |>
          female,
          has_lil_sib,
          has_big_sib,
+         school,
          distance,
          log_distance,
          density,
          log_density,
+         school_dist,
+         avg_trip_dist,
+         n_non_school_trips,
+         had_school,
          av_car,
          av_walk,
          av_bike,
@@ -456,6 +403,31 @@ school_trips <- trips |>
          with_non_hh_avail,
          with_sib_avail,
          with_adult_avail)
+
+kid_short_trips |>
+  filter(mode == 5) |>
+  mutate(Mode = case_when(TRPTRANS == "07" ~ "Golf cart or segway",
+                          TRPTRANS == "08" ~ "Moped or motorcycle",
+                          TRPTRANS == "09" ~ "RV, motorhome, ATV, or snowmobile",
+                          TRPTRANS == "97" ~ "Unspecified",
+                          TRPTRANS == "11" ~ "Transit", 
+                          TRPTRANS == "12" ~ "Transit",
+                          TRPTRANS == "13" ~ "Transit",
+                          TRPTRANS == "14" ~ "Transit",
+                          TRPTRANS == "15" ~ "Transit",
+                          TRPTRANS == "16" ~ "Transit",
+                          TRPTRANS == "17" ~ "Transit",
+                          TRPTRANS == "20" ~ "Transit",
+                          TRUE ~ "no idea")) |>
+  group_by(Mode) |>
+  summarise(`Number of trips` = n()) |>
+  select(Mode, `Number of trips`) |>
+  kable(caption = "Modes excluded from analysis")
+
+kid_short_trips <- kid_short_trips |>
+  filter(mode != 5) |>
+  select(-TRPTRANS)
+
 ```
 
 # Summary Statistics
@@ -467,9 +439,9 @@ school_trips <- trips |>
 tibble(Unit = c("Households",
                 "Children",
                 "Trips"),
-       Sample = c(nrow(school_trips),
-                  nrow(school_trips),
-                  nrow(school_trips))) |>
+       Sample = c(length(unique(kid_short_trips$HOUSEID)),
+                  length(unique(kid_short_trips$person_hh)),
+                  nrow(kid_short_trips))) |>
   kable(caption = "Sample size")|>
   kable_styling(full_width = FALSE, position = "left")
 
@@ -477,9 +449,9 @@ tibble(Unit = c("Households",
 
 #### Outcome 1: Full Independence Variable
 
-```{r,message = FALSE, warning = FALSE, results='asis', echo=FALSE}
+```{r, message = FALSE, warning = FALSE, results='asis', echo=FALSE}
 
- mode_ind_table_count <- school_trips |>
+mode_ind_table_count <- kid_short_trips |>
   group_by(independence, mode) |>
   summarise(n = n()) |>
   ungroup() |>
@@ -493,36 +465,36 @@ tibble(Unit = c("Households",
                   "With siblings")) |>
   rename(Car = `7`,
          Walk = `8`,
-         Bike = `9`) |>
+         Bike = `9`,) |>
   select(`-`,
          Car,
          Bike, 
          Walk) |>
   mutate(Total = Car + Bike + Walk) |>
   rbind(tibble(`-` = "Total",
-                  Car = sum(school_trips$mode == 7),
-                  Walk = sum(school_trips$mode == 8),
-                  Bike = sum(school_trips$mode ==9),
-                  Total = nrow(school_trips)))
-
+               Car = sum(kid_short_trips$mode == 7),
+               Walk = sum(kid_short_trips$mode == 8),
+               Bike = sum(kid_short_trips$mode ==9),
+               Total = nrow(kid_short_trips))) 
+  
 mode_ind_table_pct <- mode_ind_table_count |>
-  mutate(across(-`-`, ~ paste0(round(.x * 100/ nrow(school_trips),1), "%")))
+  mutate(across(-`-`, ~ paste0(round(.x * 100/ nrow(kid_short_trips),1), "%")))
 
 kable(mode_ind_table_count,
-      caption = "Number of trips in sample by mode and (full) independence") |>
+      caption = "Number of trips in sample by mode and (full) independence")|>
 kable_styling(full_width = FALSE, position = "left")
 
 kable(mode_ind_table_pct,
-      caption = "Share of trips in sample by mode and (full) independence")  |>
+      caption = "Share of trips in sample by mode and (full) independence")|>
 kable_styling(full_width = FALSE, position = "left")
 
-```  
+```
 
 #### Outcome 2: Simplified Independence Variable
 
-```{r,message = FALSE, warning = FALSE, results='asis', echo=FALSE}
+```{r, message = FALSE, warning = FALSE, results='asis', echo=FALSE}
 
-mode_ind3_table_count <- school_trips |>
+mode_ind3_table_count <- kid_short_trips |>
   group_by(ind_3, mode) |>
   summarise(n = n()) |>
   ungroup() |>
@@ -540,13 +512,13 @@ mode_ind3_table_count <- school_trips |>
          Walk) |>
   mutate(Total = Car + Bike + Walk) |>
   rbind(tibble(`-` = "Total",
-               Car = sum(school_trips$mode == 7),
-               Walk = sum(school_trips$mode == 8),
-               Bike = sum(school_trips$mode ==9),
-               Total = nrow(school_trips))) 
+               Car = sum(kid_short_trips$mode == 7),
+               Walk = sum(kid_short_trips$mode == 8),
+               Bike = sum(kid_short_trips$mode ==9),
+               Total = nrow(kid_short_trips))) 
 
 mode_ind3_table_pct <- mode_ind3_table_count |>
-  mutate(across(-`-`, ~ paste0(round(.x * 100/ nrow(school_trips),1), "%")))
+  mutate(across(-`-`, ~ paste0(round(.x * 100/ nrow(kid_short_trips),1), "%")))
 
 kable(mode_ind3_table_count,
       caption = "Number of trips in sample by mode and (simplified) independence")|>
@@ -558,11 +530,11 @@ kable_styling(full_width = FALSE, position = "left")
 
 ```
 
-#### Outcome 3: Alternative Simplified Independence Variable
+#### Outcome 3: Alternate simplified Independence Variable
 
-```{r,message = FALSE, warning = FALSE, results='asis', echo=FALSE}
+```{r, message = FALSE, warning = FALSE, results='asis', echo=FALSE}
 
-mode_ind3alt_table_count <- school_trips |>
+mode_ind3alt_table_count <- kid_short_trips |>
   group_by(ind_3_alt, mode) |>
   summarise(n = n()) |>
   ungroup() |>
@@ -580,13 +552,13 @@ mode_ind3alt_table_count <- school_trips |>
          Walk) |>
   mutate(Total = Car + Bike + Walk) |>
   rbind(tibble(`-` = "Total",
-               Car = sum(school_trips$mode == 7),
-               Walk = sum(school_trips$mode == 8),
-               Bike = sum(school_trips$mode ==9),
-               Total = nrow(school_trips))) 
+               Car = sum(kid_short_trips$mode == 7),
+               Walk = sum(kid_short_trips$mode == 8),
+               Bike = sum(kid_short_trips$mode ==9),
+               Total = nrow(kid_short_trips))) 
 
 mode_ind3alt_table_pct <- mode_ind3alt_table_count |>
-  mutate(across(-`-`, ~ paste0(round(.x * 100/ nrow(school_trips),1), "%")))
+  mutate(across(-`-`, ~ paste0(round(.x * 100/ nrow(kid_short_trips),1), "%")))
 
 kable(mode_ind3alt_table_count,
       caption = "Number of trips in sample by mode and (alternative simplified) independence")|>
@@ -600,7 +572,7 @@ kable_styling(full_width = FALSE, position = "left")
 
 #### Choice Availability
 
-```{r,message = FALSE, warning = FALSE, results='asis', echo=FALSE}
+```{r, message = FALSE, warning = FALSE, results='asis', echo=FALSE}
 
 tibble(`Full independence variable` = c("Alone",
                                      "With mom and dad",
@@ -608,31 +580,33 @@ tibble(`Full independence variable` = c("Alone",
                                      "With dad",
                                      "With non-household",
                                      "With siblings"),
-    `Percent selected` = c(mean(school_trips$independence == 10),
-                           mean(school_trips$independence == 21),
-                           mean(school_trips$independence == 22),
-                           mean(school_trips$independence == 23),
-                           mean(school_trips$independence == 24),
-                           mean(school_trips$independence == 30)),
+    `Percent selected` = c(mean(kid_short_trips$independence == 10),
+                           mean(kid_short_trips$independence == 21),
+                           mean(kid_short_trips$independence == 22),
+                           mean(kid_short_trips$independence == 23),
+                           mean(kid_short_trips$independence == 24),
+                           mean(kid_short_trips$independence == 30)),
     `Percent available` = c(1,
-                            mean(school_trips$with_mom_dad_avail),
-                            mean(school_trips$with_mom_avail),
-                            mean(school_trips$with_dad_avail),
+                            mean(kid_short_trips$with_mom_dad_avail),
+                            mean(kid_short_trips$with_mom_avail),
+                            mean(kid_short_trips$with_dad_avail),
                             1,
-                            mean(school_trips$with_sib_avail))) |>
+                            mean(kid_short_trips$with_sib_avail))) |>
   mutate(`Percent selected` = paste0(round(`Percent selected`*100), "%"),
          `Percent available` = paste0(round(`Percent available`*100), "%")) |>
-  kable(caption = "Prevalence and availability of full independence choices")|>
-  kable_styling(full_width = FALSE, position = "left")
+  kable(caption = "Prevalence and availability of full independence choices") |>
+kable_styling(full_width = FALSE, position = "left")
 
 ```
 
 #### Predictors
 
-```{r,message = FALSE, warning = FALSE, results='asis', echo=FALSE}
+```{r, message = FALSE, warning = FALSE, results='asis', echo=FALSE}
 
-school_trips |>
-  select(-mode,
+kid_short_trips |>
+  select(-HOUSEID,
+         -person_hh,
+         -mode,
          -independence,
          -ind_3,
          -ind_3_alt,
@@ -642,12 +616,16 @@ school_trips |>
          -av_bike,
          -av_car,
          -av_walk,
+         -alone_avail,
          -with_adult_avail,
          -with_dad_avail,
          -with_mom_avail,
          -with_mom_dad_avail,
          -with_non_hh_avail,
-         -with_sib_avail) |>
+         -with_sib_avail,
+         -log_income_k,
+         -log_distance,
+         -log_density) |>
   pivot_longer(cols = everything(),
                names_to = "Predictor",
                values_to = "Value") |>
@@ -658,11 +636,11 @@ school_trips |>
                                           sd(Value))) |>
   replace_with_na(list(`Standard Deviation` = 999)) |>
   kable(digits = 3,
-        caption = "Descriptive statistics of predictor variables")|>
-  kable_styling(full_width = FALSE, position = "left")
+        caption = "Descriptive statistics of predictor variables") |>
+kable_styling(full_width = FALSE, position = "left")
 
-school_trips |>
-  write_rds(file = here("data",
-                        "usa-2017.rds"))
+kid_short_trips |>
+  write_rds(file = here("data", "all-purpose", "usa-2017-all.rds")) 
+
 ```
 
