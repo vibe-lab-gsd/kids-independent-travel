@@ -12,8 +12,8 @@ from biogeme.expressions import Variable
 from pyprojroot.here import here
 
 # Read in data for both model estimation and simulation
-df_est = pd.read_csv(here('data/usa-2017.dat'), sep='\t')
-df_sim = pd.read_csv(here('data/usa-2017-test.dat'), sep='\t')
+df_est = pd.read_csv(here('data/only-school/usa-2017.dat'), sep='\t')
+df_sim = pd.read_csv(here('data/only-school/sim-data.dat'), sep='\t')
 
 # Set up biogeme databases
 database_est = db.Database('est', df_est)

@@ -1,5 +1,5 @@
 # Example: https://github.com/michelbierlaire/biogeme/blob/master/examples/swissmetro/b11cnl.py
-# Cross-nested model to see where non-household companions fit.
+
 
 import pandas as pd
 
