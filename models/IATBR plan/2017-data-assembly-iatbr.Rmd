@@ -340,8 +340,8 @@ school_trips <- trips |>
                               HHFAMINC == "11" ~ 250,
                               TRUE ~ -9)) |>
   filter(income_k > 0) |>
-  mutate(max_od_dens = ifelse(DBPPOPDN > OBPPOPDN, DBPPOPDN, OBPPOPDN)) |>
-  filter(max_od_dens > 0) |>
+  mutate(min_od_dens = ifelse(DBPPOPDN < OBPPOPDN, DBPPOPDN, OBPPOPDN)) |>
+  filter(min_od_dens > 0) |>
   rename(age = R_AGE) |>
   mutate(female = as.numeric(R_SEX_IMP == "02"),
          has_mom = as.numeric(has_mom),
@@ -351,7 +351,7 @@ school_trips <- trips |>
          has_lil_sib = as.numeric(has_lil_sib),
          has_big_sib = as.numeric(has_big_sib),
          distance = TRPMILES * 1.609,
-         density = max_od_dens / 2.59) |>
+         density = min_od_dens / 2.59) |>
 mutate(log_income_k = log(income_k),
          log_distance = log(distance),
          log_density = log(density),
@@ -414,7 +414,16 @@ school_trips_simple <- school_trips |>
          av_motor,
          av_active,
          av_with_parent,
-         av_no_parent)
+         av_no_parent) |>
+  mutate(has_big_sib_scaled = has_big_sib / 100,
+         has_lil_sib_scaled = has_lil_sib / 10,
+         log_density_scaled = log_density / 10,
+         log_income_k_scaled = log_income_k / 100,
+         non_work_dad_scaled = non_work_dad / 10,
+         veh_per_driver_scaled = veh_per_driver / 100)
+
+school_trips_3alts <- school_trips_simple |>
+  filter(mode_ind != 27)
 ```
 
 
@@ -423,6 +432,11 @@ write_csv(school_trips_simple,
           here("models",
                "IATBR plan",
                "trips.csv"))
+
+write_csv(school_trips_3alts,
+          here("models",
+               "IATBR plan",
+               "trips3.csv"))
 ```
 
 
