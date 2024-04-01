@@ -440,52 +440,16 @@ write_csv(school_trips_3alts,
 ```
 
 
-```{r,message = FALSE, warning = FALSE}
+```{r}
+school_trips_simple <- here("models",
+               "IATBR plan",
+               "trips.csv") |>
+  read_csv()
 
- mode_ind_table_count <- school_trips |>
-  group_by(independence, mode) |>
-  summarise(n = n()) |>
-  ungroup() |>
-  pivot_wider(names_from = mode, values_from = n) |>
-  replace_na(list(`7` = 0)) |>
-  cbind(`-` = c("Alone", 
-                  "With mom and dad", 
-                  "With mom",
-                  "With dad",
-                  "With non-household",
-                  "With siblings")) |>
-  rename(Car = `7`,
-         Walk = `8`,
-         Bike = `9`) |>
-  select(`-`,
-         Car,
-         Bike, 
-         Walk) |>
-  mutate(Total = Car + Bike + Walk) |>
-  rbind(tibble(`-` = "Total",
-                  Car = sum(school_trips$mode == 7),
-                  Walk = sum(school_trips$mode == 8),
-                  Bike = sum(school_trips$mode ==9),
-                  Total = nrow(school_trips))) 
-  
-mode_ind_table_pct <- mode_ind_table_count |>
-  mutate(across(-`-`, ~ paste0(round(.x * 100/ nrow(school_trips),1), "%")))
-
+school_trips_3alts <- here("models",
+               "IATBR plan",
+               "trips3.csv") |>
+  read_csv()
 ```
 
-
-
-#Preview data
-
-#trips |>
-#head() |>
-#kable(caption = "NHTS 2017: Trip Data") |>
-#kable_styling(full_width = FALSE, position = "left")
-
-#people |>
-#head() |>
-#kable(caption = "NHTS 2017: People Data") |>
-#kable_styling(full_width = FALSE, position = "left")
-
-```
 

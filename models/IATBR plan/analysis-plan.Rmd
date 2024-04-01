@@ -8,20 +8,94 @@ date: "2024-03-25"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Simplified model structure
+# Simplified model structure
 
 Two independence categories:
 
 1. With household adults
 2. Without household adults
 
-Use a cross-nested model to see which of these two nests someone fits into 
-if we know they were with non-household member but we don't know if it was
-an adult or not.
-
 Two mode categories:
 
 1. Active
 2. Motorized
+
+Four combined categories:
+
+1. Active with parent
+2. Active without parent
+3. Car with parent
+4. Car without parent
+
+## Results:
+
+### Unnested model:
+
+* log likelihood: -1447.855
+* Significant predictors:
+    * All three alternative specific constants (reference is car with parent)
+    * Age
+        * Positive for active independent
+        * Negative for active with parent
+    * Child's sex
+        * Negative for active independent
+    * Density
+        * Positive for both active alternatives
+    * Distance
+        * Negative for both active alternatives
+    * Non-working mom
+        * Negative for both independent alternatives
+        * Positive for walk with parent
+    * Vehicle per driver
+        * Negative for walk with parent
+        
+### Mode-based nests:
+
+* log likelihood: -1447.621
+* Nests not valid (nesting coefficients not sig greater than one.)
+
+### Independence-based nestsL
+
+* Failed to converge
+
+# Further simplification
+
+Three alternative.
+Remove car without parents from sample - this is a total of 65
+observations out of 1658 (4%)
+
+## Results:
+
+### Unnested model:
+
+* log likelihood: -1188.731
+* Significant predictors (same as with four alternatives):
+    * Both alternative specific constants (reference is car with parent)
+    * Age
+        * Positive for active independent
+        * Negative for active with parent
+    * Child's sex
+        * Negative for active independent
+    * Density
+        * Positive for both active alternatives
+    * Distance
+        * Negative for both active alternatives
+    * Non-working mom
+        * Negative for walk alone
+        * Positive for walk with parent
+    * Vehicle per driver
+        * Negative for walk with parent
+        
+### Mode-based nests:
+
+* log likelihood: -1188.668
+* Nests not valid (nesting coefficient not sig greater than one.)
+
+### Independence-based nests:
+
+* log-likelihood: -1188.509
+* Nests not valid (nesting coefficient not sig greater than one)
+
+### Cross-nested with alpha = 0.5
 
 
