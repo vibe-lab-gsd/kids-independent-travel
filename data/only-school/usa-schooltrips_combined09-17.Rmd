@@ -1,0 +1,28 @@
+---
+title: "Untitled"
+author: "Aanchal Chopra"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+
+library(dplyr)
+
+# Read in the first RDS file
+schooltrips_2017 <- readRDS("only-school",
+                            "usa-2017-schooltrips-v2009.rds")
+
+# Read in the second RDS file
+schooltrips_2009 <- readRDS("only-school",
+                            "usa-2009-schooltrips.rds")
+
+# Combine the two data frames
+schooltrips_combined <- bind_rows(schooltrips_2017,schooltrips_2009)
+
+
+```
