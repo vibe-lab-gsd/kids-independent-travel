@@ -1,8 +1,10 @@
 ---
-title: "Data Assembly: 2017 NHTS (School Trips)"
+title: "Data Assembly: 2017 NHTS (School Trips) - Join with 2009"
+author: "Aanchal Chopra"
+date: "`r Sys.Date()`"
 output: html_document
-date: "4 March 2024"
 ---
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -166,19 +168,19 @@ library(kableExtra)
 library(magrittr)
 library(downloader)
 library(naniar)
+library(ggplot2)
 
 trips <- here("nhts",
               "data2017", 
               "trippub.csv") |>
   read_csv(show_col_types = FALSE)
-  ##|> sample_n(1000, replace = FALSE)
+
 
 people <- here("nhts",
                "data2017", 
                "perpub.csv") |>
   read_csv(show_col_types = FALSE) |>
   mutate(person_hh = paste(PERSONID, HOUSEID, sep = "-")) 
-  ##|> sample_n(1000, replace = FALSE)
 
 ```
 
@@ -328,8 +330,7 @@ school_trips <- trips |>
             HHFAMINC = first(HHFAMINC),
             R_SEX_IMP = first(R_SEX_IMP),
             TRPMILES = sum(TRPMILES),
-            DBPPOPDN = last(DBPPOPDN),
-            OBPPOPDN = first(OBPPOPDN)) |>
+            DBPPOPDN = last(DBPPOPDN)) |> ## Change density to household block
   group_by(person_hh) |>
   mutate(can_drive = DRVRCNT > 0 & HHVEHCNT > 0,
          can_sch_bus = sum(mode == 1) > 0) |>
@@ -402,7 +403,7 @@ school_trips <- trips |>
                               HHFAMINC == "11" ~ 250,
                               TRUE ~ -9)) |>
   filter(income_k > 0) |>
-  mutate(max_od_dens = ifelse(DBPPOPDN > OBPPOPDN, DBPPOPDN, OBPPOPDN)) |>
+  mutate(max_od_dens = DBPPOPDN) |>
   filter(max_od_dens > 0) |>
   rename(age = R_AGE) |>
   mutate(female = as.numeric(R_SEX_IMP == "02"),
@@ -460,7 +461,35 @@ school_trips <- trips |>
          with_adult_avail)
 ```
 
+#### 5 Add column for year
+
+```{r, message = FALSE, warning = FALSE}
+
+school_trips <- school_trips |>
+  mutate(year = 2017)
+
+```
+
 # Summary Statistics
+
+#### Number of transfers
+
+```{r, message = FALSE, warning = FALSE}
+
+transfers <- trips |>
+  select(WHYTO, WHYFROM,TRPTRANS) |>
+  filter (WHYTO == "07" | WHYFROM == "07")
+
+transfers_freq <- transfers |>
+  count(TRPTRANS)
+
+ggplot(transfers_freq, aes(x = TRPTRANS, y = n)) +
+  geom_bar(stat = "identity", fill = "skyblue") +
+  labs(x = "Mode Categories", y = "Frequency in Transfer Trips", title = "Frequency of Mode Categories for 'Transfer' Trips") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+```
 
 #### Sample Size
 
@@ -663,9 +692,15 @@ school_trips |>
         caption = "Descriptive statistics of predictor variables")|>
   kable_styling(full_width = FALSE, position = "left")
 
+```
+
+# Export Data
+
+```{r,message = FALSE, warning = FALSE, results='asis', echo=FALSE}
+
 school_trips |>
   write_rds(file = here("data",
                         "only-school",
-                        "usa-2017-schooltrips.rds"))
+                        "usa-2017-schooltrips-v2009.rds"))
 ```
 

@@ -170,15 +170,13 @@ library(naniar)
 trips <- here("nhts",
               "data2009", 
               "DAYV2PUB.csv") |>
-  read_csv(show_col_types = FALSE) |>
-  sample_n(100000, replace = FALSE)
+  read_csv(show_col_types = FALSE)
 
 people <- here("nhts",
                "data2009", 
                "PERV2PUB.csv") |>
   read_csv(show_col_types = FALSE) |>
-  mutate(person_hh = paste(PERSONID, HOUSEID, sep = "-")) |>
-  sample_n(100000, replace = FALSE)
+  mutate(person_hh = paste(PERSONID, HOUSEID, sep = "-"))
 
 ```
 
@@ -252,7 +250,7 @@ relationships <- people |>
 
 ```{r, message = FALSE, warning = FALSE}
 
-school_trips <- trips |>
+  school_trips <- trips |>
   mutate(include_trip = (WHYTO == "21" &
                            WHYFROM != "21" & ## Updated coding to match 2009 variable
                            R_AGE > 7 & 
@@ -278,7 +276,7 @@ school_trips <- trips |>
                           TRPTRANS == "24" ~ 2,
                           TRPTRANS == "07" ~ 3, # motorcycle
                           TRPTRANS == "97" ~ 4, # unspecified
-                          TRUE ~ 5))|>
+                          TRUE ~ 5))|> ## Removed Transfers
   mutate(trip_person_hh = paste(TDTRPNUM, PERSONID, HOUSEID, sep = "-")) |>
   mutate(person_hh = paste(PERSONID, HOUSEID, sep = "-")) |>
   group_by(trip_person_hh) |>
@@ -298,7 +296,7 @@ school_trips <- trips |>
          ONTD_P10 = ifelse(longest_seg, as.numeric(ONTD_P10), -1),
          ONTD_P11 = ifelse(longest_seg, as.numeric(ONTD_P11), -1),
          ONTD_P12 = ifelse(longest_seg, as.numeric(ONTD_P12), -1),
-         ONTD_P13 = ifelse(longest_seg, as.numeric(ONTD_P13), -1))|>
+         ONTD_P13 = ifelse(longest_seg, as.numeric(ONTD_P13), -1)) |>
   summarise(person_hh = first(person_hh),
             HOUSEID = first(HOUSEID),
             WHYFROM = first(WHYFROM),
@@ -325,8 +323,9 @@ school_trips <- trips |>
             HHVEHCNT = first(HHVEHCNT),
             DRVRCNT = first(DRVRCNT),
             HHFAMINC = first(HHFAMINC),
-            R_SEX = first(R_SEX),
-            TRPMILES = sum(TRPMILES))|>   ##Removed density variables
+            R_SEX = first(R_SEX), ## Adjusted to 2009 sex variable
+            TRPMILES = sum(TRPMILES),
+            HBPPOPDN = last(HBPPOPDN))|> ## Changed density to density in household block group
   group_by(person_hh) |>
   mutate(can_drive = DRVRCNT > 0 & HHVEHCNT > 0,
          can_sch_bus = sum(mode == 1) > 0) |>
@@ -367,7 +366,7 @@ school_trips <- trips |>
            (ONTD_P11 == 1 & age_11 > 17 & gender_11 != "02") |
            (ONTD_P12 == 1 & age_12 > 17 & gender_12 != "02") |
            (ONTD_P13 == 1 & age_13 > 17 & gender_13 != "02"),
-         hh_only = NUMONTRP == NONHHCNT+1)|>
+         hh_only = NUMONTRP == NONHHCNT+1) |>
   left_join(relationships) |>
   mutate(independence = case_when(with_mom & with_dad ~ 21,
                                   with_mom ~ 22,
@@ -385,76 +384,23 @@ school_trips <- trips |>
   mutate(mode_ind = mode * 100 + independence,
          mode_ind_3 = mode * 100 + ind_3,
          mode_ind_3_alt = mode * 100 + ind_3_alt) |>
-  mutate(veh_per_driver = ifelse(DRVRCNT > 0, HHVEHCNT/DRVRCNT, 0))
-
-```
-
-```{r, message = FALSE, warning = FALSE}
-  
-  library(srvyr)
-  
-  hh_2009 <- here("nhts",
-                "data2009",
-                "HHV2PUB.csv") |>
-  # read data
-  read_csv() |> 
-  mutate(income_k = case_when(HHFAMINC == "01" ~ 2.5, 
-                              HHFAMINC == "02" ~ 7.5,
-                              HHFAMINC == "03" ~ 12.5,
-                              HHFAMINC == "04" ~ 17.5,
-                              HHFAMINC == "05" ~ 22.5,
-                              HHFAMINC == "06" ~ 27.5,
-                              HHFAMINC == "07" ~ 32.5,
-                              HHFAMINC == "08" ~ 37.5,
-                              HHFAMINC == "09" ~ 42.5,
-                              HHFAMINC == "10" ~ 47.5,
-                              HHFAMINC == "11" ~ 52.5,
-                              HHFAMINC == "12" ~ 57.5,
-                              HHFAMINC == "13" ~ 62.5,
-                              HHFAMINC == "14" ~ 67.5,
-                              HHFAMINC == "15" ~ 72.5,
-                              HHFAMINC == "16" ~ 77.5,
-                              HHFAMINC == "17" ~ 90,
-                              HHFAMINC == "18" ~ 150,
+  mutate(veh_per_driver = ifelse(DRVRCNT > 0, HHVEHCNT/DRVRCNT, 0)) |>
+  mutate(income_k = case_when(HHFAMINC == "01" ~ 5,
+                              HHFAMINC == "02" ~ 12.5,
+                              HHFAMINC == "03" ~ 20,
+                              HHFAMINC == "04" ~ 30,
+                              HHFAMINC == "05" ~ 42.5,
+                              HHFAMINC == "06" ~ 62.5,
+                              HHFAMINC == "07" ~ 87.5,
+                              HHFAMINC == "08" ~ 112.5,
+                              HHFAMINC == "09" ~ 137.5,
+                              HHFAMINC == "10" ~ 175,
+                              HHFAMINC == "11" ~ 250,
                               TRUE ~ -9)) |>
-  
-  # filter rows with missing value for income
+  mutate(income_k = ifelse(income_k == 250, income_k, income_k * 1.14)) |> ## adjust for 2017 income, except if 250
   filter(income_k > 0) |>
-  
-  # create survey object with weights
-  as_survey_design(weights = WTHHFIN)|> 
-  
-  # Calculate quintile thresholds
-  mutate(quint_break = survey_quantile(income_k, 
-                                       quantiles = c(0.2, 
-                                                     0.4, 
-                                                     0.6, 
-                                                     0.8))) |>
-  # compare income_k value to thresholds to get income quintile of each HH
-  mutate(inc_quint_2 = case_when(income_k <= quint_break$`_q20`[1] ~ "q1",
-                                 income_k <= quint_break$`_q40`[1] ~ "q2",
-                                 income_k <= quint_break$`_q60`[1] ~ "q3",
-                                 income_k <= quint_break$`_q80`[1] ~ "q4",
-                                 TRUE ~ "q5"))
-  
-  hh_2009 |>
-  group_by(inc_quint_2) |>
-  summarise(n = n()) |>
-  mutate(proportion = n/sum(n)) |>
-  kable(digits = c(0, 0, 2))
-  
-  hh_2009 |>
-  group_by(inc_quint_2) |>
-  survey_tally(vartype = "ci") |>
-  mutate(proportion = n/sum(n)) |>
-  kable(digits = c(0, 0, 0, 0, 2))
-  
-```
-  
-
-|>
-  filter(income_k > 0)
-|> ## Remove density variable
+  mutate(max_od_dens = HBPPOPDN) |> ## adjust density variable
+  filter(max_od_dens > 0) |>
   rename(age = R_AGE) |>
   mutate(female = as.numeric(R_SEX == "02"),
          has_mom = as.numeric(has_mom),
@@ -470,7 +416,8 @@ school_trips <- trips |>
          with_mom_dad_avail = ifelse(has_mom + has_dad == 2, 1, 0),
          with_sib_avail = ifelse(has_lil_sib + has_big_sib > 0, 1, 0)) |>
   mutate(log_income_k = log(income_k),
-         log_distance = log(distance), ##Remove Density variable
+         log_distance = log(distance),
+         log_density = log(density),
          av_car = 1,
          av_walk = 1,
          av_bike = 1,
@@ -496,6 +443,8 @@ school_trips <- trips |>
          has_big_sib,
          distance,
          log_distance,
+         density,
+         log_density,
          av_car,
          av_walk,
          av_bike,
@@ -506,6 +455,15 @@ school_trips <- trips |>
          with_non_hh_avail,
          with_sib_avail,
          with_adult_avail)
+```
+
+#### 5 Add column for year
+
+```{r, message = FALSE, warning = FALSE}
+
+school_trips <- school_trips |>
+  mutate(year = 2009)
+
 ```
 
 # Summary Statistics
@@ -710,8 +668,13 @@ school_trips |>
   kable(digits = 3,
         caption = "Descriptive statistics of predictor variables")|>
   kable_styling(full_width = FALSE, position = "left")
+```
 
+# Export Data
+
+```{r,message = FALSE, warning = FALSE, results='asis', echo=FALSE}
 school_trips |>
   write_rds(file = here("data",
-                        "usa-2017.rds"))
+                        "only-school",
+                        "usa-2009-schooltrips.rds"))
 ```
