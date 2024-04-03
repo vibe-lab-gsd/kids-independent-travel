@@ -325,6 +325,14 @@ trips <- trips |>
          log_density = log(density))
 ```
 
+### Construct year variable
+
+```{r}
+trips <- trips |>
+  mutate(y2017 = ifelse(year == 2017, 1, 0))
+```
+
+
 ### Check sample size by year
 
 ```{r}
@@ -369,7 +377,7 @@ trips <- trips |>
 ```{r}
 trips <- trips |>
   select(mode_ind, 
-         year,
+         y2017,
          av_par_car,
          av_par_act,
          av_kid_car,
