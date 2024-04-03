@@ -282,7 +282,7 @@ trips <- trips |>
 
 ```{r}
 trips <- trips |>
-  mutate(veh_per_driver = HHVEHCNT / DRVRCNT)
+  mutate(veh_per_driver = ifelse(DRVRCNT == 0, 0, HHVEHCNT / DRVRCNT))
 ```
 
 ### Rename age variable
