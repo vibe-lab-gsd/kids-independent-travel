@@ -342,19 +342,19 @@ table(trips$year)
 
 ```{r}
 trips <- trips |>
-  mutate(with_parent = ONTD_P1 == "01" & age_01 > 17 |
-           ONTD_P2 == "01" & age_02 > 17 |
-           ONTD_P3 == "01" & age_03 > 17 |
-           ONTD_P4 == "01" & age_04 > 17 |
-           ONTD_P5 == "01" & age_05 > 17 |
-           ONTD_P6 == "01" & age_06 > 17 |
-           ONTD_P7 == "01" & age_07 > 17 |
-           ONTD_P8 == "01" & age_08 > 17 |
-           ONTD_P9 == "01" & age_09 > 17 |
-           ONTD_P10 == "01" & age_10 > 17 |
-           ONTD_P11 == "01" & age_11 > 17 |
-           ONTD_P12 == "01" & age_12 > 17 |
-           ONTD_P13 == "01" & age_13 > 17) |>
+  mutate(with_parent = (ONTD_P1 == "01" & age_01 > 17) |
+           (ONTD_P2 == "01" & age_02 > 17) |
+           (ONTD_P3 == "01" & age_03 > 17) |
+           (ONTD_P4 == "01" & age_04 > 17) |
+           (ONTD_P5 == "01" & age_05 > 17) |
+           (ONTD_P6 == "01" & age_06 > 17) |
+           (ONTD_P7 == "01" & age_07 > 17) |
+           (ONTD_P8 == "01" & age_08 > 17) |
+           (ONTD_P9 == "01" & age_09 > 17) |
+           (ONTD_P10 == "01" & age_10 > 17) |
+           (ONTD_P11 == "01" & age_11 > 17) |
+           (ONTD_P12 == "01" & age_12 > 17) |
+           (ONTD_P13 == "01" & age_13 > 17)) |>
   mutate(mode_ind = case_when(with_parent & mode == "Active" ~ 18,
                               with_parent & mode == "Car" ~ 17,
                               mode == "Active" ~ 28,
@@ -403,4 +403,140 @@ write_csv(trips,
                "IATBR plan",
                "trips.csv"))
 ```
+
+# scale variables 1
+
+```{r}
+trips_scaled <- trips |>
+  mutate(sc_y2017 = y2017/100,
+         sc_log_inc_k = log_inc_k/100,
+         sc_age = age/100,
+         sc_veh_per_driver = veh_per_driver/100,
+         sc_non_work_dad = non_work_dad/100,
+         sc_non_work_mom = non_work_mom/100,
+         sc_female = female/100,
+         sc_has_lil_sib = has_lil_sib/100,
+         sc_has_big_sib = has_big_sib/100,
+         sc_log_distance = log_distance/100,
+         sc_log_density = log_density/100) |>
+  select(mode_ind, 
+         sc_y2017,
+         av_par_car,
+         av_par_act,
+         av_kid_car,
+         av_kid_act,
+         sc_log_inc_k,
+         sc_veh_per_driver,
+         sc_non_work_dad,
+         sc_non_work_mom,
+         sc_age,
+         sc_female,
+         sc_has_lil_sib,
+         sc_has_big_sib,
+         sc_log_distance,
+         sc_log_density)
+```
+
+# Write csv file
+
+```{r}
+write_csv(trips_scaled,
+          here("models",
+               "IATBR plan",
+               "trips_sc.csv"))
+```
+
+# scale variables 2
+
+```{r}
+trips_scaled2 <- trips |>
+  mutate(sc2_y2017 = y2017/10,
+         sc2_log_inc_k = log_inc_k/10,
+         sc2_age = age/10,
+         sc2_veh_per_driver = veh_per_driver/100,
+         sc2_non_work_dad = non_work_dad/10,
+         sc2_non_work_mom = non_work_mom/10,
+         sc2_female = female/10,
+         sc2_has_lil_sib = has_lil_sib/10,
+         sc2_has_big_sib = has_big_sib/10,
+         sc2_log_density = log_density/10) |>
+  select(mode_ind, 
+         sc2_y2017,
+         av_par_car,
+         av_par_act,
+         av_kid_car,
+         av_kid_act,
+         sc2_log_inc_k,
+         sc2_veh_per_driver,
+         sc2_non_work_dad,
+         sc2_non_work_mom,
+         sc2_age,
+         sc2_female,
+         sc2_has_lil_sib,
+         sc2_has_big_sib,
+         log_distance,
+         sc2_log_density)
+```
+
+# Write csv file
+
+```{r}
+write_csv(trips_scaled2,
+          here("models",
+               "IATBR plan",
+               "trips_sc2.csv"))
+```
+
+# Create one with combined car alternatives
+
+```{r}
+trips3 <- trips |>
+  mutate(mode_ind = ifelse(mode_ind %in% c(17, 27), 7, mode_ind ))
+
+write_csv(trips3,
+          here("models",
+               "IATBR plan",
+               "trips3.csv"))
+```
+
+
+
+# Summaries
+
+```{r}
+trips |>
+  group_by(y2017) |>
+  summarise(car_with_parent = sum(mode_ind == 17),
+            car_no_parent = sum(mode_ind == 27),
+            active_with_parent = sum(mode_ind == 18),
+            active_no_parent = sum(mode_ind == 28))
+```
+
+
+```{r}
+trips |>
+  group_by(y2017) |>
+  summarise(car_with_parent = sum(mode_ind == 17)/n(),
+            car_no_parent = sum(mode_ind == 27)/n(),
+            active_with_parent = sum(mode_ind == 18)/n(),
+            active_no_parent = sum(mode_ind == 28)/n())
+```
+
+```{r}
+trips |>
+  summarise(car_with_parent = sum(mode_ind == 17),
+            car_no_parent = sum(mode_ind == 27),
+            active_with_parent = sum(mode_ind == 18),
+            active_no_parent = sum(mode_ind == 28))
+```
+
+
+```{r}
+trips |>
+  summarise(car_with_parent = sum(mode_ind == 17)/n(),
+            car_no_parent = sum(mode_ind == 27)/n(),
+            active_with_parent = sum(mode_ind == 18)/n(),
+            active_no_parent = sum(mode_ind == 28)/n())
+```
+
 
