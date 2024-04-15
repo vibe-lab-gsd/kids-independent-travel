@@ -1,7 +1,8 @@
 ---
-title: "IATBR data assembly"
+title: "All Trips data assembly"
+author: "Aanchal Chopra"
+date: "2024-04-14"
 output: html_document
-date: "2024-04-01"
 ---
 
 ```{r setup, include=FALSE}
@@ -119,8 +120,7 @@ trips17 <- here("nhts",
                 "trippub.csv") |>
   read_csv(show_col_types = FALSE) |>
   mutate(year = 2017) |>
-  filter(WHYFROM %in% c("01","02") & 
-           WHYTO == "08" &
+  filter(WHYFROM %in% c("01","02") &    ## Remove filter for school trips
            TRPTRANS %in% c("01",
                            "02",
                            "03",
@@ -152,8 +152,7 @@ trips09 <- here("nhts",
   read_csv(show_col_types = FALSE) |>
   mutate(year = 2009) |>
   select(-ONTD_P15, -ONTD_P14) |>
-  filter(WHYFROM == "01" & 
-           WHYTO == "21" &
+  filter(WHYFROM == "01" &          ## Remove filter for school trips
            TRPTRANS %in% c("01",
                            "02",
                            "03",
@@ -180,18 +179,14 @@ trips09 <- here("nhts",
          HHVEHCNT,
          density)
 
-trips <- rbind(trips09, trips17) |>
-  mutate(arrival = as.numeric(ENDTIME)) |>
+trips <- rbind(trips09, trips17)|>
   mutate(person_hh_year = paste(PERSONID, HOUSEID, year, sep = "-"),
          hh_year = paste(HOUSEID, year, sep = "-")) |>
   group_by(person_hh_year) |>
-  mutate(first_arrival = min(arrival)) |>
   ungroup() |>
-  filter(arrival == first_arrival,
-         R_AGE > 6 &
+  filter(R_AGE > 6 &
          R_AGE < 15 & 
-         arrival < 1000,
-         TRPMILES < 1.25) 
+         TRPMILES < 1.25) ## Removed arrival/ENDTIME variables; keep to short trips
 ```
 
 Check sample size by year
@@ -544,10 +539,10 @@ trips <- trips |>
 # Write csv file
 
 ```{r}
-write_csv(trips,
-          here("models",
-               "IATBR plan",
-               "trips.csv"))
+##write_csv(trips,
+          ##here("models",
+              ## "IATBR plan",
+              ## "trips.csv"))
 ```
 
 # scale variables 1
@@ -586,10 +581,10 @@ trips_scaled <- trips |>
 # Write csv file
 
 ```{r}
-write_csv(trips_scaled,
-          here("models",
-               "IATBR plan",
-               "trips_sc.csv"))
+##write_csv(trips_scaled,
+          ##here("models",
+               ##"IATBR plan",
+               ##"trips_sc.csv"))
 ```
 
 # scale variables 2
@@ -627,10 +622,10 @@ trips_scaled2 <- trips |>
 # Write csv file
 
 ```{r}
-write_csv(trips_scaled2,
-          here("models",
-               "IATBR plan",
-               "trips_sc2.csv"))
+##write_csv(trips_scaled2,
+          ##here("models",
+               ##"IATBR plan",
+               ##"trips_sc2.csv"))
 ```
 
 # Create one with combined car alternatives
@@ -639,10 +634,10 @@ write_csv(trips_scaled2,
 trips3 <- trips |>
   mutate(mode_ind = ifelse(mode_ind %in% c(17, 27), 7, mode_ind ))
 
-write_csv(trips3,
-          here("models",
-               "IATBR plan",
-               "trips3.csv"))
+##write_csv(trips3,
+          ##here("models",
+               ##"IATBR plan",
+               ##"trips3.csv"))
 ```
 
 
