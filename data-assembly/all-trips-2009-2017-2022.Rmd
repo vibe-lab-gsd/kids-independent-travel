@@ -82,7 +82,7 @@ people22 <- here("nhts",
          HHSIZE) |>
   mutate(year = 2022) |>
   rename(sex = R_SEX_IMP)
-
+  
 #combine three person files
 people <- rbind(people09, people17, people22) |>
   mutate(person_hh_year = paste(PERSONID, HOUSEID, year, sep = "-")) |>
@@ -283,7 +283,6 @@ therefore filter accordingly.
 
 #augment 2017 data
 trips17b <- trips17b |>
-  select(-ONTD_P13, -ONTD_P12, -ONTD_P11) |> #filter out person >10 to match 2022 data
   filter(TRPTRANS %in% c("01",
                            "02",
                            "03",
@@ -312,7 +311,8 @@ trips17b <- trips17b |>
 
 #augment 2009 data
 trips09 <- trips09 |>
-  select(-ONTD_P15, -ONTD_P14, -ONTD_P13, -ONTD_P12, -ONTD_P11) |> #filter out person >10 to match 2022 data
+  select (-ONTD_P14,
+         -ONTD_P15) |> #removes columns 14 and 15 as these have no data in 2009; allows bind with 2017/22
   filter(TRPTRANS %in% c("01",
                            "02",
                            "03",
@@ -341,6 +341,9 @@ trips09 <- trips09 |>
 
 #augment 2022 data
 trips22b <- trips22b |>
+  mutate (ONTD_P11 = 0,
+         ONTD_P12 = 0,
+         ONTD_P13 = 0) |> #add columns to match 2009 and 2017 which go up to person 13
   filter(TRPTRANS %in% c("01",
                            "02",
                            "03",
@@ -880,7 +883,8 @@ print.data.frame(summary_stats_density)
 
 ```{r}
 trips <- trips |>
-  mutate(y2017 = ifelse(year == 2017, 1, 0))
+  mutate(y2017 = ifelse(year == 2017, 1, 0)) |>
+  mutate(y2009 = ifelse(year == 2009, 1, 0))
 ```
 
 #### Check: Check sample size by year
@@ -912,7 +916,10 @@ trips <- trips |>
            (ONTD_P7 == "01" & age_07 > 17) |
            (ONTD_P8 == "01" & age_08 > 17) |
            (ONTD_P9 == "01" & age_09 > 17) |
-           (ONTD_P10 == "01" & age_10 > 17)) |>
+           (ONTD_P10 == "01" & age_10 > 17)|
+           (ONTD_P11 == "01" & age_11 > 17) |
+           (ONTD_P12 == "01" & age_12 > 17) |
+           (ONTD_P13 == "01" & age_13 > 17)) |>
   mutate(mode_ind = case_when(with_parent & mode == "Active" ~ 18,
                               with_parent & mode == "Car" ~ 17,
                               mode == "Active" ~ 28, #not with parent

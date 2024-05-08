@@ -171,7 +171,6 @@ trips17 <- here("nhts",
                 "trippub.csv") |>
   read_csv(show_col_types = FALSE) |>
   mutate(year = 2017) |>
-  select(-ONTD_P13, -ONTD_P12, -ONTD_P11) |> #filter out person >10 to match 2022 data
   filter(WHYFROM %in% c("01","02") & 
            WHYTO == "08" &
            TRPTRANS %in% c("01",
@@ -208,7 +207,8 @@ trips09 <- here("nhts",
               "DAYV2PUB.csv") |>
   read_csv(show_col_types = FALSE) |>
   mutate(year = 2009) |>
-  select(-ONTD_P15, -ONTD_P14, -ONTD_P13, -ONTD_P12, -ONTD_P11) |> #filter out person >10 to match 2022 data
+  select (-ONTD_P14,
+         -ONTD_P15) |> #removes columns 14 and 15 as these have no data in 2009; allows bind with 2017/22
   filter(WHYFROM == "01" & 
            WHYTO == "21" &
            TRPTRANS %in% c("01",
@@ -245,6 +245,9 @@ trips22 <- here("nhts",
                 "tripv2pub.csv") |>
   read_csv(show_col_types = FALSE) |>
   mutate(year = 2022) |>
+  mutate (ONTD_P11 = 0,
+         ONTD_P12 = 0,
+         ONTD_P13 = 0) |> #add columns to match 2009 and 2017 which go up to person 13)
   filter(WHYFROM %in% c("01","02") & 
            WHYTO == "06" &
            TRPTRANS %in% c("01",
@@ -627,9 +630,13 @@ print.data.frame(summary_stats_density)
 ```
 ### Construct year variable
 
+Here, I create two binary variables to determine whether the trip is 2009 or 2017.
+All other trips are 2022.
+
 ```{r}
 trips <- trips |>
-  mutate(y2017 = ifelse(year == 2017, 1, 0))
+  mutate(y2017 = ifelse(year == 2017, 1, 0)) |>
+  mutate(y2009 = ifelse(year == 2009, 1, 0))
 ```
 
 #### Check: Check sample size by year
@@ -661,7 +668,10 @@ trips <- trips |>
            (ONTD_P7 == "01" & age_07 > 17) |
            (ONTD_P8 == "01" & age_08 > 17) |
            (ONTD_P9 == "01" & age_09 > 17) |
-           (ONTD_P10 == "01" & age_10 > 17)) |>
+           (ONTD_P10 == "01" & age_10 > 17)|
+           (ONTD_P11 == "01" & age_11 > 17) |
+           (ONTD_P12 == "01" & age_12 > 17) |
+           (ONTD_P13 == "01" & age_13 > 17)) |>
   mutate(mode_ind = case_when(with_parent & mode == "Active" ~ 18,
                               with_parent & mode == "Car" ~ 17,
                               mode == "Active" ~ 28, #not with parent
@@ -689,6 +699,7 @@ trips <- trips |>
 trips <- trips |>
   select(mode_ind, 
          y2017,
+         y2009,
          av_par_car,
          av_par_act,
          av_kid_car,
