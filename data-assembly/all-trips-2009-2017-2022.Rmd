@@ -1,5 +1,5 @@
 ---
-title: "School Trips_2009-2017-2022"
+title: "All Trips_2009-2017-2022"
 author: "Aanchal Chopra"
 date: "`r Sys.Date()`"
 output: html_document
@@ -144,37 +144,147 @@ who_in_hh <- people |>
 We then load in the trip-level data files for the three years, adding a variable
 to indicate the year of the sample.
 
-For each year, we filter the data set to only include trips in which the 
-'destination is 'school' and the origin is 'home'. We also filter to only 
-include modes: walk, bike, and car (including van, SUV, or ride share). 
-This excludes school bus and transit trips.We call 'walk' or 'bike' modes 
-"Active" modes and all other included modes "car".
+In 2017 and 2022, some trips include a 'transfer' variable where the individual
+has changed mode of transport. In these cases, we combine the legs of the journey
+to create a single trip where:
+- Mode = the mode used for the longest leg of the journey
+- Trip distance = sum of all legs of the journey
+- Endtime = endtime of the last leg of the journey
 
-For each year, we make the possible number of people on the trip the same 
-(max 10) by filtering out #11+ from 2017 and 2009. 
+We assume there are no transfer trips in 2009 as this variable does not exist.
 
-An alternative density variable is also created (density_alt) to align with the 
-available density variables for 2022; this is a categorical variable. 
-
-Then, we rename the sex and density variables and combine the three datasets for 
-2009, 2017 and 2022. 
-
-Finally, we filter to capture the first trip of the day which includes a child 
-only and is prior to 10am (assuming this is a schooltrip).For this analysis, we 
-only consider short trips (<1.25miles) therefore filter accordingly. 
+### Import 2009 trips data
 
 ```{r}
 
-#import and filter 2017 trips data
+#import 2009 trips data and add a column indicating year
+trips09 <- here("nhts",
+              "data2009", 
+              "DAYV2PUB.csv") |>
+  read_csv(show_col_types = FALSE) |>
+  mutate(year = 2009)
+
+```
+
+### Combine 2017 transfer trips 
+
+```{r}
+
+#import 2017 trips data and add a column indicating year
 trips17 <- here("nhts",
                 "data2017", 
                 "trippub.csv") |>
   read_csv(show_col_types = FALSE) |>
-  mutate(year = 2017) |>
+  mutate(year = 2017)|>
+  arrange(HOUSEID, PERSONID, ENDTIME)
+
+#generate a version of 2017 trips without transfer trips  
+trips17_excl_transfers <- trips17 |>
+  mutate(HOUSE_PERSONID = paste(HOUSEID, PERSONID, sep = "-")) |>
+  mutate(transfer = ifelse(WHYFROM == "07" | WHYTO == "07", 1, 0)) |>
+  filter(transfer == 0) |>
+  select(-c("transfer"))
+
+#generate a version of 2017 trips with only the trips involving transfers
+trips17_transfers <- trips17 |>
+  mutate(HOUSE_PERSONID = paste(HOUSEID, PERSONID, sep = "-")) |>
+  mutate(transfer = ifelse(WHYFROM == "07" | WHYTO == "07", 1, 0)) |>
+  filter(transfer == 1) |>
+  select(-c("transfer"))
+
+#identify the trips that are in a single journey, separated by transfers
+trips17_transfers_chain <- trips17_transfers |>
+  group_by(HOUSE_PERSONID) |>
+  arrange(HOUSE_PERSONID,TDTRPNUM) |>
+  mutate(chain_end = ifelse(WHYFROM == "07" & lag(WHYTO == "07") & WHYTO != "07", 1, 0)) |> #identifies the trip that is the last in the series
+  mutate(chain = cumsum(chain_end == 0 & lag(chain_end, default = 0) == 1)) |> #assigns the same 'chain' numeric value to all trips in a given series
+  ungroup() |>
+  group_by(HOUSE_PERSONID, chain) |>
+  mutate(ENDTIME = max(ENDTIME))|> #takes the endtime of the last trip in the series
+  mutate(WHYFROM = first(WHYFROM)) |> #takes the origin of the first trip in the series
+  mutate(WHYTO = last(WHYTO)) |> #takes the destination of the last trip in the series
+  mutate(TRPTRANS = case_when(TRPMILES == max(TRPMILES) ~ TRPTRANS)) |> #takes the mode of the longest trip by distance
+  mutate(TRPMILES = sum(TRPMILES)) |> #sums distance across all trips in the series
+  ungroup() |>
+  filter(!is.na(TRPTRANS)) |>
+  select(-c("chain", "chain_end"))
+
+#Combine non-transfer trips and transfer-trips which have now been linked into single trips
+trips17b <- bind_rows(trips17_excl_transfers, trips17_transfers_chain)|>
+  arrange(HOUSE_PERSONID, TDTRPNUM)|>
+  select(-c("HOUSE_PERSONID"))
+
+```
+
+### Combine 2022 transfer trips 
+
+```{r}
+
+#import 2022 trips data and add a column indicating year
+trips22 <- here("nhts",
+                "data2022", 
+                "tripv2pub.csv") |>
+  read_csv(show_col_types = FALSE) |>
+  mutate(year = 2022)|>
+  arrange(HOUSEID, PERSONID, ENDTIME)
+
+#generate a version of 2022 trips without transfer trips  
+trips22_excl_transfers <- trips22 |>
+  mutate(HOUSE_PERSONID = paste(HOUSEID, PERSONID, sep = "-")) |>
+  mutate(transfer = ifelse(WHYFROM == "09" | WHYTO == "09", 1, 0)) |>
+  filter(transfer == 0) |>
+  select(-c("transfer"))
+
+#generate a version of 2022 trips with only the trips involving transfers
+trips22_transfers <- trips22 |>
+  mutate(HOUSE_PERSONID = paste(HOUSEID, PERSONID, sep = "-")) |>
+  mutate(transfer = ifelse(WHYFROM == "09" | WHYTO == "09", 1, 0)) |>
+  filter(transfer == 1) |>
+  select(-c("transfer"))
+
+#identify the trips that are in a single journey, separated by transfers
+trips22_transfers_chain <- trips22_transfers |>
+  group_by(HOUSE_PERSONID) |>
+  arrange(HOUSE_PERSONID,TRIPID) |>
+  mutate(chain_end = ifelse(WHYFROM == "09" & lag(WHYTO == "09") & WHYTO != "09", 1, 0)) |> #identifies the trip that is the last in the series
+  mutate(chain = cumsum(chain_end == 0 & lag(chain_end, default = 0) == 1)) |> #assigns the same 'chain' numeric value to all trips in a given series
+  ungroup() |>
+  group_by(HOUSE_PERSONID, chain) |>
+  mutate(ENDTIME = max(ENDTIME))|> #takes the endtime of the last trip in the series
+  mutate(WHYFROM = first(WHYFROM)) |> #takes the origin of the first trip in the series
+  mutate(WHYTO = last(WHYTO)) |> #takes the destination of the last trip in the series
+  mutate(TRPTRANS = case_when(TRPMILES == max(TRPMILES) ~ TRPTRANS)) |> #takes the mode of the longest trip by distance
+  mutate(TRPMILES = sum(TRPMILES)) |> #sums distance across all trips in the series
+  ungroup() |>
+  filter(!is.na(TRPTRANS)) |>
+  select(-c("chain", "chain_end"))
+
+#Combine non-transfer trips and transfer-trips which have now been linked into single trips
+trips22b <- bind_rows(trips22_excl_transfers, trips22_transfers_chain)|>
+  arrange(HOUSE_PERSONID,TRIPID)|>
+  select(-c("HOUSE_PERSONID"))
+
+```
+
+### Construct and combine trips data for the three years 
+
+For each year, we filter to only include modes: walk, bike, and car 
+(including van, SUV, or ride share). This excludes school bus and transit trips.
+We call 'walk' or 'bike' modes "Active" modes and all other included modes "car".
+
+For each year, we make the possible number of people on the trip the same 
+(max 10) by filtering out #11+ from 2017 and 2009. 
+
+Then, we rename the sex variables and combine the three datasets for 
+2009, 2017 and 2022. For this analysis, we only consider short trips (<1.25miles) 
+therefore filter accordingly. 
+
+```{r}
+
+#augment 2017 data
+trips17b <- trips17b |>
   select(-ONTD_P13, -ONTD_P12, -ONTD_P11) |> #filter out person >10 to match 2022 data
-  filter(WHYFROM %in% c("01","02") & 
-           WHYTO == "08" &
-           TRPTRANS %in% c("01",
+  filter(TRPTRANS %in% c("01",
                            "02",
                            "03",
                            "04",
@@ -182,13 +292,13 @@ trips17 <- here("nhts",
                            "06",
                            "18")) |>
   mutate(mode = ifelse(TRPTRANS %in% c("01", "02"), "Active", "Car")) |>
-  rename(sex = R_SEX_IMP,
-         density = OBPPOPDN,
-         density_alt = URBRUR) |>
+  rename(sex = R_SEX_IMP) |>
   select(PERSONID,
          HOUSEID,
          year,
          R_AGE,
+         WHYTO,
+         WHYFROM,
          ENDTIME,
          TRPMILES,
          mode,
@@ -198,20 +308,12 @@ trips17 <- here("nhts",
          sex,
          HHFAMINC,
          DRVRCNT,
-         HHVEHCNT,
-         density,
-         density_alt) 
+         HHVEHCNT) 
 
-#import and filter 2009 trips data
-trips09 <- here("nhts",
-              "data2009", 
-              "DAYV2PUB.csv") |>
-  read_csv(show_col_types = FALSE) |>
-  mutate(year = 2009) |>
+#augment 2009 data
+trips09 <- trips09 |>
   select(-ONTD_P15, -ONTD_P14, -ONTD_P13, -ONTD_P12, -ONTD_P11) |> #filter out person >10 to match 2022 data
-  filter(WHYFROM == "01" & 
-           WHYTO == "21" &
-           TRPTRANS %in% c("01",
+  filter(TRPTRANS %in% c("01",
                            "02",
                            "03",
                            "04",
@@ -219,13 +321,13 @@ trips09 <- here("nhts",
                            "22",
                            "23")) |>
   mutate(mode = ifelse(TRPTRANS %in% c("22", "23"), "Active", "Car")) |>
-  rename(sex = R_SEX,
-         density = HBPPOPDN,
-         density_alt = URBRUR) |>
+  rename(sex = R_SEX) |>
   select(PERSONID,
          HOUSEID,
          year,
          R_AGE,
+         WHYTO,
+         WHYFROM,
          ENDTIME,
          TRPMILES,
          mode,
@@ -235,19 +337,11 @@ trips09 <- here("nhts",
          sex,
          HHFAMINC,
          DRVRCNT,
-         HHVEHCNT,
-         density,
-         density_alt)
+         HHVEHCNT)
 
-#import and filter 2022 trips data
-trips22 <- here("nhts",
-                "data2022", 
-                "tripv2pub.csv") |>
-  read_csv(show_col_types = FALSE) |>
-  mutate(year = 2022) |>
-  filter(WHYFROM %in% c("01","02") & 
-           WHYTO == "06" &
-           TRPTRANS %in% c("01",
+#augment 2022 data
+trips22b <- trips22b |>
+  filter(TRPTRANS %in% c("01",
                            "02",
                            "03",
                            "04",
@@ -255,13 +349,13 @@ trips22 <- here("nhts",
                            "19",
                            "20")) |>
   mutate(mode = ifelse(TRPTRANS %in% c("18", "19","20"), "Active", "Car")) |>
-  mutate(density = ifelse(URBRUR == "01", 7000, 50)) |> #estimates continuous density variable for 2022 by assuming rural density = 50 people per sqmile and urban density = 3000 people per sqmile
-  rename(sex = R_SEX_IMP,
-         density_alt = URBRUR) |> #uses different density variable to 2017 and 2009
+  rename(sex = R_SEX_IMP) |> 
   select(PERSONID,
          HOUSEID,
          year,
          R_AGE,
+         WHYTO,
+         WHYFROM,
          ENDTIME,
          TRPMILES,
          mode,
@@ -271,22 +365,18 @@ trips22 <- here("nhts",
          sex,
          HHFAMINC,
          DRVRCNT,
-         HHVEHCNT,
-         density,
-         density_alt) 
+         HHVEHCNT) 
 
 #combine three files
-trips <- rbind(trips09, trips17, trips22) |>
+trips <- rbind(trips09, trips17b, trips22b) |>
   mutate(arrival = as.numeric(ENDTIME)) |>
   mutate(person_hh_year = paste(PERSONID, HOUSEID, year, sep = "-"),
          hh_year = paste(HOUSEID, year, sep = "-")) |>
   group_by(person_hh_year) |>
   mutate(first_arrival = min(arrival)) |>
   ungroup() |>
-  filter(arrival == first_arrival, #only considers first trip of the day (assumed school trip)
-         R_AGE > 6 &
+  filter(R_AGE > 6 &
          R_AGE < 15 & #only keeps kids trips
-         arrival < 1000, #filters trips after 10am, assuming these are school trips
          TRPMILES < 1.25) #filters longer trips
 ```
 
@@ -294,6 +384,63 @@ Check sample size by year
 
 ```{r}
 table(trips$year)
+```
+##Household data
+
+Next, we add the household density variable from the household data. 
+
+We consider two density variables:
+- people/sq mile (for 2022, this is approximated from the urban/rural categorization)
+- urban or rural categorization
+
+We start by loading the household-level data files for three years, selecting the
+same set of variables from each year, adding a variable to indicate which
+year's sample the household is from. For 2022, we add the HBPPOPDN variable and
+approximate it: 
+- if Urban, we assume this value is 7000
+- if rural, we assume this value is 50.
+
+Then we combine the three datasets for 2009, 2017 and 2022. 
+
+```{r}
+
+#import and filter 2017 household file
+hh17 <- here("nhts",
+                 "data2017", 
+                 "hhpub.csv") |>
+  read_csv(show_col_types = FALSE) |>
+  select(HOUSEID,
+         HBPPOPDN,
+         URBRUR) |>
+  mutate(year = 2017)
+
+#import and filter 2009 household file
+hh09 <- here("nhts",
+               "data2009", 
+               "HHV2PUB.csv") |>
+  read_csv(show_col_types = FALSE) |>
+  select(HOUSEID,
+         HBPPOPDN,
+         URBRUR) |>
+  mutate(year = 2009)
+
+#import and filter 2022 household file
+hh22 <- here("nhts",
+                 "data2022", 
+                 "hhv2pub.csv") |>
+  read_csv(show_col_types = FALSE) |>
+  mutate(HBPPOPDN = ifelse(URBRUR == "01", 7000, 50)) |> #given 2022 does not have a household density variable, it is approximated from the urban/rural variable
+  select(HOUSEID,
+         HBPPOPDN,
+         URBRUR) |>
+  mutate(year = 2022)
+
+#combine three household files
+hh_density <- rbind(hh09, hh17, hh22) |>
+  mutate(hh_year = paste(HOUSEID, year, sep = "-")) |>
+  rename(density = HBPPOPDN,
+         density_alt = URBRUR)
+
 ```
 
 # Join household member data to trips data
@@ -303,11 +450,18 @@ trips <- trips |>
   left_join(hh_ages) |>
   left_join(who_in_hh)
 ```
+# Join household density data to trips data
 
+```{r}
+trips <- trips |>
+  left_join(hh_density)
+```
 # Construct variables
 
 We want to include the following variables:
 
+* `purpose`: indicates the trips destination or purpose
+* `school`: whether this was a school trip or not
 * `log_inc_k`: Income (log-transformed, continuous)
 * `veh_per_driver`: Vehicles per driver
 * `non_work_mom`: Presence of non-working adult woman in household
@@ -338,6 +492,101 @@ to 1/TRUE for all respondents.
 
 ## Predictor variables
 
+### Construct trip purpose variable 
+
+Given each year's trip purpose is coded differently, here we consistently 
+code variables across years.
+
+```{r}
+trips <- trips |>
+  mutate(purpose = case_when(WHYTO == "01" & year == 2017 ~ "home",
+                              WHYTO == "02" & year == 2017 ~ "home",
+                              WHYTO == "03" & year == 2017 ~ "work",
+                              WHYTO == "04" & year == 2017 ~ "work",
+                              WHYTO == "05" & year == 2017 ~ "work",
+                              WHYTO == "06" & year == 2017 ~ "pick or drop",
+                              WHYTO == "07" & year == 2017 ~ "transfer",
+                              WHYTO == "08" & year == 2017 ~ "school",
+                              WHYTO == "09" & year == 2017 ~ "childcare",
+                              WHYTO == "10" & year == 2017 ~ "adultcare",
+                              WHYTO == "11" & year == 2017 ~ "errands",
+                              WHYTO == "12" & year == 2017 ~ "errands",
+                              WHYTO == "13" & year == 2017 ~ "errands",
+                              WHYTO == "14" & year == 2017 ~ "errands",
+                              WHYTO == "15" & year == 2017 ~ "recreation",
+                              WHYTO == "16" & year == 2017 ~ "recreation",
+                              WHYTO == "17" & year == 2017 ~ "social",
+                              WHYTO == "18" & year == 2017 ~ "healthcare",
+                              WHYTO == "19" & year == 2017 ~ "religion",
+                              WHYTO == "01" & year == 2022 ~ "home",
+                              WHYTO == "02" & year == 2022 ~ "home",
+                              WHYTO == "03" & year == 2022 ~ "work",
+                              WHYTO == "04" & year == 2022 ~ "work",
+                              WHYTO == "05" & year == 2022 ~ "work",
+                              WHYTO == "06" & year == 2022 ~ "school",
+                              WHYTO == "07" & year == 2022 ~ "care",
+                              WHYTO == "08" & year == 2022 ~ "work",
+                              WHYTO == "09" & year == 2022 ~ "transfer",
+                              WHYTO == "10" & year == 2022 ~ "pick or drop",
+                              WHYTO == "11" & year == 2022 ~ "healthcare",
+                              WHYTO == "12" & year == 2022 ~ "errands",
+                              WHYTO == "13" & year == 2022 ~ "errands",
+                              WHYTO == "14" & year == 2022 ~ "errands",
+                              WHYTO == "15" & year == 2022 ~ "recreation",
+                              WHYTO == "16" & year == 2022 ~ "recreation",
+                              WHYTO == "17" & year == 2022 ~ "Social",
+                              WHYTO == "18" & year == 2022 ~ "recreation",
+                              WHYTO == "19" & year == 2022 ~ "religion",
+                              WHYTO == "01" & year == 2009 ~ "home",
+                              WHYTO == "10" & year == 2009 ~ "work",
+                              WHYTO == "11" & year == 2009 ~ "work",
+                              WHYTO == "12" & year == 2009 ~ "work",
+                              WHYTO == "13" & year == 2009 ~ "work",
+                              WHYTO == "14" & year == 2009 ~ "work",
+                              WHYTO == "20" & year == 2009 ~ "religious",
+                              WHYTO == "21" & year == 2009 ~ "school",
+                              WHYTO == "22" & year == 2009 ~ "religious",
+                              WHYTO == "23" & year == 2009 ~ "errands",
+                              WHYTO == "24" & year == 2009 ~ "care",
+                              WHYTO == "30" & year == 2009 ~ "healthcare",
+                              WHYTO == "40" & year == 2009 ~ "errands",
+                              WHYTO == "41" & year == 2009 ~ "errands",
+                              WHYTO == "42" & year == 2009 ~ "errands",
+                              WHYTO == "43" & year == 2009 ~ "errands",
+                              WHYTO == "50" & year == 2009 ~ "recreation",
+                              WHYTO == "51" & year == 2009 ~ "recreation",
+                              WHYTO == "52" & year == 2009 ~ "recreation",
+                              WHYTO == "53" & year == 2009 ~ "social",
+                              WHYTO == "54" & year == 2009 ~ "recreation",
+                              WHYTO == "55" & year == 2009 ~ "recreation",
+                              WHYTO == "60" & year == 2009 ~ "errands",
+                              WHYTO == "61" & year == 2009 ~ "errands",
+                              WHYTO == "62" & year == 2009 ~ "social",
+                              WHYTO == "63" & year == 2009 ~ "errands",
+                              WHYTO == "64" & year == 2009 ~ "errands",
+                              WHYTO == "65" & year == 2009 ~ "work",
+                              WHYTO == "70" & year == 2009 ~ "transfer",
+                              WHYTO == "71" & year == 2009 ~ "pick or drop",
+                              WHYTO == "72" & year == 2009 ~ "pick or drop",
+                              WHYTO == "73" & year == 2009 ~ "pick or drop",
+                              WHYTO == "80" & year == 2009 ~ "social",
+                              WHYTO == "81" & year == 2009 ~ "social",
+                              WHYTO == "82" & year == 2009 ~ "social",
+                              WHYTO == "83" & year == 2009 ~ "social",
+                              TRUE ~ "NA"))
+```
+
+### Construct school variable 
+
+This is a binary variable that indicates whether the trip was to school or not.
+
+```{r}
+trips <- trips |>
+  mutate(schooltrip = case_when(purpose == "school" ~ 1,
+                   TRUE ~ 0))
+                             
+```                             
+                             
 ### Construct income variable
 
 To construct the income variable, we first transform the values to the 
@@ -427,6 +676,7 @@ summary_stats_income <- aggregate(income_k ~ year, data = trips, FUN = function(
 print.data.frame(summary_stats_income)
 
 ```
+
 ### Construct vehicles per driver variable
 
 To determine the number of vehicles per driver, we divide the # of household vehicles by the number of drivers in each household. If there are no drivers in the household, we assume a value of 0.
@@ -625,6 +875,7 @@ summary_stats_density <- aggregate(density ~ year, data = trips, FUN = function(
 print.data.frame(summary_stats_density)
 
 ```
+
 ### Construct year variable
 
 ```{r}
@@ -687,7 +938,8 @@ trips <- trips |>
 
 ```{r}
 trips <- trips |>
-  select(mode_ind, 
+  select(mode_ind,
+         schooltrip,
          y2017,
          av_par_car,
          av_par_act,
