@@ -10,6 +10,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Simplified model structure
 
+Expanded sample to include 7-year-olds and 14-year-olds.
+Combined 2009 and 2017 data sets
+
 Two independence categories:
 
 1. With household adults
@@ -31,32 +34,45 @@ Four combined categories:
 
 ### Unnested model:
 
-* log likelihood: -1447.855
+* log likelihood: -4220.598
+* AIC: 8513.197
 * Significant predictors:
     * All three alternative specific constants (reference is car with parent)
     * Age
-        * Positive for active independent
+        * Positive for both independent
         * Negative for active with parent
     * Child's sex
         * Negative for active independent
+    * Has older sib
+        * Positive for both independent
+    * Has younger sib
+        * Positive for all
     * Density
         * Positive for both active alternatives
     * Distance
         * Negative for both active alternatives
     * Non-working mom
         * Negative for both independent alternatives
-        * Positive for walk with parent
+        * Positive for active with parent
     * Vehicle per driver
         * Negative for walk with parent
-        
+        * Positive for car without parent
+    * Year 2017
+        * Negative for walk without parent
+        * positive for walk with parent
+* Non-significant predictors
+    * Income
+    * Non-working dad
+    
 ### Mode-based nests:
 
-* log likelihood: -1447.621
-* Nests not valid (nesting coefficients not sig greater than one.)
+* log likelihood: -1869.092
+* mu_car: (-37.962, 47.112)
+* mu_walk: (-0.7955, 3.7355)
 
-### Independence-based nestsL
+### Independence-based nests:
 
-* Failed to converge
+* Failed to converge after 5000 iterations
 
 # Further simplification
 
@@ -68,7 +84,8 @@ observations out of 1658 (4%)
 
 ### Unnested model:
 
-* log likelihood: -1188.731
+* log likelihood: -4220.598
+* AIC: 8513.197
 * Significant predictors (same as with four alternatives):
     * Both alternative specific constants (reference is car with parent)
     * Age

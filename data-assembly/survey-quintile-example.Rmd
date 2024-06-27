@@ -55,18 +55,26 @@ hh_2017 <- here("nhts",
   # filter rows with missing value for income
   filter(income_k > 0) |> 
   # create survey object with weights
-  as_survey_design(weights = WTHHFIN) |> 
-  # Calculate quintile thresholds
-  mutate(quint_break = survey_quantile(income_k, 
-                                       quantiles = c(0.2, 
-                                                     0.4, 
-                                                     0.6, 
-                                                     0.8))) |>
+  as_survey_design(weights = WTHHFIN)
+```
+
+
+```{r}
+threshholds <- survey::svyquantile(~income_k,
+                                   design = hh_2017,
+                                   quantiles = c(0.2, 0.4, 0.6, 0.8))
+
+```
+
+
+```{r}
+
+hh_2017 <- hh_2017 |>
   # compare income_k value to thresholds to get income quintile of each HH
-  mutate(inc_quint = case_when(income_k < quint_break$`_q20`[1] ~ "q1",
-                               income_k < quint_break$`_q40`[1] ~ "q2",
-                               income_k < quint_break$`_q60`[1] ~ "q3",
-                               income_k < quint_break$`_q80`[1] ~ "q4",
+  mutate(inc_quint = case_when(income_k < threshholds$income_k[1] ~ "q1",
+                               income_k < threshholds$income_k[2] ~ "q2",
+                               income_k < threshholds$income_k[3] ~ "q3",
+                               income_k < threshholds$income_k[4] ~ "q4",
                                TRUE ~ "q5"))
 ```
 

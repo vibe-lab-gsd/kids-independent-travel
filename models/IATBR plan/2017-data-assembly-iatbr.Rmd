@@ -108,8 +108,8 @@ library(downloader)
 library(naniar)
 
 trips <- here("nhts",
-              "data2017", 
-              "trippub.csv") |>
+                   "data2017", 
+                   "trippub.csv") |>
   read_csv(show_col_types = FALSE) 
 
 people <- here("nhts",
@@ -193,8 +193,8 @@ relationships <- people |>
 school_trips <- trips |>
   mutate(include_trip = (WHYTO == "08" &
                            WHYFROM != "08" &
-                           R_AGE > 7 & 
-                           R_AGE < 14 &
+                           R_AGE > 6 & 
+                           R_AGE < 15 &
                            as.numeric(ENDTIME) < 1000 &
                            TRPMILES > 0)) |>
   mutate(WHYTO = ifelse(WHYTO == "07", "transfer", WHYTO),
