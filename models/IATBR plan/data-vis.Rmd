@@ -1,0 +1,190 @@
+---
+title: "Data Vis"
+output: html_document
+date: "2024-07-08"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.width = 4, fig.height = 4)
+```
+
+## Load libraries
+
+```{r}
+library(tidyverse)
+library(here)
+```
+
+
+## Load data
+
+```{r}
+trips_3 <- here("models",
+                "IATBR plan",
+                "trips3.csv") |>
+  read_csv()
+
+trips_4 <- here("models",
+                "IATBR plan",
+                "trips.csv") |>
+  read_csv()
+```
+
+## Sample size by alternative
+
+```{r}
+table(trips_4$mode_ind, trips_3$y2017)
+```
+
+```{r}
+table(trips_4$mode_ind)
+```
+## Distributions of predictors
+
+```{r}
+ggplot(trips_3) +
+  geom_histogram(aes(x = exp(log_inc_k)),
+                 bins = 25,
+                 fill = "yellow",
+                 color = "gray") +
+  annotate(geom = "line",
+           x = c(93.75, 93.75),
+           y = c(0, 800)) +
+  annotate(geom = "text",
+           x = 93.75, y = 870,
+           label = "Average:\n$93,750",
+           size = 3.5) +
+  scale_x_continuous(trans= "log",
+                     breaks = breaks <- c(2, 20, 200),
+                     labels = paste0("$", breaks, ",000"),
+                     name = "Annual household income") +
+  scale_y_continuous(name = "Number of respondents") +
+  theme_bw()
+```
+
+```{r}
+trips_3 <- trips_3 |>
+  mutate(veh_trunc = ifelse(veh_per_driver >= 2, 2, veh_per_driver))
+
+
+ggplot(trips_3) +
+  geom_histogram(aes(x = veh_trunc),
+                 fill = "yellow",
+                 color = "gray",
+                 bins = 5) +
+  scale_x_continuous(breaks = c(0, 0.5, 1, 1.5, 2),
+                     labels = c("0", "0.5", "1.0", "1.5", "2+"),
+                     name = "Household vehicles per driver") +
+  scale_y_continuous(name = "Number of respondents") +
+  theme_bw()
+```
+```{r}
+trips_workers <- trips_3 |>
+  select(non_work_dad, non_work_mom) |>
+  pivot_longer(cols = everything(),
+               names_to = "parent",
+               values_to = "non_work")
+
+ggplot(trips_workers) +
+  geom_bar(aes(x = parent,
+               fill = as_factor(non_work))) +
+  scale_fill_manual(name = "Presence of\nnon-working\nparent",
+                    labels = c("No", "Yes"),
+                    values = c("Gray", "Yellow")) +
+  scale_x_discrete(labels = c("Father", "Mother"), name = "") +
+    scale_y_continuous(name = "Number of respondents") +
+  theme_bw()
+```
+
+
+```{r}
+ggplot(trips_3) +
+  geom_histogram(aes(x = age),
+                 fill = "yellow",
+                 color = "gray",
+                 bins = 8) +
+    scale_x_continuous(name = "Age") +
+    scale_y_continuous(name = "Number of respondents") +
+  theme_bw()
+```
+
+```{r}
+ggplot(trips_3) +
+  geom_bar(aes(x = female),
+                 fill = "yellow",
+                 color = "gray") +
+    scale_x_continuous(name = "Gender",
+                       breaks = c(0, 1),
+                       labels = c("Boys", "Girls")) +
+    scale_y_continuous(name = "Number of respondents") +
+  theme_bw()
+```
+
+```{r}
+trips_sibs <- trips_3 |>
+  select(has_lil_sib, has_big_sib) |>
+  pivot_longer(cols = everything(),
+               names_to = "sib",
+               values_to = "has")
+
+ggplot(trips_sibs) +
+  geom_bar(aes(x = sib,
+               fill = as_factor(has))) +
+  scale_fill_manual(name = "Presence of\nsibling",
+                    labels = c("No", "Yes"),
+                    values = c("Gray", "Yellow")) +
+  scale_x_discrete(labels = c("Older\nsibling", "Younger\nsibling"), name = "") +
+    scale_y_continuous(name = "Number of respondents") +
+  theme_bw()
+```
+
+```{r}
+ggplot(trips_3) +
+  geom_histogram(aes(x=exp(log_distance)),
+                 bins = 13,
+                 fill = "yellow",
+                 color = "gray") +
+    annotate(geom = "line",
+           x = c(0.66, 0.66),
+           y = c(0, 1000)) +
+  annotate(geom = "text",
+           x = 0.66, y = 1120,
+           label = "Average:\n0.66 miles",
+           size = 3.5) +
+  scale_x_continuous(breaks = seq(0, 1.25, by=0.25),
+                     name = "Trip distance (miles)") +
+  scale_y_continuous(name = "Number of respondents") +
+  theme_bw()
+```
+
+```{r}
+trips_dens <- trips_3 |>
+  mutate(dens_cat = factor(exp(log_density),
+                              levels = c("50",
+                                         "300",
+                                         "750",
+                                         "1500",
+                                         "3000",
+                                         "7000",
+                                         "17000",
+                                         "30000")))
+
+
+ggplot(trips_dens) +
+  geom_bar(aes(x=dens_cat),
+                 fill = "yellow",
+                 color = "gray") +
+  scale_x_discrete(name = "Population density at trip origin\n(per square mile)",
+                   labels = c("",
+                              "100-\n499",
+                              "",
+                              "1 000-\n1 999",
+                              "",
+                              "4 000-\n9 999",
+                              "",
+                              "25 000-\n999 9999")) +
+  scale_y_continuous(name = "Number of respondents") +
+  theme_bw()
+```
+
+

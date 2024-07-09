@@ -113,6 +113,110 @@ who_in_hh <- people |>
 
 ## Trips data
 
+
+```{r, fig.width = 4, fig.height = 4}
+trips17_all_dist_mode <- here("nhts",
+                "data2017", 
+                "trippub.csv") |>
+  read_csv(show_col_types = FALSE) |>
+  mutate(year = 2017) |>
+  filter(WHYFROM %in% c("01","02") & 
+           WHYTO == "08") |>
+  mutate(mode = case_when(TRPTRANS == "01" ~ "Walk",
+                          TRPTRANS == "02" ~ "Bike",
+                          TRPTRANS %in% c("03", "04", "05", "06") ~ "Car",
+                          TRPTRANS == "10" ~ "School bus",
+                          TRPTRANS %in% c("11", "12", "13", "14", "15", "16") ~ "Transit",
+                          TRUE ~ "Other")) |>
+  rename(sex = R_SEX_IMP,
+         density = OBPPOPDN) |>
+  select(PERSONID,
+         HOUSEID,
+         year,
+         R_AGE,
+         ENDTIME,
+         TRPMILES,
+         mode,
+         starts_with("ONTD_P"),
+         NUMONTRP,
+         NONHHCNT,
+         sex,
+         HHFAMINC,
+         DRVRCNT,
+         HHVEHCNT,
+         density,
+         TRPTRANS) 
+
+trips09_all_dist_mode <- here("nhts",
+              "data2009", 
+              "DAYV2PUB.csv") |>
+  read_csv(show_col_types = FALSE) |>
+  mutate(year = 2009) |>
+  select(-ONTD_P15, -ONTD_P14) |>
+  filter(WHYFROM == "01" & 
+           WHYTO == "21") |>
+  mutate(mode = case_when(TRPTRANS == "22" ~ "Bike",
+                          TRPTRANS == "23" ~ "Walk", 
+                          TRPTRANS %in% c("01", "02", "03", "04", "05")~ "Car",
+                          TRPTRANS == "11" ~ "School bus",
+                          TRPTRANS %in% c("09", "10", "12", "13", "14", 
+                                          "15", "16", "17", "18") ~ "Transit",
+                          TRUE ~ "Other")) |>
+  rename(sex = R_SEX,
+         density = HBPPOPDN) |>
+  select(PERSONID,
+         HOUSEID,
+         year,
+         R_AGE,
+         ENDTIME,
+         TRPMILES,
+         mode,
+         starts_with("ONTD_P"),
+         NUMONTRP,
+         NONHHCNT,
+         sex,
+         HHFAMINC,
+         DRVRCNT,
+         HHVEHCNT,
+         density,
+         TRPTRANS)
+
+trips_all_dist_mode <- rbind(trips09_all_dist_mode, trips17_all_dist_mode) |>
+  mutate(arrival = as.numeric(ENDTIME)) |>
+  mutate(person_hh_year = paste(PERSONID, HOUSEID, year, sep = "-"),
+         hh_year = paste(HOUSEID, year, sep = "-")) |>
+  group_by(person_hh_year) |>
+  mutate(first_arrival = min(arrival)) |>
+  ungroup() |>
+  filter(arrival == first_arrival,
+         R_AGE > 6 &
+         R_AGE < 15 & 
+         arrival < 1000) |>
+  mutate(short = TRPMILES < 1.25) |>
+  mutate(mode = factor(mode, 
+                       levels = c("Other",
+                                  "Transit",
+                                  "School bus",
+                                  "Car",
+                                  "Bike",
+                                  "Walk")))
+
+ggplot(trips_all_dist_mode) +
+  geom_bar(aes(x = short, fill = mode), color = "gray") +
+  scale_x_discrete(name = "Trip distance",
+                   labels = c("1.25 miles\nor more",
+                              "Less than\n1.25 miles")) +
+  scale_y_continuous(name = "Number of respondents") +
+  scale_fill_manual(values = c("gray30",
+                                "gray80",
+                                "white",
+                                "yellow",
+                                "red",
+                                "blue")) +
+  theme_bw()
+```
+
+
 ```{r}
 trips17 <- here("nhts",
                 "data2017", 
@@ -193,6 +297,8 @@ trips <- rbind(trips09, trips17) |>
          arrival < 1000,
          TRPMILES < 1.25) 
 ```
+
+
 
 Check sample size by year
 
